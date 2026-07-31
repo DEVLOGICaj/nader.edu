@@ -902,68 +902,62 @@
         <p>جميع حقوق الطبع محفوظة © 2026 | منصة الأستاذ نادر الحصني للتفوق الدراسي</p>
     </footer>
 
-    <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKyeplCnooEBVC-MClrHgnGsr_-zziGPZnCYhGrrff-W_uAB9J1MVMsaGxZKgLMLFI/exec";
+   <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbXKyepICnooEBVC-MCIrHgnGsr_-zziGPZnCYhGrrff-W_uAB9J1MVMsaGxZKqLMLFI/exec";
 
-        let selectedGradeForActivation = "";
+    let selectedGradeForActivation = "";
 
-        function getDeviceID() {
-            let deviceId = localStorage.getItem('nader_device_id');
-            if (!deviceId) {
-                deviceId = 'DEV-' + Math.random().toString(36).substring(2, 9).toUpperCase() + '-' + Date.now();
-                localStorage.setItem('nader_device_id', deviceId);
-            }
-            return deviceId;
+    function getDeviceID() {
+        let deviceId = localStorage.getItem('nader_device_id');
+        if (!deviceId) {
+            deviceId = 'DEV-' + Math.random().toString(36).substring(2, 9).toUpperCase() + '-' + Date.now();
+            localStorage.setItem('nader_device_id', deviceId);
         }
+        return deviceId;
+    }
 
-        function checkAccess(gradeName) {
-            selectedGradeForActivation = gradeName;
-            let unlockedGrades = JSON.parse(localStorage.getItem('nader_unlocked_grades') || "[]");
-           
-            if (unlockedGrades.includes(gradeName)) {
-                if (gradeName === 'قسم التأسيس الشامل') {
-                    switchPage('foundation-sections');
-                } else {
-                    document.getElementById('current-grade-title').textContent = "أنت تتصفح: " + gradeName;
-                    switchPage('sections');
-                }
+    function checkAccess(gradeName) {
+        selectedGradeForActivation = gradeName;
+        let unlockedGrades = JSON.parse(localStorage.getItem('nader_unlocked_grades') || "[]");
+       
+        // الشرط الصارم: إذا القسم غير موجود بذاكرة التفعيل المحلية، اطلب الكود حتماً!
+        if (unlockedGrades.includes(gradeName)) {
+            if (gradeName === 'قسم التأسيس الشامل') {
+                switchPage('foundation-sections');
             } else {
-                document.getElementById('modalGradeTitle').textContent = "تفعيل: " + gradeName;
-                document.getElementById('activationCodeInput').value = "";
-                document.getElementById('code-msg').textContent = "";
-                document.getElementById('codeModal').classList.add('active');
+                document.getElementById('current-grade-title').textContent = "أنت تتصفح: " + gradeName;
+                switchPage('sections');
             }
+        } else {
+            document.getElementById('modalGradeTitle').textContent = "تفعيل: " + gradeName;
+            document.getElementById('activationCodeInput').value = "";
+            document.getElementById('code-msg').textContent = "";
+            document.getElementById('codeModal').classList.add('active');
+        }
+    }
+
+    function closeCodeModal() {
+        document.getElementById('codeModal').classList.remove('active');
+    }
+
+    async function verifyActivationCode() {
+        const code = document.getElementById('activationCodeInput').value.trim();
+        const msgDiv = document.getElementById('code-msg');
+
+        if (!code) {
+            msgDiv.style.color = "red";
+            msgDiv.textContent = "الرجاء إدخال الكود بشكل صحيح!";
+            return;
         }
 
-        function closeCodeModal() {
-            document.getElementById('codeModal').classList.remove('active');
-        }
+        msgDiv.style.color = "blue";
+        msgDiv.textContent = "جاري التحقق من الكود...";
 
-        async function verifyActivationCode() {
-            const code = document.getElementById('activationCodeInput').value.trim();
-            const msgDiv = document.getElementById('code-msg');
+        try {
+            const response = await fetch(`${SCRIPT_URL}?code=${encodeURIComponent(code)}&grade=${encodeURIComponent(selectedGradeForActivation)}&deviceId=${encodeURIComponent(getDeviceID())}`);
+            const result = await response.json();
 
-            if (!code) {
-                msgDiv.style.color = "red";
-                msgDiv.textContent = "الرجاء إدخال الكود بشكل صحيح!";
-                return;
-            }
-
-            msgDiv.style.color = "blue";
-            msgDiv.textContent = "جاري التحقق من الكود...";
-
-           try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        code: code,
-                        grade: selectedGradeForActivation,
-                        deviceId: getDeviceID()
-                    })
-                });
-
+            if (result.status === "success") {
                 let unlockedGrades = JSON.parse(localStorage.getItem('nader_unlocked_grades') || "[]");
                 if (!unlockedGrades.includes(selectedGradeForActivation)) {
                     unlockedGrades.push(selectedGradeForActivation);
@@ -982,35 +976,39 @@
                         switchPage('sections');
                     }
                 }, 1000);
-
-            } catch (error) {
+            } else {
                 msgDiv.style.color = "red";
-                msgDiv.textContent = "حدث خطأ بالاتصال، تأكد من الإنترنت.";
+                msgDiv.textContent = result.message || "الكود غير صحيح أو مستخدم مسبقاً!";
             }
-        }
 
-        function switchPage(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+        } catch (error) {
+            msgDiv.style.color = "red";
+            msgDiv.textContent = "حدث خطأ بالاتصال مع الخادم.";
         }
+    }
 
-        function toggleTheme() {
-            document.body.classList.toggle('pink-theme');
-            toggleSidebar();
+    function switchPage(pageId) {
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.remove('active'));
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) {
+            targetPage.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+    }
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-    </script>
+    function toggleTheme() {
+        document.body.classList.toggle('pink-theme');
+        toggleSidebar();
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+</script>
 
 </body>
 </html>
