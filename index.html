@@ -293,14 +293,18 @@
             border-color: var(--accent-color);
         }
 
-        .btn-cv {
-            background: rgba(255, 255, 255, 0.15);
-            color: #FFFFFF;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-        }
-        .btn-cv:hover {
-            background: #FFFFFF;
+        /* زر كبير ومميز لـ ابدأ التعلم الآن */
+        .btn-large-hero {
+            padding: 0.9rem 2.8rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            background-color: var(--bg-light);
             color: var(--accent-color);
+            border: 2px solid var(--border-color);
+        }
+        .btn-large-hero:hover {
+            background-color: var(--white);
+            border-color: var(--accent-color);
         }
 
         .btn-sm {
@@ -487,14 +491,13 @@
             <h1>رفيقك الأول نحو التفوق اللغوي</h1>
             <p>منصة تعليمية متكاملة لتدريس قواعد النحو، النصوص، والإملاء بطريقة تفاعلية مبهرة بإشراف الأستاذ نادر الحصني.</p>
             <div class="hero-btns">
-                <button class="btn" onclick="switchPage('grades')">ابدأ التعلم الآن</button>
-                <button class="btn btn-cv" onclick="switchPage('cv-page')">عرض CV الأستاذ</button>
+                <button class="btn btn-large-hero" onclick="switchPage('grades')">ابدأ التعلم الآن</button>
             </div>
         </section>
         <div class="container">
             <div class="section-header">
                 <h2>منصاتنا وحساباتنا الرسمية</h2>
-                <p>تابعنا عبر منصات التواصل الاجتماعي لتبقى على اطلاع الدروس والتحديثات جميعها</p>
+                <p>تابعنا عبر منصات التواصل الاجتماعي لتبقي على اطلاع بكافة الدروس والتحديثات</p>
             </div>
            
             <div class="social-platforms">
@@ -702,7 +705,7 @@
                 </div>
                 <div class="card" onclick="switchPage('quiz-section')">
                     <h3>قسم الاختبارات</h3>
-                    <p>اختبارات تفاعلية للفصول والدروس وتقييم فوري.</p>
+                    <p>اختبارات تفاعلية للفصول الدروس وتقييم فوري.</p>
                     <button class="btn btn-sm">فتح الاختبارات</button>
                 </div>
             </div>
