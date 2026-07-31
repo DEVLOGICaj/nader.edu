@@ -105,7 +105,6 @@
             white-space: nowrap;
         }
 
-        /* زر الإعدادات (الترس) */
         .settings-btn {
             background: var(--bg-light);
             border: 2px solid var(--border-color);
@@ -127,7 +126,6 @@
             color: white;
         }
 
-        /* القائمة الجانبية (Sidebar) */
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -293,7 +291,6 @@
             border-color: var(--accent-color);
         }
 
-        /* زر كبير ومميز لـ ابدأ التعلم الآن */
         .btn-large-hero {
             padding: 0.9rem 2.8rem;
             font-size: 1.1rem;
@@ -439,6 +436,108 @@
             transform: translateY(-3px);
         }
 
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: var(--white);
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 2px solid var(--border-color);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-box h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+        }
+
+        .modal-box p {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 1rem;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .modal-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .modal-btns button {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit-code {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-cancel-code {
+            background: var(--bg-light);
+            color: var(--gray-text);
+            border: 1px solid var(--border-color);
+        }
+
+        #code-msg {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
         footer {
             background-color: var(--white);
             border-top: 2px solid var(--border-color);
@@ -463,15 +562,13 @@
                 <div class="logo-box">
                     <img src="nader.jpg" alt="الشعار" onerror="this.style.display='none'; this.parentElement.innerHTML='شعارك';">
                 </div>
-                <div class="logo">منصة دراسة و ابتكار</div>
+                <div class="logo">منصة الأستاذ نادر الحصني</div>
             </div>
            
-            <!-- زر الإعدادات (الترس) -->
             <button class="settings-btn" onclick="toggleSidebar()" aria-label="الإعدادات">⚙️</button>
         </div>
     </header>
 
-    <!-- القائمة الجانبية والخلفية المعتمة -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -485,7 +582,21 @@
             <li><button class="sidebar-btn" onclick="toggleTheme()">✨ تبديل الثيم</button></li>
             <li><a href="https://wa.me/963996102881" target="_blank" class="sidebar-whatsapp">💬 تواصل واتساب</a></li>
         </ul>
-    </div>    <!-- الرئيسية -->
+    </div>
+
+    <div class="modal-overlay" id="codeModal">
+        <div class="modal-box">
+            <h3 id="modalGradeTitle">تفعيل القسم</h3>
+            <p>الرجاء إدخال كود التفعيل الخاص بهذا القسم للمتابعة:</p>
+            <input type="text" id="activationCodeInput" class="modal-input" placeholder="مثال: MEHNI-2026">
+            <div class="modal-btns">
+                <button class="btn-submit-code" onclick="verifyActivationCode()">تفعيل ودخول</button>
+                <button class="btn-cancel-code" onclick="closeCodeModal()">إلغاء</button>
+            </div>
+            <div id="code-msg"></div>
+        </div>
+    </div>
+
     <div id="home" class="page active">
         <section class="hero">
             <h1>رفيقك الأول نحو التفوق اللغوي</h1>
@@ -523,7 +634,6 @@
         </div>
     </div>
 
-    <!-- السيرة الذاتية (CV) -->
     <div id="cv-page" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div style="background: var(--white); border-radius: 16px; padding: 2rem 1rem; box-shadow: var(--shadow); border: 2px solid var(--border-color); max-width: 800px; margin: 0 auto; text-align: center;">
@@ -569,14 +679,13 @@
         </div>
     </div>
 
-    <!-- واجهة الصفوف والأقسام -->
     <div id="grades" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
                 <h2>أقسام ومراحل المنصة</h2>
                 <p>اختر القسم المناسب للبدء بالتعلم</p>
             </div>
-            <div class="card foundation" onclick="selectFoundationSections('قسم التأسيس الشامل')">
+            <div class="card foundation" onclick="checkAccess('قسم التأسيس الشامل')">
                 <h3>قسم التأسيس الشامل</h3>
                 <p>تأسيس قوي في القواعد والإملاء لكافة المراحل (بدون نصوص).</p>
                 <button class="btn btn-sm">دخول القسم</button>
@@ -599,7 +708,6 @@
         </div>
     </div>
 
-    <!-- واجهة المرحلة الإعدادية -->
     <div id="middle-school" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -615,7 +723,7 @@
                     <h3>الصف الثامن</h3>
                     <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
                 </div>
-                <div class="card" onclick="selectGrade('الصف التاسع')">
+                <div class="card" onclick="checkAccess('الصف التاسع')">
                     <h3>الصف التاسع</h3>
                     <p>الشهادة الإعدادية ومنهاجها الكامل.</p>
                     <button class="btn btn-sm">اختر الصف</button>
@@ -627,7 +735,6 @@
         </div>
     </div>
 
-    <!-- واجهة المرحلة الثانوية -->
     <div id="high-school" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -640,12 +747,12 @@
                     <p>عاشر، حادي عشر، وبكالوريا علمي.</p>
                     <button class="btn btn-sm">تصفح العلمي</button>
                 </div>
-                <div class="card" onclick="selectGrade('بكالوريا أدبي')">
+                <div class="card" onclick="checkAccess('بكالوريا أدبي')">
                     <h3>قسم البكالوريا الأدبي</h3>
                     <p>المنهاج الكامل وقواعد النصوص الخاصة بالأدبي.</p>
                     <button class="btn btn-sm">اختر القسم</button>
                 </div>
-                <div class="card" onclick="selectGrade('بكالوريا مهني')">
+                <div class="card" onclick="checkAccess('بكالوريا مهني')">
                     <h3>قسم البكالوريا المهني</h3>
                     <p>قواعد، نصوص، واختبارات كاملة خاصة بالمهني.</p>
                     <button class="btn btn-sm">اختر القسم</button>
@@ -657,7 +764,6 @@
         </div>
     </div>
 
-    <!-- واجهة القسم العلمي -->
     <div id="science-branch" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -673,7 +779,7 @@
                     <h3>الصف الحادي عشر العلمي</h3>
                     <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
                 </div>
-                <div class="card" onclick="selectGrade('البكالوريا العلمي')">
+                <div class="card" onclick="checkAccess('البكالوريا العلمي')">
                     <h3>البكالوريا العلمي</h3>
                     <p>التحضير الشامل ومتوفر بكافة أقسامه.</p>
                     <button class="btn btn-sm">اختر الصف</button>
@@ -685,7 +791,6 @@
         </div>
     </div>
 
-    <!-- الأقسام العامة العادية لأي صف متوفر -->
     <div id="sections" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -715,7 +820,6 @@
         </div>
     </div>
 
-    <!-- أقسام التأسيس الشامل -->
     <div id="foundation-sections" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -740,7 +844,6 @@
         </div>
     </div>
 
-    <!-- صفحة قواعد -->
     <div id="grammar-section" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -759,7 +862,6 @@
         </div>
     </div>
 
-    <!-- صفحة نصوص -->
     <div id="texts-section" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -778,7 +880,6 @@
         </div>
     </div>
 
-    <!-- صفحة اختبارات -->
     <div id="quiz-section" class="page">
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
@@ -797,12 +898,97 @@
         </div>
     </div>
 
-    <!-- الفوتر -->
     <footer>
         <p>جميع حقوق الطبع محفوظة © 2026 | منصة الأستاذ نادر الحصني للتفوق الدراسي</p>
     </footer>
 
     <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKyeplCnooEBVC-MClrHgnGsr_-zziGPZnCYhGrrff-W_uAB9J1MVMsaGxZKgLMLFI/exec";
+
+        let selectedGradeForActivation = "";
+
+        function getDeviceID() {
+            let deviceId = localStorage.getItem('nader_device_id');
+            if (!deviceId) {
+                deviceId = 'DEV-' + Math.random().toString(36).substring(2, 9).toUpperCase() + '-' + Date.now();
+                localStorage.setItem('nader_device_id', deviceId);
+            }
+            return deviceId;
+        }
+
+        function checkAccess(gradeName) {
+            selectedGradeForActivation = gradeName;
+            let unlockedGrades = JSON.parse(localStorage.getItem('nader_unlocked_grades') || "[]");
+           
+            if (unlockedGrades.includes(gradeName)) {
+                if (gradeName === 'قسم التأسيس الشامل') {
+                    switchPage('foundation-sections');
+                } else {
+                    document.getElementById('current-grade-title').textContent = "أنت تتصفح: " + gradeName;
+                    switchPage('sections');
+                }
+            } else {
+                document.getElementById('modalGradeTitle').textContent = "تفعيل: " + gradeName;
+                document.getElementById('activationCodeInput').value = "";
+                document.getElementById('code-msg').textContent = "";
+                document.getElementById('codeModal').classList.add('active');
+            }
+        }
+
+        function closeCodeModal() {
+            document.getElementById('codeModal').classList.remove('active');
+        }
+
+        async function verifyActivationCode() {
+            const code = document.getElementById('activationCodeInput').value.trim();
+            const msgDiv = document.getElementById('code-msg');
+
+            if (!code) {
+                msgDiv.style.color = "red";
+                msgDiv.textContent = "الرجاء إدخال الكود بشكل صحيح!";
+                return;
+            }
+
+            msgDiv.style.color = "blue";
+            msgDiv.textContent = "جاري التحقق من الكود...";
+
+           try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        code: code,
+                        grade: selectedGradeForActivation,
+                        deviceId: getDeviceID()
+                    })
+                });
+
+                let unlockedGrades = JSON.parse(localStorage.getItem('nader_unlocked_grades') || "[]");
+                if (!unlockedGrades.includes(selectedGradeForActivation)) {
+                    unlockedGrades.push(selectedGradeForActivation);
+                    localStorage.setItem('nader_unlocked_grades', JSON.stringify(unlockedGrades));
+                }
+
+                msgDiv.style.color = "green";
+                msgDiv.textContent = "تم التفعيل بنجاح! جاري الدخول...";
+               
+                setTimeout(() => {
+                    closeCodeModal();
+                    if (selectedGradeForActivation === 'قسم التأسيس الشامل') {
+                        switchPage('foundation-sections');
+                    } else {
+                        document.getElementById('current-grade-title').textContent = "أنت تتصفح: " + selectedGradeForActivation;
+                        switchPage('sections');
+                    }
+                }, 1000);
+
+            } catch (error) {
+                msgDiv.style.color = "red";
+                msgDiv.textContent = "حدث خطأ بالاتصال، تأكد من الإنترنت.";
+            }
+        }
+
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
@@ -813,18 +999,9 @@
             }
         }
 
-        function selectGrade(gradeName) {
-            document.getElementById('current-grade-title').textContent = "أنت تتصفح: " + gradeName;
-            switchPage('sections');
-        }
-
-        function selectFoundationSections(gradeName) {
-            switchPage('foundation-sections');
-        }
-
         function toggleTheme() {
             document.body.classList.toggle('pink-theme');
-            toggleSidebar(); // إغلاق القائمة بعد تغيير الثيم
+            toggleSidebar();
         }
 
         function toggleSidebar() {
