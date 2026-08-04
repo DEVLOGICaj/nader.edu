@@ -6,6 +6,7 @@
     <title>منصة الأستاذ نادر الحصني - الاحترافية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
+       
         :root {
             --primary-color: #0F172A;  
             --accent-color: #2563EB;   
@@ -16,6 +17,8 @@
             --gray-text: #64748B;
             --hero-grad-1: #1E3A8A;
             --hero-grad-2: #2563EB;
+            --card-bg: #ffffff;
+            --text-color: #1E293B;
             --shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.1);
         }
 
@@ -194,6 +197,15 @@
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
+            height: 100%;
+        }
+        #logout-btn{
+            color: white;
+            background: #e53935;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: block;
+            text-align: center;
         }
 
         .sidebar-links li a, .sidebar-links .sidebar-btn {
@@ -453,17 +465,370 @@
             font-size: 0.9rem;
             letter-spacing: 0.3px;
         }
+#toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 16px;
+    z-index: 9999;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+#user-name {
+    font-size: 13px;
+    opacity: 0.8;
+    display: block;
+    margin-top: 3px;
+}
+.admin-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.admin-card:hover {
+    transform: translateY(-3px);
+}
+
+.admin-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.admin-card p {
+    margin: 5px 0;
+    opacity: 0.8;
+}
+
+.admin-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+/* مربع بحث لوحة الإدارة */
+
+#student-search {
+    width: 100%;
+    padding: 14px 18px;
+    margin: 15px 0 20px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    background: var(--card-bg);
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#student-search:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+/* بطاقات الطلاب */
+
+.admin-card {
+    background: var(--card-bg);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-right: 5px solid var(--primary-color);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+
+.admin-card:hover {
+    transform: translateY(-4px);
+}
+
+
+.admin-card h3 {
+    margin: 0 0 10px;
+    color: var(--primary-color);
+    font-size: 19px;
+}
+
+
+.admin-card p {
+    margin: 7px 0;
+    color: #666;
+}
+
+
+#students-list div {
+
+    padding: 15px;
+
+    margin-bottom: 12px;
+
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.12);
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+
+#students-list div:hover {
+
+    transform: translateY(-3px);
+
+    background: rgba(255,255,255,0.22);
+
+}
+
+
+/* أزرار البطاقة */
+
+#edit-student-btn,
+#save-student-btn {
+
+    border: none;
+
+    padding: 13px 25px;
+
+    border-radius: 20px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    color: white;
+
+    margin: 10px;
+
+}
+
+
+#edit-student-btn {
+
+    background: var(--primary-color);
+
+}
+
+
+#save-student-btn {
+
+    background: #28a745;
+
+}
+
+
+#edit-student-btn:hover,
+#save-student-btn:hover {
+
+    transform: translateY(-3px);
+
+}
+.student-profile-card{
+
+    max-width:700px;
+    margin:auto;
+    padding:35px;
+
+}
+
+.profile-header{
+
+    text-align:center;
+    margin-bottom:35px;
+
+}
+
+.profile-avatar{
+
+    width:90px;
+    height:90px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:var(--primary-color);
+
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:42px;
+
+}
+
+.profile-name{
+
+    margin-top:18px;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:var(--primary-color);
+
+}
+
+.profile-role{
+
+    color:#888;
+
+    margin-top:6px;
+
+}
+
+.profile-field{
+
+    margin-bottom:18px;
+
+}
+
+.profile-field label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+}
+
+.profile-field input{
+
+    width:100%;
+
+    padding:14px 18px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#f5f7fb;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+.profile-field input:read-only{
+
+    cursor:default;
+
+}
+
+.profile-field input:not(:read-only){
+
+    background:#fff;
+
+    border:2px solid var(--primary-color);
+
+}
+
+.admin-dashboard{
+    padding:20px;
+}
+
+
+.stats-container{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+
+.stat-card{
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 5px 15px #0001;
+}
+
+
+.stat-card span{
+    font-size:32px;
+    font-weight:bold;
+}
+
+
+.stat-card.active{
+    border-right:5px solid #16a34a;
+}
+
+
+.stat-card.inactive{
+    border-right:5px solid #dc2626;
+}
+
+
+
+.student-tools input{
+    width:100%;
+    padding:14px;
+    border-radius:15px;
+    border:1px solid #ddd;
+    font-size:16px;
+}
+
+
+
+.filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:15px 0;
+}
+
+
+.filter-btn,
+.filters select{
+    padding:10px 15px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    background:#eee;
+}
+
+
+.filter-btn.active{
+    background:var(--primary-color);
+    color:white;
+}
+
     </style>
 </head>
 <body>
-
+<div id="toast"></div>
     <header>
         <div class="nav-container">
             <div class="brand-area" onclick="switchPage('home')">
                 <div class="logo-box">
                     <img src="nader.jpg" alt="الشعار" onerror="this.style.display='none'; this.parentElement.innerHTML='شعارك';">
                 </div>
-                <div class="logo">منصة دراسة و ابتكار</div>
+                <div class="logo"><h2>منصة دراسة و ابتكار</h2>
+                <span id="user-name">مرحباً</span>
+                </div>
             </div>
            
             <!-- زر الإعدادات (الترس) -->
@@ -479,13 +844,164 @@
             <button class="close-sidebar" onclick="toggleSidebar()">×</button>
         </div>
         <ul class="sidebar-links">
+            <li><a onclick="switchPage('login-page'); toggleSidebar();">🔐 تسجيل الدخول</a></li>
             <li><a onclick="switchPage('home'); toggleSidebar();">🏠 الرئيسية</a></li>
             <li><a onclick="switchPage('grades'); toggleSidebar();">📚 الصفوف</a></li>
             <li><a onclick="switchPage('cv-page'); toggleSidebar();">👤 السيرة الذاتية (CV)</a></li>
             <li><button class="sidebar-btn" onclick="toggleTheme()">✨ تبديل الثيم</button></li>
+           <li id="admin-menu" style="display:none;"><a onclick="switchPage('student-list'); toggleSidebar();">👨‍🏫 لوحة الإدارة </a></li>
+           
             <li><a href="https://wa.me/963996102881" target="_blank" class="sidebar-whatsapp">💬 تواصل واتساب</a></li>
+            <li id="logout-item" class="logout-itme" style="display: none;" onclick="toggleSidebar(); "><a id="logout-btn"> 🚪 تسجيل الخروج </a></li> 
+          
         </ul>
-    </div>    <!-- الرئيسية -->
+    </div>   
+<div id="login-page" class="page">
+    <div class="container" style="margin-top:2rem;">
+        <div class="card" style="max-width:400px;margin:auto;">
+
+            <h2 style="color:var(--primary-color);margin-bottom:1rem;text-align:center;">
+                تسجيل الدخول
+            </h2>
+
+            <input id="email" type="email" placeholder="البريد الإلكتروني" autocomplete="off"
+                style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid var(--border-color);">
+
+            <input id="password" type="password" placeholder="كلمة المرور" autocomplete="new-password"
+                style="width:100%;padding:12px;margin-bottom:15px;border-radius:10px;border:1px solid var(--border-color);">
+
+            <button class="btn" onclick="loginUser()" style="width:100%;">
+               تسجيل  الدخول
+            </button>
+
+            <p id="login-message" style="margin-top:15px;text-align:center;"></p>
+
+            <hr style="margin:25px 0;border:none;border-top:1px solid var(--border-color);">
+
+            <p style="text-align:center;color:var(--text-color);margin-bottom:10px;">
+                ليس لديك حساب؟
+            </p>
+
+            <button class="btn"
+                style="width:100%;background:transparent;color:var(--primary-color);border:2px solid var(--primary-color);"
+                onclick="switchPage('register-page')">
+                📝 إنشاء حساب جديد
+            </button>
+
+        </div>
+    </div>
+</div>
+<div id="student-list" class="page">
+
+    <div class="admin-dashboard">
+
+        <h2 class="admin-title">👨‍🏫 لوحة إدارة الطلاب</h2>
+
+        <!-- الإحصائيات -->
+        <div class="stats-container">
+           
+            <div class="stat-card">
+                <h3>👨‍🎓 الطلاب</h3>
+                <span id="students-count">0</span>
+            </div>
+
+            <div class="stat-card active">
+                <h3>🟢 مفعلين</h3>
+                <span id="activeStudents">0</span>
+            </div>
+
+            <div class="stat-card inactive">
+                <h3>🔴 غير مفعلين</h3>
+                <span id="inactiveStudents">0</span>
+            </div>
+
+        </div>
+
+
+        <!-- البحث -->
+        <div class="student-tools">
+
+            <input
+            type="text"
+            id="studentSearch"
+            placeholder="🔍 ابحث عن طالب..."
+            >
+
+        </div>
+
+
+        <!-- الفلاتر -->
+        <div class="filters">
+
+            <button class="filter-btn active" data-filter="all">
+                الكل
+            </button>
+
+            <button class="filter-btn" data-filter="active">
+                🟢 مفعلين
+            </button>
+
+            <button class="filter-btn" data-filter="inactive">
+                🔴 غير مفعلين
+            </button>
+
+
+            <select id="gradeFilter">
+                <option value="all">كل الصفوف</option>
+                <option value="عاشر">عاشر</option>
+                <option value="حادي عشر">حادي عشر</option>
+                <option value="بكالوريا">بكالوريا</option>
+            </select>
+
+
+            <select id="branchFilter">
+                <option value="all">كل الفروع</option>
+                <option value="علمي">علمي</option>
+                <option value="أدبي">أدبي</option>
+                <option value="مهني">مهني</option>
+            </select>
+
+        </div>
+
+
+        <!-- قائمة الطلاب -->
+        <div id="students-list">
+
+            <!-- بطاقات الطلاب ستظهر هنا من JavaScript -->
+
+        </div>
+            <div class="bottom-back-container">
+            <button class="bottom-back-btn" onclick="switchPage('home')">← العودة للرئيسية</button>
+            </div>
+
+    </div>
+
+</div>
+<div id="student-profile" class="page">
+    <div class="container">
+
+        <div class="card student-profile-card">
+
+            <div id="student-details"></div>
+
+            <div class="profile-buttons">
+                <button id="edit-student-btn" type="button">
+                    ✏️ تعديل
+                </button>
+
+                <button id="save-student-btn" type="button">
+                    💾 حفظ
+                </button>
+            </div>
+         <div class="bottom-back-container">
+            <button class="bottom-back-btn" onclick="switchPage('student-list')">← العودة للوحة الإدارة</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+ <!-- الرئيسية -->
     <div id="home" class="page active">
         <section class="hero">
             <h1>رفيقك الأول نحو التفوق اللغوي</h1>
@@ -578,7 +1094,7 @@
             </div>
             <div class="card foundation" onclick="selectFoundationSections('قسم التأسيس الشامل')">
                 <h3>قسم التأسيس الشامل</h3>
-                <p>تأسيس قوي في القواعد والإملاء لكافة المراحل (بدون نصوص).</p>
+                <p>تأسيس قوي في القواعد والإملاء لكافة المراحل .</p>
                 <button class="btn btn-sm">دخول القسم</button>
             </div>
             <div class="grid">
@@ -720,7 +1236,7 @@
         <div class="container" style="margin-top: 1.5rem;">
             <div class="section-header">
                 <h2 style="color: var(--accent-color);">أنت تتصفح: قسم التأسيس الشامل</h2>
-                <p>اختر القسم المطلوب (لا يوجد نصوص في التأسيس)</p>
+                <p>اختر القسم المطلوب </p>
             </div>
             <div class="grid" style="max-width: 800px; margin: 0 auto;">
                 <div class="card" onclick="switchPage('grammar-section')">
@@ -803,6 +1319,7 @@
     </footer>
 
     <script>
+
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
@@ -833,7 +1350,1272 @@
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
         }
-    </script>
+          function changeStage(){
+
+    let stage = document.getElementById("stage").value;
+    let branch = document.getElementById("branch");
+    let grade = document.getElementById("grade");
+
+    branch.style.display = "none";
+    grade.style.display = "none";
+
+
+    if(stage === "إعدادي"){
+
+        grade.style.display = "block";
+
+        grade.innerHTML = `
+            <option>السابع</option>
+            <option>الثامن</option>
+            <option>التاسع</option>
+        `;
+    }
+
+
+    if(stage === "ثانوي"){
+
+        branch.style.display = "block";
+
+        branch.innerHTML = `
+            <option value="">اختر الفرع</option>
+            <option value="علمي">علمي</option>
+            <option value="أدبي">أدبي</option>
+            <option value="مهني">مهني</option>
+        `;
+    }
+}
+
+
+
+function changeBranch(){
+
+    let branch = document.getElementById("branch").value;
+    let grade = document.getElementById("grade");
+
+    grade.style.display = "block";
+
+
+    if(branch === "علمي"){
+
+        grade.innerHTML = `
+            <option>عاشر</option>
+            <option>حادي عشر</option>
+            <option>بكالوريا</option>
+        `;
+    }
+
+
+    if(branch === "أدبي" || branch === "مهني"){
+
+        grade.innerHTML = `
+            <option>بكالوريا</option>
+        `;
+    }
+}
+   
+ 
+    
+        </script>
+
+    <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAd1cGidAS9H3VAmzamdnm7lgdV5J-PFt0",
+    authDomain: "nader-platform.firebaseapp.com",
+    projectId: "nader-platform",
+    storageBucket: "nader-platform.firebasestorage.app",
+    messagingSenderId: "347172678506",
+    appId: "1:347172678506:web:e86a1e12dee4d7cd5d9313"
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+
+let allStudents = [];
+
+let currentStudentId = "null";
+
+
+
+
+// رسالة صغيرة
+
+function showToast(message){
+
+    let toast = document.getElementById("toast");
+
+    if(!toast) return;
+
+    toast.innerText = message;
+
+    toast.style.display = "block";
+
+
+    setTimeout(()=>{
+
+        toast.style.display = "none";
+
+    },3000);
+
+}
+
+
+
+window.showToast = showToast;
+
+
+
+// تسجيل الدخول
+
+window.loginUser = function(){
+
+
+    let email = document.getElementById("email").value;
+
+    let password = document.getElementById("password").value;
+
+
+
+    signInWithEmailAndPassword(auth,email,password)
+
+    .then(()=>{
+
+
+        showToast("تم تسجيل الدخول بنجاح ✅");
+
+
+        setTimeout(()=>{
+
+            switchPage("home");
+
+        },1000);
+
+
+
+    })
+
+    .catch(()=>{
+
+        showToast("البريد أو كلمة المرور غير صحيحة ❌");
+
+    });
+
+
+};
+
+
+
+
+
+// إنشاء حساب
+
+
+window.registerUser = async function(){
+
+
+    let name = document.getElementById("name").value;
+
+    let email = document.getElementById("register-email").value;
+
+    let phone = document.getElementById("phone").value;
+
+    let city = document.getElementById("city").value;
+
+    let password = document.getElementById("register-password").value;
+
+    let confirm = document.getElementById("confirm-password").value;
+
+    let stage = document.getElementById("stage").value;
+
+    let branch = document.getElementById("branch").value;
+
+    let grade = document.getElementById("grade").value;
+
+
+
+    if(
+        !name ||
+        !email ||
+        !phone ||
+        !city ||
+        !password ||
+        !confirm ||
+        !stage ||
+        !grade
+    ){
+
+        showToast("يرجى تعبئة جميع المعلومات");
+
+        return;
+
+    }
+
+
+
+    if(stage==="ثانوي" && !branch){
+
+        showToast("اختر الفرع");
+
+        return;
+
+    }
+
+
+
+    if(password.length < 6){
+
+        showToast("كلمة المرور 6 أحرف على الأقل");
+
+        return;
+
+    }
+
+
+
+    if(password !== confirm){
+
+        showToast("كلمتا المرور غير متطابقتين");
+
+        return;
+
+    }
+
+
+
+    try{
+
+
+        let userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+
+        await setDoc(
+            doc(db,"users",userCredential.user.uid),
+            {
+
+                name:name,
+
+                email:email,
+
+                phone:phone,
+
+                city:city,
+
+                stage:stage,
+
+                branch:branch || "لا يوجد",
+
+                grade:grade,
+
+                subscription:"غير مفعل",
+
+                role:"student",
+
+                createdAt:new Date().toLocaleDateString()
+
+            }
+        );
+
+
+
+        showToast("تم إنشاء الحساب بنجاح ✅");
+
+
+        switchPage("home");
+
+
+
+    }
+    catch(error){
+
+        if(error.code==="auth/email-already-in-use"){
+
+            showToast("هذا البريد مستخدم مسبقاً");
+
+        }
+
+        else{
+
+            showToast(error.message);
+
+        }
+
+    }
+
+
+};
+
+
+
+
+
+// تسجيل الخروج
+
+
+document.getElementById("logout-btn").onclick=function(){
+
+
+    signOut(auth).then(()=>{
+
+
+        showToast("تم تسجيل الخروج");
+
+
+        document.getElementById("user-name").textContent="مرحباً";
+
+
+        switchPage("login-page");
+
+
+    });
+
+
+};
+
+
+
+
+
+// مراقبة الحساب
+
+
+onAuthStateChanged(auth, async (user) => {
+
+    const logoutItem = document.getElementById("logout-item");
+    const adminMenu = document.getElementById("admin-menu");
+
+    if (user) {
+
+        logoutItem.style.display = "block";
+
+        let snap = await getDoc(doc(db, "users", user.uid));
+
+        if (snap.exists()) {
+
+            let data = snap.data();
+
+            document.getElementById("user-name").textContent = data.name;
+
+            if (data.role === "teacher") {
+
+                adminMenu.style.display = "block";
+                loadStudents();
+
+            } else {
+
+                adminMenu.style.display = "none";
+
+            }
+
+        }
+
+    } else {
+
+        logoutItem.style.display = "none";
+        adminMenu.style.display = "none";
+        document.getElementById("user-name").textContent = "مرحباً";
+
+    }
+
+});
+// =========================
+// تسجيل الدخول
+// =========================
+
+window.loginUser = async function(){
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if(!email || !password){
+        showToast("يرجى إدخال البريد وكلمة المرور");
+        return;
+    }
+
+    try {
+
+        await signInWithEmailAndPassword(auth,email,password);
+
+        showToast("تم تسجيل الدخول بنجاح ✅");
+
+        setTimeout(()=>{
+            switchPage("home");
+        },1000);
+
+
+    } catch(error){
+
+        console.log(error);
+        showToast("البريد أو كلمة المرور غير صحيحة ❌");
+
+    }
+
+};
+
+
+
+// =========================
+// إنشاء حساب
+// =========================
+
+async function registerUser(){
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("register-email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let city = document.getElementById("city").value.trim();
+
+    let password = document.getElementById("register-password").value;
+    let confirmPassword = document.getElementById("confirm-password").value;
+
+    let stage = document.getElementById("stage").value;
+    let branch = document.getElementById("branch").value;
+    let grade = document.getElementById("grade").value;
+
+
+
+    if(
+        name === "" ||
+        email === "" ||
+        phone === "" ||
+        city === "" ||
+        password === "" ||
+        confirmPassword === "" ||
+        stage === "" ||
+        grade === ""
+    ){
+
+        showToast("يرجى تعبئة جميع المعلومات");
+        return;
+
+    }
+
+
+    if(stage === "ثانوي" && branch === ""){
+
+        showToast("يرجى اختيار الفرع");
+        return;
+
+    }
+
+
+    if(password.length < 6){
+
+        showToast("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+        return;
+
+    }
+
+
+    if(password !== confirmPassword){
+
+        showToast("كلمتا المرور غير متطابقتين");
+        return;
+
+    }
+
+
+
+    try{
+
+
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        await setDoc(
+            doc(db,"users",userCredential.user.uid),
+            {
+
+                name:name,
+                email:email,
+                phone:phone,
+                city:city,
+
+                stage:stage,
+                branch:branch || "لا يوجد",
+                grade:grade,
+
+                subscription:"غير مفعل",
+
+                role:"student",
+
+                createdAt:new Date().toLocaleDateString()
+
+            }
+        );
+
+
+
+        showToast("تم إنشاء الحساب بنجاح ✅");
+
+
+        document.getElementById("user-name").textContent=name;
+
+
+        switchPage("home");
+
+
+
+    }catch(error){
+
+
+        console.log(error);
+
+
+        if(error.code === "auth/email-already-in-use"){
+
+            showToast("هذا البريد مستخدم مسبقاً ❌");
+
+        }else{
+
+            showToast(error.message);
+
+        }
+
+    }
+
+
+}
+
+
+window.registerUser = registerUser;
+// =========================
+// لوحة الإدارة والطلاب
+// =========================
+
+
+
+
+async function loadStudents(){
+
+    const studentsList = document.getElementById("students-list");
+
+    if(!studentsList) return;
+
+
+    studentsList.innerHTML = "";
+
+
+    const snapshot = await getDocs(collection(db,"users"));
+
+
+    allStudents = [];
+
+
+    let active = 0;
+    let inactive = 0;
+
+
+    snapshot.forEach((docSnap)=>{
+
+
+        const data = docSnap.data();
+
+
+        if(data.role === "student"){
+
+
+            allStudents.push({
+
+                id:docSnap.id,
+                ...data
+
+            });
+
+
+
+            if(data.subscription === "مفعل"){
+
+                active++;
+
+            }else{
+
+                inactive++;
+
+            }
+
+
+        }
+
+
+    });
+
+
+
+    displayStudents(allStudents);
+
+
+
+    document.getElementById("students-count").textContent =
+        allStudents.length;
+
+
+    document.getElementById("activeStudents").textContent =
+        active;
+
+
+    document.getElementById("inactiveStudents").textContent =
+        inactive;
+
+
+
+}
+
+
+
+
+function displayStudents(students){
+
+
+    const studentsList =
+    document.getElementById("students-list");
+
+
+    if(!studentsList) return;
+
+
+
+    studentsList.innerHTML = "";
+
+
+
+    students.forEach(student=>{
+
+
+        studentsList.innerHTML += `
+
+        <div class="admin-card"
+        onclick="openstudent('${student.id}')">
+
+
+            <h3>
+            👤 ${student.name || "-"}
+            </h3>
+
+
+            <p>
+            🎓 ${student.grade || "-"}
+            </p>
+
+
+            <p>
+            📚 ${student.branch || "-"}
+            </p>
+
+
+            <p>
+
+            ${
+                student.subscription === "مفعل"
+                ?
+                "🟢 مفعل"
+                :
+                "🔴 غير مفعل"
+            }
+
+            </p>
+
+
+        </div>
+
+
+        `;
+
+
+    });
+
+
+}
+
+
+
+
+// =========================
+// البحث
+// =========================
+
+
+document.getElementById("studentSearch")
+?.addEventListener("input",function(){
+
+
+    let value = this.value.trim();
+
+
+    let result = allStudents.filter(student=>
+
+
+        student.name.includes(value)
+
+
+    );
+
+
+    displayStudents(result);
+
+
+});
+
+
+
+
+// =========================
+// فلتر الاشتراك
+// =========================
+
+
+document.querySelectorAll(".filter-btn")
+.forEach(btn=>{
+
+
+    btn.onclick=function(){
+
+
+        document.querySelectorAll(".filter-btn")
+        .forEach(b=>b.classList.remove("active"));
+
+
+        this.classList.add("active");
+
+
+        let filter=this.dataset.filter;
+
+
+
+        if(filter==="all"){
+
+            displayStudents(allStudents);
+
+        }
+
+
+
+        if(filter==="active"){
+
+
+            displayStudents(
+                allStudents.filter(
+                    s=>s.subscription==="مفعل"
+                )
+            );
+
+
+        }
+
+
+
+        if(filter==="inactive"){
+
+
+            displayStudents(
+                allStudents.filter(
+                    s=>s.subscription!=="مفعل"
+                )
+            );
+
+
+        }
+
+
+    };
+
+
+});
+
+
+
+
+// =========================
+// فلتر الصف
+// =========================
+
+
+document.getElementById("gradeFilter")
+?.addEventListener("change",function(){
+
+
+    let value=this.value;
+
+
+    if(value==="all"){
+
+        displayStudents(allStudents);
+        return;
+
+    }
+
+
+
+    displayStudents(
+
+        allStudents.filter(
+            s=>s.grade===value
+        )
+
+    );
+
+
+});
+
+
+
+
+// =========================
+// فلتر الفرع
+// =========================
+
+
+document.getElementById("branchFilter")
+?.addEventListener("change",function(){
+
+
+    let value=this.value;
+
+
+    if(value==="all"){
+
+        displayStudents(allStudents);
+        return;
+
+    }
+
+
+
+    displayStudents(
+
+        allStudents.filter(
+            s=>s.branch===value
+        )
+
+    );
+
+
+});
+// =========================
+// فتح بطاقة الطالب
+// =========================
+
+window.openstudent = async function(uid){
+
+    currentStudentId = uid;
+
+
+    const studentSnap = await getDoc(
+        doc(db,"users",uid)
+    );
+
+
+    if(studentSnap.exists()){
+
+
+        const data = studentSnap.data();
+
+
+
+        document.getElementById("student-details").innerHTML = `
+
+
+        <div class="profile-header">
+
+
+            <div class="profile-avatar">
+                👨‍🎓
+            </div>
+
+
+            <div class="profile-name">
+                ${data.name || "-"}
+            </div>
+
+
+            <div class="profile-role">
+                طالب
+            </div>
+
+
+        </div>
+
+
+
+        <div class="profile-field">
+
+            <label>📧 البريد الإلكتروني</label>
+
+            <input id="student-email"
+            value="${data.email || ""}"
+            readonly>
+
+        </div>
+
+
+
+        <div class="profile-field">
+
+            <label>📱 رقم الهاتف</label>
+
+            <input id="student-phone"
+            value="${data.phone || ""}"
+            readonly>
+
+        </div>
+
+
+
+
+        <div class="profile-field">
+
+            <label>📍 المحافظة</label>
+
+            <input id="student-city"
+            value="${data.city || ""}"
+            readonly>
+
+        </div>
+
+
+
+        <div class="profile-field">
+
+            <label>🎓 الصف</label>
+
+            <input id="student-grade"
+            value="${data.grade || ""}"
+            readonly>
+
+        </div>
+
+
+
+        <div class="profile-field">
+
+            <label>📚 الفرع</label>
+
+            <input id="student-branch"
+            value="${data.branch || ""}"
+            readonly>
+
+        </div>
+
+
+
+
+        <div class="profile-field">
+
+            <label>💳 الاشتراك</label>
+
+
+            <select id="student-subscription" disabled>
+
+
+                <option value="مفعل"
+                ${data.subscription==="مفعل" ? "selected" : ""}>
+                🟢 مفعل
+                </option>
+
+
+
+                <option value="غير مفعل"
+                ${data.subscription!=="مفعل" ? "selected" : ""}>
+                🔴 غير مفعل
+                </option>
+
+
+            </select>
+
+
+        </div>
+
+
+
+        <div class="profile-field">
+
+            <label>📅 تاريخ التسجيل</label>
+
+
+            <input id="student-created"
+            value="${data.createdAt || "-"}"
+            readonly>
+
+
+        </div>
+
+
+
+        `;
+
+
+
+        switchPage("student-profile");
+
+
+    }
+
+
+};
+
+
+
+
+
+// =========================
+// زر التعديل
+// =========================
+
+
+document.getElementById("edit-student-btn")
+.onclick=function(){
+
+
+
+    document.querySelectorAll(
+        "#student-details input, #student-details select"
+    )
+    .forEach(element=>{
+
+
+        element.removeAttribute("readonly");
+
+        element.removeAttribute("disabled");
+
+        element.style.background="#fff";
+
+
+    });
+
+
+};
+
+
+
+
+
+
+// =========================
+// زر الحفظ
+// =========================
+
+
+document.getElementById("save-student-btn")
+.onclick=async function(){
+
+
+
+    if(!currentStudentId){
+
+        showToast("لم يتم تحديد الطالب");
+
+        return;
+
+    }
+
+
+
+
+    let updatedData={
+
+
+        email:
+        document.getElementById("student-email").value,
+
+
+        phone:
+        document.getElementById("student-phone").value,
+
+
+        city:
+        document.getElementById("student-city").value,
+
+
+        grade:
+        document.getElementById("student-grade").value,
+
+
+        branch:
+        document.getElementById("student-branch").value,
+
+
+        subscription:
+        document.getElementById("student-subscription").value
+
+
+
+    };
+
+
+
+
+
+    try{
+
+
+        await setDoc(
+
+            doc(db,"users",currentStudentId),
+
+            updatedData,
+
+            {merge:true}
+
+        );
+
+
+
+
+        document.querySelectorAll(
+            "#student-details input"
+        )
+        .forEach(input=>{
+
+
+            input.setAttribute(
+                "readonly",
+                true
+            );
+
+
+            input.style.background="#f5f7fb";
+
+
+        });
+
+
+
+
+        document.getElementById(
+            "student-subscription"
+        )
+        .setAttribute(
+            "disabled",
+            true
+        );
+
+
+
+        document.getElementById(
+            "student-subscription"
+        )
+        .style.background="#f5f7fb";
+
+
+
+        showToast(
+            "تم حفظ التعديلات ✅"
+        );
+
+
+
+    }catch(error){
+
+
+        console.log(error);
+
+        showToast(
+            "حدث خطأ أثناء الحفظ"
+        );
+
+
+    }
+
+
+
+};
+</script>
+
+<!-- صفحة إنشاء حساب -->
+<div id="register-page" class="page">
+
+    <div class="container" style="margin-top:2rem;">
+        <div class="card" style="max-width:400px;margin:auto;">
+
+            <h2 style="color:var(--primary-color);text-align:center;margin-bottom:1rem;">
+                إنشاء حساب جديد
+            </h2>
+
+            <input id="name" type="text" placeholder="الاسم الكامل"
+            style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc;">
+
+            <input id="register-email" type="email" placeholder="البريد الإلكتروني"
+            style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc;">
+
+            <input id="register-password" type="password" placeholder="كلمة المرور"
+            style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc;">
+
+            <input id="confirm-password" type="password" placeholder="تأكيد كلمة المرور"
+            style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc;">
+             <input id="phone" type="tel" placeholder="رقم الهاتف" dir="rtl"
+            style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc;">
+             <input id="city" type="text" placeholder="المحافظة"
+            style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc;">
+
+
+<select id="stage" onchange="changeStage()"
+style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;">
+    <option value="">اختر المرحلة</option>
+    <option value="إعدادي">إعدادي</option>
+    <option value="ثانوي">ثانوي</option>
+</select>
+
+
+<select id="branch" onchange="changeBranch()"
+style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;display:none;">
+</select>
+
+
+<select id="grade"
+style="width:100%;padding:12px;margin-bottom:15px;border-radius:10px;display:none;">
+</select>
+            <button class="btn" style="width:100%" onclick="registerUser() ">
+                إنشاء الحساب
+            </button>
+
+            <p style="text-align:center;margin-top:15px;">
+                هل لديك حساب؟
+                <span onclick="switchPage('login-page')"
+                style="color:var(--primary-color);cursor:pointer;">
+                    تسجيل الدخول
+                </span>
+            </p>
+
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
