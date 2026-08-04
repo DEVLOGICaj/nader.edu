@@ -7,15 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0F172A;  
-            --accent-color: #2563EB;   
-            --bg-light: #EFF6FF;    
+            --primary-color: #0F172A; 
+            --accent-color: #2563EB;  
+            --bg-light: #EFF6FF;   
             --border-color: #BFDBFE;
             --white: #FFFFFF;
             --text-dark: #1E293B;
             --gray-text: #64748B;
             --hero-grad-1: #1E3A8A;
             --hero-grad-2: #2563EB;
+            --card-bg: #ffffff;
+            --text-color: #1E293B;
             --shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.1);
         }
 
@@ -105,7 +107,6 @@
             white-space: nowrap;
         }
 
-        /* زر الإعدادات (الترس) */
         .settings-btn {
             background: var(--bg-light);
             border: 2px solid var(--border-color);
@@ -127,7 +128,6 @@
             color: white;
         }
 
-        /* القائمة الجانبية (Sidebar) */
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -194,6 +194,16 @@
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
+            height: 100%;
+        }
+
+        #logout-btn {
+            color: white;
+            background: #e53935;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: block;
+            text-align: center;
         }
 
         .sidebar-links li a, .sidebar-links .sidebar-btn {
@@ -293,7 +303,6 @@
             border-color: var(--accent-color);
         }
 
-        /* زر كبير ومميز لـ ابدأ التعلم الآن */
         .btn-large-hero {
             padding: 0.9rem 2.8rem;
             font-size: 1.1rem;
@@ -302,6 +311,7 @@
             color: var(--accent-color);
             border: 2px solid var(--border-color);
         }
+
         .btn-large-hero:hover {
             background-color: var(--white);
             border-color: var(--accent-color);
@@ -453,25 +463,134 @@
             font-size: 0.9rem;
             letter-spacing: 0.3px;
         }
+
+        #toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 16px;
+            z-index: 9999;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #user-name {
+            font-size: 13px;
+            opacity: 0.8;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .admin-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            border-right: 5px solid var(--primary-color);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .admin-card h3 {
+            margin: 0 0 10px;
+            color: var(--primary-color);
+            font-size: 19px;
+        }
+
+        .admin-card p {
+            margin: 7px 0;
+            color: #666;
+        }
+
+        .admin-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        #student-search {
+            width: 100%;
+            padding: 14px 18px;
+            margin: 15px 0 20px;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            background: var(--card-bg);
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        #student-search:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        #edit-student-btn,
+        #save-student-btn {
+            border: none;
+            padding: 13px 25px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            margin: 10px;
+        }
+
+        #edit-student-btn { background: var(--primary-color); }
+        #save-student-btn { background: #28a745; }
+
+        #edit-student-btn:hover,
+        #save-student-btn:hover { transform: translateY(-3px); }
+
+        .student-profile-card { max-width: 700px; margin: auto; padding: 35px; }
+        .profile-header { text-align: center; margin-bottom: 35px; }
+        .profile-avatar { width: 90px; height: 90px; margin: auto; border-radius: 50%; background: var(--primary-color); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 42px; }
+        .profile-name { margin-top: 18px; font-size: 28px; font-weight: bold; color: var(--primary-color); }
+        .profile-role { color: #888; margin-top: 6px; }
+        .profile-field { margin-bottom: 18px; }
+        .profile-field label { display: block; margin-bottom: 8px; font-weight: bold; }
+        .profile-field input { width: 100%; padding: 14px 18px; border: none; border-radius: 14px; background: #f5f7fb; font-size: 16px; outline: none; transition: .25s; }
+        .profile-field input:read-only { cursor: default; }
+        .profile-field input:not(:read-only) { background: #fff; border: 2px solid var(--primary-color); }
+
+        .admin-dashboard { padding: 20px; }
+        .stats-container { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 20px; border-radius: 18px; text-align: center; box-shadow: 0 5px 15px #0001; }
+        .stat-card span { font-size: 32px; font-weight: bold; }
+        .stat-card.active { border-right: 5px solid #16a34a; }
+        .stat-card.inactive { border-right: 5px solid #dc2626; }
+        .student-tools input { width: 100%; padding: 14px; border-radius: 15px; border: 1px solid #ddd; font-size: 16px; }
+        .filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+        .filter-btn, .filters select { padding: 10px 15px; border-radius: 12px; border: none; cursor: pointer; background: #eee; }
+        .filter-btn.active { background: var(--primary-color); color: white; }
     </style>
 </head>
 <body>
-
+<div id="toast"></div>
     <header>
         <div class="nav-container">
             <div class="brand-area" onclick="switchPage('home')">
                 <div class="logo-box">
                     <img src="nader.jpg" alt="الشعار" onerror="this.style.display='none'; this.parentElement.innerHTML='شعارك';">
                 </div>
-                <div class="logo">منصة دراسة و ابتكار</div>
+                <div class="logo"><h2>منصة دراسة و ابتكار</h2>
+                <span id="user-name">مرحباً</span>
+                </div>
             </div>
-           
-            <!-- زر الإعدادات (الترس) -->
             <button class="settings-btn" onclick="toggleSidebar()" aria-label="الإعدادات">⚙️</button>
         </div>
     </header>
 
-    <!-- القائمة الجانبية والخلفية المعتمة -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -479,361 +598,449 @@
             <button class="close-sidebar" onclick="toggleSidebar()">×</button>
         </div>
         <ul class="sidebar-links">
+            <li><a onclick="switchPage('login-page'); toggleSidebar();">🔐 تسجيل الدخول</a></li>
             <li><a onclick="switchPage('home'); toggleSidebar();">🏠 الرئيسية</a></li>
             <li><a onclick="switchPage('grades'); toggleSidebar();">📚 الصفوف</a></li>
             <li><a onclick="switchPage('cv-page'); toggleSidebar();">👤 السيرة الذاتية (CV)</a></li>
             <li><button class="sidebar-btn" onclick="toggleTheme()">✨ تبديل الثيم</button></li>
+            <li id="admin-menu" style="display:none;"><a onclick="switchPage('student-list'); toggleSidebar();">👨‍🏫 لوحة الإدارة </a></li>
             <li><a href="https://wa.me/963996102881" target="_blank" class="sidebar-whatsapp">💬 تواصل واتساب</a></li>
+            <li id="logout-item" class="logout-itme" style="display: none;" onclick="toggleSidebar();"><a id="logout-btn"> 🚪 تسجيل الخروج </a></li>
         </ul>
-    </div>    <!-- الرئيسية -->
-    <div id="home" class="page active">
-        <section class="hero">
-            <h1>رفيقك الأول نحو التفوق اللغوي</h1>
-            <p>منصة تعليمية متكاملة لتدريس قواعد النحو، النصوص، والإملاء بطريقة تفاعلية مبهرة بإشراف الأستاذ نادر الحصني.</p>
-            <div class="hero-btns">
-                <button class="btn btn-large-hero" onclick="switchPage('grades')">ابدأ التعلم الآن</button>
-            </div>
-        </section>
-        <div class="container">
-            <div class="section-header">
-                <h2>منصاتنا وحساباتنا الرسمية</h2>
-                <p>تابعنا عبر منصات التواصل الاجتماعي لتبقي على اطلاع بكافة الدروس والتحديثات</p>
-            </div>
-           
-            <div class="social-platforms">
-                <a href="https://www.facebook.com/profile.php?id=61556675302611" target="_blank" class="social-btn btn-facebook">فيسبوك (Facebook)</a>
-                <a href="https://www.instagram.com/nader_alhosne?igsh=NzY1cHo2dXN0a2pz" target="_blank" class="social-btn btn-instagram">انستغرام (Instagram)</a>
-                <a href="https://t.me/nader_alhosne" target="_blank" class="social-btn btn-telegram">تلغرام (Telegram)</a>
-            </div>
-
-            <div class="section-header" style="margin-top: 3rem;">
-                <h2>لماذا منصتنا التعليمية؟</h2>
-                <p>صُممت لتقدم تجربة دراسية فريدة وعصريّة تخطف الأنظار</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>شرح مبسط وذكي</h3>
-                    <p>قواعد النحو والنصوص مشروحة بطرق حديثة ومفصلة.</p>
-                </div>
-                <div class="card">
-                    <h3>اختبارات فورية</h3>
-                    <p>قيم نفسك بعد كل درس واحصل على النتيجة مباشرة مع تقييم شامل.</p>
-                </div>
-            </div>
+    </div>
+<div id="login-page" class="page">
+    <div class="container" style="margin-top:2rem;">
+        <div class="card" style="max-width:400px;margin:auto;">
+            <h2 style="color:var(--primary-color);margin-bottom:1rem;text-align:center;">تسجيل الدخول</h2>
+            <input id="email" type="email" placeholder="البريد الإلكتروني" autocomplete="off"
+                style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid var(--border-color);">
+            <input id="password" type="password" placeholder="كلمة المرور" autocomplete="new-password"
+                style="width:100%;padding:12px;margin-bottom:15px;border-radius:10px;border:1px solid var(--border-color);">
+            <button class="btn" onclick="loginUser()" style="width:100%;">تسجيل الدخول</button>
+            <p id="login-message" style="margin-top:15px;text-align:center;"></p>
+            <hr style="margin:25px 0;border:none;border-top:1px solid var(--border-color);">
+            <p style="text-align:center;color:var(--text-color);margin-bottom:10px;">ليس لديك حساب؟</p>
+            <button class="btn"
+                style="width:100%;background:transparent;color:var(--primary-color);border:2px solid var(--primary-color);"
+                onclick="switchPage('register-page')">📝 إنشاء حساب جديد</button>
         </div>
     </div>
+</div>
 
-    <!-- السيرة الذاتية (CV) -->
-    <div id="cv-page" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div style="background: var(--white); border-radius: 16px; padding: 2rem 1rem; box-shadow: var(--shadow); border: 2px solid var(--border-color); max-width: 800px; margin: 0 auto; text-align: center;">
-               
-                <div style="width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 1.2rem auto; overflow: hidden; border: 3px solid var(--accent-color); background: var(--bg-light); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <img src="nader2.png" alt="صورة الأستاذ" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/110?text=صورة+الأستاذ'">
-                </div>
-
-                <h2 style="color: var(--primary-color); font-size: 1.8rem; margin-bottom: 0.4rem; font-weight: 900;">السيرة الذاتية للأستاذ نادر الحصني</h2>
-                <p style="color: var(--accent-color); font-weight: 700; font-size: 1rem; margin-bottom: 1.2rem;">معلم لغة عربية ومدقق لغوي</p>
-               
-                <p style="color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; text-align: justify; padding: 0 0.5rem;">
-                    معلم لغة عربية ومدقق لغوي ذو خبرة عالية في تدريس اللغة العربية وتدقيقها على مختلف المستويات، أتمتع بمهارات قوية في التواصل، وتصميم المناهج، وتحفيز الطلاب لتطوير مهاراتهم اللغوية، وأسعى دائماً لإحداث تأثير إيجابي على تعليم الطلاب من خلال أساليب تدريس مبتكرة ومشاركة فعّالة.
-                </p>
-
-                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 1.5rem 0;">
-
-                <div style="text-align: right; margin-bottom: 1.5rem;">
-                    <h3 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.8rem; border-right: 4px solid var(--accent-color); padding-right: 8px;">الخبرات العملية</h3>
-                    <ul style="color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; padding-right: 1.2rem; list-style-type: square;">
-                        <li>تطوير خطط دروس تتماشى مع معايير التعلم الحديثة.</li>
-                        <li>تقديم دروس تفاعلية مما يعزز من دافعية الطلاب.</li>
-                        <li>تقييم أداء الطلاب وتقديم التغذية الراجعة اللازمة.</li>
-                    </ul>
-                </div>
-
-                <div style="text-align: right; margin-bottom: 2rem;">
-                    <h3 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.8rem; border-right: 4px solid var(--accent-color); padding-right: 8px;">الهوايات</h3>
-                    <ul style="color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; padding-right: 1.2rem; list-style-type: square;">
-                        <li>القراءة في الأدب العربي.</li>
-                        <li>الكتابة (مقالات، شعر، إلخ).</li>
-                    </ul>
-                </div>
-
-                <div style="display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap;">
-                    <a href="https://wa.me/963996102881" target="_blank" class="btn btn-sm" style="background-color: #25D366; color: white; border: none;">تواصل مباشر</a>
-                    <button class="btn btn-sm" onclick="switchPage('grades')">تصفح الصفوف</button>
-                </div>
+<div id="student-list" class="page">
+    <div class="admin-dashboard">
+        <h2 class="admin-title">👨‍🏫 لوحة إدارة الطلاب</h2>
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>👨‍🎓 الطلاب</h3>
+                <span id="students-count">0</span>
+            </div>
+            <div class="stat-card active">
+                <h3>🟢 مفعلين</h3>
+                <span id="activeStudents">0</span>
+            </div>
+            <div class="stat-card inactive">
+                <h3>🔴 غير مفعلين</h3>
+                <span id="inactiveStudents">0</span>
             </div>
         </div>
+        <div class="student-tools">
+            <input type="text" id="studentSearch" placeholder="🔍 ابحث عن طالب...">
+        </div>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="active">🟢 مفعلين</button>
+            <button class="filter-btn" data-filter="inactive">🔴 غير مفعلين</button>
+            <select id="gradeFilter">
+                <option value="all">كل الصفوف</option>
+                <option value="عاشر">عاشر</option>
+                <option value="حادي عشر">حادي عشر</option>
+                <option value="بكالوريا">بكالوريا</option>
+            </select>
+            <select id="branchFilter">
+                <option value="all">كل الفروع</option>
+                <option value="علمي">علمي</option>
+                <option value="أدبي">أدبي</option>
+                <option value="مهني">مهني</option>
+            </select>
+        </div>
+        <div id="students-list"></div>
         <div class="bottom-back-container">
             <button class="bottom-back-btn" onclick="switchPage('home')">← العودة للرئيسية</button>
         </div>
     </div>
+</div>
 
-    <!-- واجهة الصفوف والأقسام -->
-    <div id="grades" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>أقسام ومراحل المنصة</h2>
-                <p>اختر القسم المناسب للبدء بالتعلم</p>
+<div id="student-profile" class="page">
+    <div class="container">
+        <div class="card student-profile-card">
+            <div id="student-details"></div>
+            <div class="profile-buttons">
+                <button id="edit-student-btn" type="button">✏️ تعديل</button>
+                <button id="save-student-btn" type="button">💾 حفظ</button>
             </div>
-            <div class="card foundation" onclick="selectFoundationSections('قسم التأسيس الشامل')">
-                <h3>قسم التأسيس الشامل</h3>
-                <p>تأسيس قوي في القواعد والإملاء لكافة المراحل (بدون نصوص).</p>
-                <button class="btn btn-sm">دخول القسم</button>
+            <div class="bottom-back-container">
+                <button class="bottom-back-btn" onclick="switchPage('student-list')">← العودة للوحة الإدارة</button>
             </div>
-            <div class="grid">
-                <div class="card" onclick="switchPage('middle-school')">
-                    <h3>المرحلة الإعدادية</h3>
-                    <p>تتضمن السابع والثامن (لاحقاً) والتاسع.</p>
-                    <button class="btn btn-sm">تصفح الإعدادي</button>
-                </div>
-                <div class="card" onclick="switchPage('high-school')">
-                    <h3>المرحلة الثانوية</h3>
-                    <p>تتضمن القسم العلمي، الأدبي، والمهني.</p>
-                    <button class="btn btn-sm">تصفح الثانوي</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('home')">← العودة للرئيسية</button>
         </div>
     </div>
+</div>
 
-    <!-- واجهة المرحلة الإعدادية -->
-    <div id="middle-school" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>المرحلة الإعدادية</h2>
-                <p>اختر الصف الدراسي المطلوب</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>الصف السابع</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card">
-                    <h3>الصف الثامن</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card" onclick="selectGrade('الصف التاسع')">
-                    <h3>الصف التاسع</h3>
-                    <p>الشهادة الإعدادية ومنهاجها الكامل.</p>
-                    <button class="btn btn-sm">اختر الصف</button>
-                </div>
-            </div>
+<div id="home" class="page active">
+    <section class="hero">
+        <h1>رفيقك الأول نحو التفوق اللغوي</h1>
+        <p>منصة تعليمية متكاملة لتدريس قواعد النحو، النصوص، والإملاء بطريقة تفاعلية مبهرة بإشراف الأستاذ نادر الحصني.</p>
+        <div class="hero-btns">
+            <button class="btn btn-large-hero" onclick="switchPage('grades')">ابدأ التعلم الآن</button>
         </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة لاختيار المراحل</button>
+    </section>
+    <div class="container">
+        <div class="section-header">
+            <h2>منصاتنا وحساباتنا الرسمية</h2>
+            <p>تابعنا عبر منصات التواصل الاجتماعي لتبقي على اطلاع بكافة الدروس والتحديثات</p>
+        </div>
+        <div class="social-platforms">
+            <a href="https://www.facebook.com/profile.php?id=61556675302611" target="_blank" class="social-btn btn-facebook">فيسبوك (Facebook)</a>
+            <a href="https://www.instagram.com/nader_alhosne?igsh=NzY1cHo2dXN0a2pz" target="_blank" class="social-btn btn-instagram">انستغرام (Instagram)</a>
+            <a href="https://t.me/nader_alhosne" target="_blank" class="social-btn btn-telegram">تلغرام (Telegram)</a>
+        </div>
+        <div class="section-header" style="margin-top: 3rem;">
+            <h2>لماذا منصتنا التعليمية؟</h2>
+            <p>صُممت لتقدم تجربة دراسية فريدة وعصريّة تخطف الأنظار</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>شرح مبسط وذكي</h3>
+                <p>قواعد النحو والنصوص مشروحة بطرق حديثة ومفصلة.</p>
+            </div>
+            <div class="card">
+                <h3>اختبارات فورية</h3>
+                <p>قيم نفسك بعد كل درس واحصل على النتيجة مباشرة مع تقييم شامل.</p>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- واجهة المرحلة الثانوية -->
-    <div id="high-school" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>المرحلة الثانوية</h2>
-                <p>اختر الفرع أو القسم المناسب</p>
+<div id="cv-page" class="page">
+    <div class="container" style="margin-top: 1.5rem;">
+        <div style="background: var(--white); border-radius: 16px; padding: 2rem 1rem; box-shadow: var(--shadow); border: 2px solid var(--border-color); max-width: 800px; margin: 0 auto; text-align: center;">
+            <div style="width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 1.2rem auto; overflow: hidden; border: 3px solid var(--accent-color); background: var(--bg-light); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <img src="nader2.png" alt="صورة الأستاذ" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/110?text=صورة+الأستاذ'">
             </div>
-            <div class="grid">
-                <div class="card" onclick="switchPage('science-branch')">
-                    <h3>القسم العلمي</h3>
-                    <p>عاشر، حادي عشر، وبكالوريا علمي.</p>
-                    <button class="btn btn-sm">تصفح العلمي</button>
-                </div>
-                <div class="card" onclick="selectGrade('بكالوريا أدبي')">
-                    <h3>قسم البكالوريا الأدبي</h3>
-                    <p>المنهاج الكامل وقواعد النصوص الخاصة بالأدبي.</p>
-                    <button class="btn btn-sm">اختر القسم</button>
-                </div>
-                <div class="card" onclick="selectGrade('بكالوريا مهني')">
-                    <h3>قسم البكالوريا المهني</h3>
-                    <p>قواعد، نصوص، واختبارات كاملة خاصة بالمهني.</p>
-                    <button class="btn btn-sm">اختر القسم</button>
-                </div>
+            <h2 style="color: var(--primary-color); font-size: 1.8rem; margin-bottom: 0.4rem; font-weight: 900;">السيرة الذاتية للأستاذ نادر الحصني</h2>
+            <p style="color: var(--accent-color); font-weight: 700; font-size: 1rem; margin-bottom: 1.2rem;">معلم لغة عربية ومدقق لغوي</p>
+            <p style="color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; text-align: justify; padding: 0 0.5rem;">
+                معلم لغة عربية ومدقق لغوي ذو خبرة عالية في تدريس اللغة العربية وتدقيقها على مختلف المستويات، أتمتع بمهارات قوية في التواصل، وتصميم المناهج، وتحفيز الطلاب لتطوير مهاراتهم اللغوية، وأسعى دائماً لإحداث تأثير إيجابي على تعليم الطلاب من خلال أساليب تدريس مبتكرة ومشاركة فعّالة.
+            </p>
+            <hr style="border: none; border-top: 2px solid var(--border-color); margin: 1.5rem 0;">
+            <div style="text-align: right; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.8rem; border-right: 4px solid var(--accent-color); padding-right: 8px;">الخبرات العملية</h3>
+                <ul style="color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; padding-right: 1.2rem; list-style-type: square;">
+                    <li>تطوير خطط دروس تتماشى مع معايير التعلم الحديثة.</li>
+                    <li>تقديم دروس تفاعلية مما يعزز من دافعية الطلاب.</li>
+                    <li>تقييم أداء الطلاب وتقديم التغذية الراجعة اللازمة.</li>
+                </ul>
             </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة لاختيار المراحل</button>
+            <div style="text-align: right; margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.8rem; border-right: 4px solid var(--accent-color); padding-right: 8px;">الهوايات</h3>
+                <ul style="color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; padding-right: 1.2rem; list-style-type: square;">
+                    <li>القراءة في الأدب العربي.</li>
+                    <li>الكتابة (مقالات، شعر، إلخ).</li>
+                </ul>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap;">
+                <a href="https://wa.me/963996102881" target="_blank" class="btn btn-sm" style="background-color: #25D366; color: white; border: none;">تواصل مباشر</a>
+                <button class="btn btn-sm" onclick="switchPage('grades')">تصفح الصفوف</button>
+            </div>
         </div>
     </div>
+    <div class="bottom-back-container">
+        <button class="bottom-back-btn" onclick="switchPage('home')">← العودة للرئيسية</button>
+    </div>
+</div>
 
-    <!-- واجهة القسم العلمي -->
-    <div id="science-branch" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>القسم العلمي</h2>
-                <p>اختر الصف الدراسي العلمي</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>الصف العاشر العلمي</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card">
-                    <h3>الصف الحادي عشر العلمي</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card" onclick="selectGrade('البكالوريا العلمي')">
-                    <h3>البكالوريا العلمي</h3>
-                    <p>التحضير الشامل ومتوفر بكافة أقسامه.</p>
-                    <button class="btn btn-sm">اختر الصف</button>
-                </div>
-            </div>
+<div id="grades" class="page">
+    <div class="container" style="margin-top: 1.5rem;">
+        <div class="section-header">
+            <h2>أقسام ومراحل المنصة</h2>
+            <p>اختر القسم المناسب للبدء بالتعلم</p>
         </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('high-school')">← العودة للمرحلة الثانوية</button>
+        <div class="card foundation" onclick="selectFoundationSections('قسم التأسيس الشامل')">
+            <h3>قسم التأسيس الشامل</h3>
+            <p>تأسيس قوي في القواعد والإملاء لكافة المراحل .</p>
+            <button class="btn btn-sm">دخول القسم</button>
+        </div>
+        <div class="grid">
+            <div class="card" onclick="switchPage('middle-school')">
+                <h3>المرحلة الإعدادية</h3>
+                <p>تتضمن السابع والثامن (لاحقاً) والتاسع.</p>
+                <button class="btn btn-sm">تصفح الإعدادي</button>
+            </div>
+            <div class="card" onclick="switchPage('high-school')">
+                <h3>المرحلة الثانوية</h3>
+                <p>تتضمن القسم العلمي، الأدبي، والمهني.</p>
+                <button class="btn btn-sm">تصفح الثانوي</button>
+            </div>
         </div>
     </div>
-
-    <!-- الأقسام العامة العادية لأي صف متوفر -->
-    <div id="sections" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2 id="current-grade-title" style="color: var(--accent-color);">اسم الصف</h2>
-                <p>اختر القسم المطلوب</p>
-            </div>
-            <div class="grid">
-                <div class="card" onclick="switchPage('grammar-section')">
-                    <h3>قسم القواعد</h3>
-                    <p>شرح تفصيلي لأهم قواعد الإعراب والصناعة النحوية.</p>
-                    <button class="btn btn-sm">فتح القواعد</button>
-                </div>
-                <div class="card" onclick="switchPage('texts-section')">
-                    <h3>قسم النصوص</h3>
-                    <p>قراءة وتحليل النصوص والقصائد المقررة.</p>
-                    <button class="btn btn-sm">فتح النصوص</button>
-                </div>
-                <div class="card" onclick="switchPage('quiz-section')">
-                    <h3>قسم الاختبارات</h3>
-                    <p>اختبارات تفاعلية للفصول الدروس وتقييم فوري.</p>
-                    <button class="btn btn-sm">فتح الاختبارات</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('high-school')">← العودة للخلف</button>
+    <div class="bottom-back-container">
+        <button class="bottom-back-btn" onclick="switchPage('home')">← العودة للرئيسية</button>
+    </div>
+</div>
+<div id="register-page" class="page">
+    <div class="container" style="margin-top:2rem;">
+        <div class="card" style="max-width:450px;margin:auto;">
+            <h2 style="color:var(--primary-color);margin-bottom:1rem;text-align:center;">إنشاء حساب جديد</h2>
+            <input id="reg-name" type="text" placeholder="الاسم الكامل"
+                style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid var(--border-color);">
+            <input id="reg-email" type="email" placeholder="البريد الإلكتروني"
+                style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid var(--border-color);">
+            <input id="reg-password" type="password" placeholder="كلمة المرور"
+                style="width:100%;padding:12px;margin-bottom:15px;border-radius:10px;border:1px solid var(--border-color);">
+            <button class="btn" onclick="registerUser()" style="width:100%;">تسجيل الحساب</button>
+            <p id="reg-message" style="margin-top:15px;text-align:center;"></p>
+            <button class="btn"
+                style="width:100%;background:transparent;color:var(--primary-color);border:2px solid var(--primary-color);margin-top:15px;"
+                onclick="switchPage('login-page')">العودة لتسجيل الدخول</button>
         </div>
     </div>
+</div>
 
-    <!-- أقسام التأسيس الشامل -->
-    <div id="foundation-sections" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2 style="color: var(--accent-color);">أنت تتصفح: قسم التأسيس الشامل</h2>
-                <p>اختر القسم المطلوب (لا يوجد نصوص في التأسيس)</p>
-            </div>
-            <div class="grid" style="max-width: 800px; margin: 0 auto;">
-                <div class="card" onclick="switchPage('grammar-section')">
-                    <h3>قسم القواعد</h3>
-                    <p>تأسيس قوي وواضح في القواعد والإملاء.</p>
-                    <button class="btn btn-sm">فتح القواعد</button>
-                </div>
-                <div class="card" onclick="switchPage('quiz-section')">
-                    <h3>قسم الاختبارات</h3>
-                    <p>اختبارات تقييمية للتدريب والتثبيت.</p>
-                    <button class="btn btn-sm">فتح الاختبارات</button>
-                </div>
-            </div>
+<div id="middle-school" class="page">
+    <div class="container" style="margin-top: 1.5rem;">
+        <div class="section-header">
+            <h2>المرحلة الإعدادية</h2>
+            <p>اختر الصف الدراسي المطلوب</p>
         </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة للخلف</button>
+        <div class="grid">
+            <div class="card" onclick="selectGrade('الصف السابع')">
+                <h3>الصف السابع</h3>
+                <p>قواعد، إملاء، ونصوص المرحلة الإعدادية الأولى.</p>
+                <button class="btn btn-sm">استعراض الدروس</button>
+            </div>
+            <div class="card" onclick="selectGrade('الصف الثامن')">
+                <h3>الصف الثامن</h3>
+                <p>دروس ومراجعات شاملة لمنهاج الصف الثامن.</p>
+                <button class="btn btn-sm">استعراض الدروس</button>
+            </div>
+            <div class="card" onclick="selectGrade('الصف التاسع')">
+                <h3>الصف التاسع (الشهادة الإعدادية)</h3>
+                <p>التحضير المكثف لشهادة التعليم الأساسي.</p>
+                <button class="btn btn-sm">استعراض الدروس</button>
+            </div>
         </div>
     </div>
+    <div class="bottom-back-container">
+        <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة للأقسام</button>
+    </div>
+</div>
 
-    <!-- صفحة قواعد -->
-    <div id="grammar-section" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>قسم القواعد</h2>
-                <p>دروس النحو والصرف والإملاء</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>الدرس الأول</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">ستتوفر لاحقاً</p>
-                </div>
-            </div>
+<div id="high-school" class="page">
+    <div class="container" style="margin-top: 1.5rem;">
+        <div class="section-header">
+            <h2>المرحلة الثانوية</h2>
+            <p>اختر الفرع أو القسم المناسب</p>
         </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('sections')">← العودة للأقسام</button>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="card" onclick="switchPage('scientific-section')">
+                <h3>القسم العلمي</h3>
+                <p>عاشر، حادي عشر، وبكالوريا علمي.</p>
+                <button class="btn btn-sm">تصفح العلمي</button>
+            </div>
+            <div class="card" onclick="selectGrade('البكالوريا الأدبي')">
+                <h3>قسم البكالوريا الأدبي</h3>
+                <p>المنهاج الكامل وقواعد النصوص الخاصة بالأدبي.</p>
+                <button class="btn btn-sm">اختر القسم</button>
+            </div>
+            <div class="card" onclick="selectGrade('البكالوريا المهني')">
+                <h3>قسم البكالوريا المهني</h3>
+                <p>قواعد، نصوص، واختبارات كاملة بالمهني.</p>
+                <button class="btn btn-sm">اختر القسم</button>
+            </div>
         </div>
     </div>
+    <div class="bottom-back-container">
+        <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة لاختيار المراحل</button>
+    </div>
+</div>
 
-    <!-- صفحة نصوص -->
-    <div id="texts-section" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>قسم النصوص</h2>
-                <p>التحليل الأدبي والقصائد</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>النص الأول</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">ستتوفر لاحقاً</p>
-                </div>
-            </div>
+<div id="scientific-section" class="page">
+    <div class="container" style="margin-top: 1.5rem;">
+        <div class="section-header">
+            <h2>القسم العلمي</h2>
+            <p>اختر الصف الدراسي العلمي</p>
         </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('sections')">← العودة للأقسام</button>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="card" onclick="selectGrade('الصف العاشر العلمي')">
+                <h3>الصف العاشر العلمي</h3>
+                <p>سيتوفر لاحقاً</p>
+                <button class="btn btn-sm" style="visibility: hidden;">اختر الصف</button>
+            </div>
+            <div class="card" onclick="selectGrade('الصف الحادي عشر العلمي')">
+                <h3>الصف الحادي عشر العلمي</h3>
+                <p>سيتوفر لاحقاً</p>
+                <button class="btn btn-sm" style="visibility: hidden;">اختر الصف</button>
+            </div>
+            <div class="card" onclick="selectGrade('البكالوريا العلمي')">
+                <h3>البكالوريا العلمي</h3>
+                <p>التحضير الشامل ومتوفر بكافة أقسامه.</p>
+                <button class="btn btn-sm">اختر الصف</button>
+            </div>
         </div>
     </div>
-
-    <!-- صفحة اختبارات -->
-    <div id="quiz-section" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>قسم الاختبارات</h2>
-                <p>تقييم شامل واختبارات فصول</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>اختبار الفصل الأول</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">ستتوفر لاحقاً</p>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('sections')">← العودة للأقسام</button>
-        </div>
+    <div class="bottom-back-container">
+        <button class="bottom-back-btn" onclick="switchPage('high-school')">← العودة للمرحلة الثانوية</button>
     </div>
+</div>
 
-    <!-- الفوتر -->
-    <footer>
-        <p>جميع حقوق الطبع محفوظة © 2026 | منصة الأستاذ نادر الحصني للتفوق الدراسي</p>
-    </footer>
+<div id="lessons-page" class="page">
+    <div class="container" style="margin-top: 1.5rem;">
+        <div class="section-header">
+            <h2 id="lessons-page-title">قائمة الدروس</h2>
+            <p>تابع الدروس الخاصة بالقسم المختار</p>
+        </div>
+        <div id="teacher-lesson-controls" style="display:none; text-align:center; margin-bottom:1.5rem;">
+            <button class="btn" onclick="openAddLessonModal()">➕ إضافة درس جديد</button>
+        </div>
+        <div id="lessons-container" class="grid"></div>
+    </div>
+    <div class="bottom-back-container">
+        <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة للأقسام</button>
+    </div>
+</div>
 
-    <script>
-        function switchPage(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+<footer>
+    <p>جميع الحقوق محفوظة © منصة الأستاذ نادر الحصني 2026</p>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, deleteDoc, addDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyD...",
+        authDomain: "nader-platform.firebaseapp.com",
+        projectId: "nader-platform",
+        storageBucket: "nader-platform.appspot.com",
+        messagingSenderId: "...",
+        appId: "..."
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.switchPage = function(pageId) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        const target = document.getElementById(pageId);
+        if (target) {
+            target.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    }
+
+    window.toggleSidebar = function() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+
+    window.toggleTheme = function() {
+        document.body.classList.toggle('pink-theme');
+    }
+
+    window.showToast = function(text) {
+        const t = document.getElementById('toast');
+        t.textContent = text;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
+
+    window.loginUser = async function() {
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('password').value;
+        try {
+            await signInWithEmailAndPassword(auth, email, pass);
+            showToast("تم تسجيل الدخول بنجاح");
+            switchPage('home');
+        } catch (error) {
+            document.getElementById('login-message').textContent = "خطأ في البريد أو كلمة المرور";
+        }
+    }
+
+    window.registerUser = async function() {
+        const name = document.getElementById('reg-name').value;
+        const email = document.getElementById('reg-email').value;
+        const pass = document.getElementById('reg-password').value;
+        try {
+            const res = await createUserWithEmailAndPassword(auth, email, pass);
+            await setDoc(doc(db, "users", res.user.uid), {
+                name: name,
+                email: email,
+                role: "student",
+                subscription: "غير مفعل",
+                grade: "بكالوريا"
+            });
+            showToast("تم إنشاء الحساب بنجاح");
+            switchPage('home');
+        } catch (error) {
+            document.getElementById('reg-message').textContent = "خطأ في التسجيل، تأكد من البيانات";
+        }
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+        await signOut(auth);
+        showToast("تم تسجيل الخروج");
+        switchPage('home');
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+        const logoutItem = document.getElementById("logout-item");
+        const adminMenu = document.getElementById("admin-menu");
+        const teacherControls = document.getElementById("teacher-lesson-controls");
+
+        if (user) {
+            if(logoutItem) logoutItem.style.display = "block";
+            try {
+                let snap = await getDoc(doc(db, "users", user.uid));
+                if (snap.exists()) {
+                    let data = snap.data();
+                    document.getElementById("user-name").textContent = data.name || "مرحباً";
+
+                    if (data.role === "teacher") {
+                        if(adminMenu) adminMenu.style.display = "block";
+                        if(teacherControls) teacherControls.style.display = "block";
+                    } else {
+                        if(adminMenu) adminMenu.style.display = "none";
+                        if(teacherControls) teacherControls.style.display = "none";
+                    }
+                }
+            } catch (error) {
+                console.error(error);
             }
+        } else {
+            if(logoutItem) logoutItem.style.display = "none";
+            if(adminMenu) adminMenu.style.display = "none";
+            if(teacherControls) teacherControls.style.display = "none";
+            document.getElementById("user-name").textContent = "مرحباً";
         }
+    });
 
-        function selectGrade(gradeName) {
-            document.getElementById('current-grade-title').textContent = "أنت تتصفح: " + gradeName;
-            switchPage('sections');
-        }
+    window.selectGrade = function(gradeName) {
+        document.getElementById('lessons-page-title').textContent = "دروس: " + gradeName;
+        switchPage('lessons-page');
+    }
 
-        function selectFoundationSections(gradeName) {
-            switchPage('foundation-sections');
-        }
+    window.selectFoundationSections = function(sectionName) {
+        document.getElementById('lessons-page-title').textContent = sectionName;
+        switchPage('lessons-page');
+    }
 
-        function toggleTheme() {
-            document.body.classList.toggle('pink-theme');
-            toggleSidebar(); // إغلاق القائمة بعد تغيير الثيم
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-    </script>
-
+    window.openAddLessonModal = function() {
+        showToast("خاصية إضافة الدرس جاهزة للربط مع قاعدة البيانات");
+    }
+</script>
 </body>
 </html>
