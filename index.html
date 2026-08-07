@@ -1194,195 +1194,677 @@
         </div>
     </div>
 
-    <!-- واجهة الصفوف والأقسام -->
-    <div id="grades" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>أقسام ومراحل المنصة</h2>
-                <p>اختر القسم المناسب للبدء بالتعلم</p>
-            </div>
-            <div class="card foundation" onclick="selectFoundationSections('قسم التأسيس الشامل')">
-                <h3>قسم التأسيس الشامل</h3>
-                <p>تأسيس قوي في القواعد والإملاء لكافة المراحل .</p>
-                <button class="btn btn-sm">دخول القسم</button>
-            </div>
-            <div class="grid">
-                <div class="card" onclick="switchPage('middle-school')">
-                    <h3>المرحلة الإعدادية</h3>
-                    <p>تتضمن السابع والثامن (لاحقاً) والتاسع.</p>
-                    <button class="btn btn-sm">تصفح الإعدادي</button>
-                </div>
-                <div class="card" onclick="switchPage('high-school')">
-                    <h3>المرحلة الثانوية</h3>
-                    <p>تتضمن القسم العلمي، الأدبي، والمهني.</p>
-                    <button class="btn btn-sm">تصفح الثانوي</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('home')">← العودة للرئيسية</button>
-        </div>
-    </div>
 
-    <!-- واجهة المرحلة الإعدادية -->
-    <div id="middle-school" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>المرحلة الإعدادية</h2>
-                <p>اختر الصف الدراسي المطلوب</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>الصف السابع</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card">
-                    <h3>الصف الثامن</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card" onclick="selectGrade('الصف التاسع')">
-                    <h3>الصف التاسع</h3>
-                    <p>الشهادة الإعدادية ومنهاجها الكامل.</p>
-                    <button class="btn btn-sm">اختر الصف</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة لاختيار المراحل</button>
-        </div>
-    </div>
 
-    <!-- واجهة المرحلة الثانوية -->
-    <div id="high-school" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>المرحلة الثانوية</h2>
-                <p>اختر الفرع أو القسم المناسب</p>
-            </div>
-            <div class="grid">
-                <div class="card" onclick="switchPage('science-branch')">
-                    <h3>القسم العلمي</h3>
-                    <p>عاشر، حادي عشر، وبكالوريا علمي.</p>
-                    <button class="btn btn-sm">تصفح العلمي</button>
-                </div>
-                <div class="card" onclick="selectGrade('بكالوريا أدبي')">
-                    <h3>قسم البكالوريا الأدبي</h3>
-                    <p>المنهاج الكامل وقواعد النصوص الخاصة بالأدبي.</p>
-                    <button class="btn btn-sm">اختر القسم</button>
-                </div>
-                <div class="card" onclick="selectGrade('بكالوريا مهني')">
-                    <h3>قسم البكالوريا المهني</h3>
-                    <p>قواعد، نصوص، واختبارات كاملة خاصة بالمهني.</p>
-                    <button class="btn btn-sm">اختر القسم</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة لاختيار المراحل</button>
-        </div>
-    </div>
+<!-- واجهة الصفوف والأقسام -->
+<div id="grades" class="page">
 
-    <!-- واجهة القسم العلمي -->
-    <div id="science-branch" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>القسم العلمي</h2>
-                <p>اختر الصف الدراسي العلمي</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>الصف العاشر العلمي</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card">
-                    <h3>الصف الحادي عشر العلمي</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">سيتوفر لاحقاً</p>
-                </div>
-                <div class="card" onclick="selectGrade('البكالوريا العلمي')">
-                    <h3>البكالوريا العلمي</h3>
-                    <p>التحضير الشامل ومتوفر بكافة أقسامه.</p>
-                    <button class="btn btn-sm">اختر الصف</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('high-school')">← العودة للمرحلة الثانوية</button>
-        </div>
-    </div>
-
-    <!-- الأقسام العامة العادية لأي صف متوفر -->
-    <div id="sections" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2 id="current-grade-title" style="color: var(--accent-color);">اسم الصف</h2>
-                <p>اختر القسم المطلوب</p>
-            </div>
-            <div class="grid">
-                <div class="card" onclick="switchPage('grammar-section')">
-                    <h3>قسم القواعد</h3>
-                    <p>شرح تفصيلي لأهم قواعد الإعراب والصناعة النحوية.</p>
-                    <button class="btn btn-sm">فتح القواعد</button>
-                </div>
-                <div class="card" onclick="switchPage('texts-section')">
-                    <h3>قسم النصوص</h3>
-                    <p>قراءة وتحليل النصوص والقصائد المقررة.</p>
-                    <button class="btn btn-sm">فتح النصوص</button>
-                </div>
-                <div class="card" onclick="switchPage('quiz-section')">
-                    <h3>قسم الاختبارات</h3>
-                    <p>اختبارات تفاعلية للفصول الدروس وتقييم فوري.</p>
-                    <button class="btn btn-sm">فتح الاختبارات</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('high-school')">← العودة للخلف</button>
-        </div>
-    </div>
-
-    <!-- أقسام التأسيس الشامل -->
-    <div id="foundation-sections" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2 style="color: var(--accent-color);">أنت تتصفح: قسم التأسيس الشامل</h2>
-                <p>اختر القسم المطلوب </p>
-            </div>
-            <div class="grid" style="max-width: 800px; margin: 0 auto;">
-                <div class="card" onclick="switchPage('grammar-section')">
-                    <h3>قسم القواعد</h3>
-                    <p>تأسيس قوي وواضح في القواعد والإملاء.</p>
-                    <button class="btn btn-sm">فتح القواعد</button>
-                </div>
-                <div class="card" onclick="switchPage('quiz-section')">
-                    <h3>قسم الاختبارات</h3>
-                    <p>اختبارات تقييمية للتدريب والتثبيت.</p>
-                    <button class="btn btn-sm">فتح الاختبارات</button>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('grades')">← العودة للخلف</button>
-        </div>
-    </div>
-
-    <!-- صفحة قواعد -->
-    <div id="grammar-section" class="page">
-    <div class="container" style="margin-top: 1.5rem;">
+    <div class="container" style="margin-top:1.5rem;">
 
         <div class="section-header">
-            <h2>قسم القواعد</h2>
-            <p>دروس النحو والصرف والإملاء</p>
+            <h2>أقسام ومراحل المنصة</h2>
+            <p>اختر القسم المناسب للبدء بالتعلم</p>
         </div>
 
 
-        <!-- زر إضافة درس للأستاذ فقط -->
-        <div id="teacher-add-lesson" style="display:none; margin-bottom:1rem;">
-            <button class="btn btn-sm" onclick="openAddLesson()">
-                ➕ إضافة درس جديد
+        <!-- التأسيس -->
+        <div class="card foundation" onclick="selectFoundationSections('قسم التأسيس الشامل')">
+
+            <h3>قسم التأسيس الشامل</h3>
+
+            <p>
+                تأسيس قوي في القواعد والقراءة والنحو
+            </p>
+
+            <button class="btn btn-sm">
+                دخول القسم
             </button>
+
         </div>
 
-        <!-- نموذج إضافة درس للأستاذ -->
+
+        <div class="grid">
+
+
+            <div class="card" onclick="switchPage('middle-school')">
+
+                <h3>المرحلة الإعدادية</h3>
+
+                <p>
+                    الصف السابع والثامن والتاسع
+                </p>
+
+                <button class="btn btn-sm">
+                    تصفح الإعدادي
+                </button>
+
+            </div>
+
+
+
+            <div class="card" onclick="switchPage('high-school')">
+
+                <h3>المرحلة الثانوية</h3>
+
+                <p>
+                    العلمي والأدبي والمهني
+                </p>
+
+                <button class="btn btn-sm">
+                    تصفح الثانوي
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="bottom-back-container">
+
+        <button class="bottom-back-btn"
+        onclick="switchPage('home')">
+
+            ← العودة للرئيسية
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- المرحلة الإعدادية -->
+
+<div id="middle-school" class="page">
+
+
+<div class="container" style="margin-top:1.5rem;">
+
+
+<div class="section-header">
+
+<h2>المرحلة الإعدادية</h2>
+
+<p>اختر الصف الدراسي</p>
+
+</div>
+
+
+
+<div class="grid">
+
+
+
+<div class="card"
+onclick="selectGrade('الصف السابع')">
+
+<h3>الصف السابع</h3>
+
+<p>المنهاج الكامل</p>
+
+<button class="btn btn-sm">
+اختيار الصف
+</button>
+
+</div>
+
+
+
+
+<div class="card"
+onclick="selectGrade('الصف الثامن')">
+
+<h3>الصف الثامن</h3>
+
+<p>المنهاج الكامل</p>
+
+<button class="btn btn-sm">
+اختيار الصف
+</button>
+
+</div>
+
+
+
+
+
+<div class="card"
+onclick="selectGrade('الصف التاسع')">
+
+<h3>الصف التاسع</h3>
+
+<p>الشهادة الإعدادية</p>
+
+<button class="btn btn-sm">
+اختيار الصف
+</button>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="bottom-back-container">
+
+<button class="bottom-back-btn"
+onclick="switchPage('grades')">
+
+← العودة للمراحل
+
+</button>
+
+</div>
+
+
+</div>
+
+
+
+<!-- المرحلة الثانوية -->
+
+<div id="high-school" class="page">
+
+
+<div class="container" style="margin-top:1.5rem;">
+
+
+<div class="section-header">
+
+<h2>المرحلة الثانوية</h2>
+
+<p>اختر الفرع</p>
+
+</div>
+
+
+
+<div class="grid">
+
+
+<div class="card"
+onclick="switchPage('science-branch')">
+
+<h3>القسم العلمي</h3>
+
+<p>
+عاشر وحادي عشر وبكالوريا
+</p>
+
+<button class="btn btn-sm">
+تصفح العلمي
+</button>
+
+</div>
+
+
+
+
+<div class="card"
+onclick="selectGrade('بكالوريا أدبي')">
+
+<h3>البكالوريا الأدبي</h3>
+
+<p>
+المنهاج الكامل
+</p>
+
+<button class="btn btn-sm">
+اختيار القسم
+</button>
+
+</div>
+
+
+
+
+<div class="card"
+onclick="selectGrade('بكالوريا مهني')">
+
+<h3>البكالوريا المهني</h3>
+
+<p>
+القواعد والنصوص والاختبارات
+</p>
+
+<button class="btn btn-sm">
+اختيار القسم
+</button>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="bottom-back-container">
+
+<button class="bottom-back-btn"
+onclick="switchPage('grades')">
+
+← العودة للمراحل
+
+</button>
+
+</div>
+
+
+</div>
+<!-- القسم العلمي -->
+
+<div id="science-branch" class="page">
+
+<div class="container" style="margin-top:1.5rem;">
+
+<div class="section-header">
+
+<h2>القسم العلمي</h2>
+
+<p>اختر الصف الدراسي</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card"
+onclick="selectGrade('الصف العاشر العلمي')">
+
+<h3>الصف العاشر العلمي</h3>
+
+<p>المنهاج الكامل</p>
+
+<button class="btn btn-sm">
+اختيار الصف
+</button>
+
+</div>
+
+
+
+<div class="card"
+onclick="selectGrade('الصف الحادي عشر العلمي')">
+
+<h3>الصف الحادي عشر العلمي</h3>
+
+<p>المنهاج الكامل</p>
+
+<button class="btn btn-sm">
+اختيار الصف
+</button>
+
+</div>
+
+
+
+<div class="card"
+onclick="selectGrade('البكالوريا العلمي')">
+
+<h3>البكالوريا العلمي</h3>
+
+<p>التحضير الشامل</p>
+
+<button class="btn btn-sm">
+اختيار الصف
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div class="bottom-back-container">
+
+<button class="bottom-back-btn"
+onclick="switchPage('high-school')">
+
+← العودة للثانوي
+
+</button>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- الأقسام العامة لكل صف -->
+
+<div id="sections" class="page">
+
+
+<div class="container" style="margin-top:1.5rem;">
+
+
+<div class="section-header">
+
+<h2 id="current-grade-title">
+اسم الصف
+</h2>
+
+<p>
+اختر القسم المطلوب
+</p>
+
+
+</div>
+
+
+
+
+<div class="grid">
+
+
+<div class="card"
+onclick="openSection('grammar')">
+
+<h3>قسم القواعد</h3>
+
+<p>
+شرح القواعد والإعراب
+</p>
+
+<button class="btn btn-sm">
+فتح القواعد
+</button>
+
+</div>
+
+
+
+
+<div class="card"
+onclick="openSection('reading')">
+
+<h3>قسم القراءة</h3>
+
+<p>
+دروس القراءة والمطالعة
+</p>
+
+<button class="btn btn-sm">
+فتح القراءة
+</button>
+
+</div>
+
+
+
+
+
+<div class="card"
+onclick="openSection('nahw')">
+
+<h3>قسم النحو</h3>
+
+<p>
+النحو والصرف
+</p>
+
+<button class="btn btn-sm">
+فتح النحو
+</button>
+
+</div>
+
+
+
+
+
+<div class="card"
+onclick="openSection('texts')">
+
+<h3>قسم النصوص</h3>
+
+<p>
+تحليل النصوص والقصائد
+</p>
+
+<button class="btn btn-sm">
+فتح النصوص
+</button>
+
+</div>
+
+
+
+
+
+<div class="card"
+onclick="switchPage('quiz-section')">
+
+<h3>قسم الاختبارات</h3>
+
+<p>
+اختبارات وتقييمات
+</p>
+
+<button class="btn btn-sm">
+فتح الاختبارات
+</button>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="bottom-back-container">
+
+<button class="bottom-back-btn"
+onclick="switchPage('grades')">
+
+← العودة للمراحل
+
+</button>
+
+</div>
+
+
+</div>
+<!-- قسم التأسيس الشامل -->
+
+<div id="foundation-sections" class="page">
+
+
+<div class="container" style="margin-top:1.5rem;">
+
+
+<div class="section-header">
+
+<h2>
+قسم التأسيس الشامل
+</h2>
+
+<p>
+اختر القسم المطلوب
+</p>
+
+</div>
+
+
+
+<div class="grid">
+
+
+
+<div class="card"
+onclick="openSection('grammar')">
+
+<h3>
+القواعد
+</h3>
+
+<p>
+تأسيس القواعد والإملاء
+</p>
+
+<button class="btn btn-sm">
+فتح القواعد
+</button>
+
+</div>
+
+
+
+
+<div class="card"
+onclick="openSection('reading')">
+
+<h3>
+القراءة
+</h3>
+
+<p>
+تأسيس القراءة والمطالعة
+</p>
+
+<button class="btn btn-sm">
+فتح القراءة
+</button>
+
+</div>
+
+
+
+
+<div class="card"
+onclick="openSection('nahw')">
+
+<h3>
+النحو
+</h3>
+
+<p>
+أساسيات النحو والصرف
+</p>
+
+<button class="btn btn-sm">
+فتح النحو
+</button>
+
+</div>
+
+
+
+
+<div class="card"
+onclick="switchPage('quiz-section')">
+
+<h3>
+الاختبارات
+</h3>
+
+<p>
+اختبارات تثبيت ومراجعة
+</p>
+
+<button class="btn btn-sm">
+فتح الاختبارات
+</button>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="bottom-back-container">
+
+<button class="bottom-back-btn"
+onclick="switchPage('grades')">
+
+← العودة للمراحل
+
+</button>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- صفحة عرض الدروس الموحدة -->
+
+<div id="grammar-section" class="page">
+
+
+<div class="container" style="margin-top:1.5rem;">
+
+
+<div class="section-header">
+
+<h2 id="dynamic-section-title">
+قسم القواعد
+</h2>
+
+<p id="dynamic-section-desc">
+دروس القسم
+</p>
+
+</div>
+
+
+
+
+
+<!-- زر الأستاذ -->
+
+<div id="teacher-add-lesson"
+style="display:none;margin-bottom:1rem;">
+
+
+<button class="btn btn-sm"
+onclick="openAddLesson()">
+
+إضافة درس ➕
+
+</button>
+
+
+</div>
+
+
+
+
+
+  <!-- نموذج إضافة درس للأستاذ -->
 <div id="add-lesson-form" style="display:none; margin-top:1.5rem;">
 
     <div class="card" style="max-width:600px; margin:auto;">
@@ -1418,16 +1900,28 @@
                   "></textarea>
 
 
-        <div style="margin-bottom:12px;">
-           <label class="file-upload">🎥 اختيار فيديو الدرس
-    <input id="lesson-video" type="file" accept="video/*"></label>
-        </div>
+        <input id="lesson-video"
+type="text"
+placeholder="رابط فيديو اليوتيوب 🎥"
+style="
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border-radius:10px;
+border:1px solid #ddd;
+">
 
 
-        <div style="margin-bottom:15px;">
-            <label class="file-upload">📄 اختيار ملف PDF
-         <input id="lesson-pdf" type="file" accept="application/pdf"></label>
-        </div>
+<input id="lesson-pdf"
+type="text"
+placeholder="رابط ملف PDF 📄"
+style="
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border-radius:10px;
+border:1px solid #ddd;
+">
 
 
         <button class="btn btn-sm" onclick="saveLesson()">
@@ -1438,74 +1932,148 @@
 
 </div>
 
-        <!-- مكان الدروس -->
-        <div class="grid" id="grammar-lessons">
-
-            <!-- هذا فقط للتجربة ونحذفه لاحقاً -->
-            <div class="card">
-                <h3>الدرس الأول</h3>
-                <p style="color: var(--accent-color); font-weight:700;">
-                    ستتوفر لاحقاً
-                </p>
-            </div>
-
-        </div>
-
-    </div>
 
 
-    <div class="bottom-back-container">
-        <button class="bottom-back-btn" onclick="switchPage('foundation-sections')">
-            العودة للأقسام ←
-        </button>
-    </div>
+
+<!-- مكان الدروس -->
+
+<div class="grid"
+id="grammar-lessons">
+
+
+<div class="card">
+
+<h3>
+جاري تحميل الدروس...
+</h3>
+
 </div>
 
 
-    <!-- صفحة نصوص -->
-    <div id="texts-section" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>قسم النصوص</h2>
-                <p>التحليل الأدبي والقصائد</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>النص الأول</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">ستتوفر لاحقاً</p>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('sections')">← العودة للأقسام</button>
-        </div>
-    </div>
+</div>
 
-    <!-- صفحة اختبارات -->
-    <div id="quiz-section" class="page">
-        <div class="container" style="margin-top: 1.5rem;">
-            <div class="section-header">
-                <h2>قسم الاختبارات</h2>
-                <p>تقييم شامل واختبارات فصول</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>اختبار الفصل الأول</h3>
-                    <p style="color: var(--accent-color); font-weight: 700; margin-top: 0.4rem;">ستتوفر لاحقاً</p>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-back-container">
-            <button class="bottom-back-btn" onclick="switchPage('sections')">← العودة للأقسام</button>
-        </div>
-    </div>
 
-    <!-- الفوتر -->
+
+</div>
+
+
+
+
+
+<div class="bottom-back-container">
+
+<button class="bottom-back-btn"
+onclick="switchPage('sections')">
+
+← العودة للأقسام
+
+</button>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- صفحة الاختبارات -->
+
+<div id="quiz-section" class="page">
+
+
+<div class="container" style="margin-top:1.5rem;">
+
+
+<div class="section-header">
+
+<h2>
+قسم الاختبارات
+</h2>
+
+<p>
+اختبارات وتقييمات
+</p>
+
+</div>
+
+
+
+<div class="grid"
+id="quiz-lessons">
+
+
+<div class="card">
+
+<h3>
+لا يوجد اختبارات حالياً
+</h3>
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="bottom-back-container">
+
+<button class="bottom-back-btn"
+onclick="switchPage('sections')">
+
+← العودة للأقسام
+
+</button>
+
+</div>
+
+
+</div>
+
+
+
+<!-- الفوتر -->
     <footer>
         <p>جميع حقوق الطبع محفوظة © 2026 | منصة الأستاذ نادر الحصني للتفوق الدراسي</p>
     </footer>
 
     <script>
+        
+let currentGrade= "";
+let currentSection= "";
+
+function openSection(sectionName){
+
+         currentSection = sectionName;
+   
+
+    const titles = {
+        grammar: "قسم القواعد",
+        reading: "قسم القراءة",
+        nahw: "قسم النحو",
+        texts: "قسم النصوص"
+    };
+
+    const desc = {
+        grammar: "دروس القواعد",
+        reading: "دروس القراءة",
+        nahw: "دروس النحو",
+        texts: "شرح وتحليل النصوص"
+    };
+
+    document.getElementById("dynamic-section-title").textContent =
+        titles[sectionName];
+
+    document.getElementById("dynamic-section-desc").textContent =
+        desc[sectionName];
+
+    switchPage("grammar-section");
+}
 
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page');
@@ -1520,12 +2088,19 @@
             }
         }
 
-        function selectGrade(gradeName) {
-            document.getElementById('current-grade-title').textContent = "أنت تتصفح: " + gradeName;
-            switchPage('sections');
-        }
+       function selectGrade(gradeName) {
+
+    currentGrade = gradeName;
+
+    document.getElementById('current-grade-title').textContent =
+    "أنت تتصفح: " + gradeName;
+
+    switchPage('sections');
+
+}
 
         function selectFoundationSections(gradeName) {
+             currentGrade = gradeName;
             switchPage('foundation-sections');
         }
 
@@ -2762,39 +3337,68 @@ window.saveLesson = async function(){
     const title = document.getElementById("lesson-title").value.trim();
     const description = document.getElementById("lesson-description").value.trim();
 
+    const videoUrl = document.getElementById("lesson-video").value.trim();
+    const pdfUrl = document.getElementById("lesson-pdf").value.trim();
+
 
     if(!title || !description){
+
         showToast("⚠️ اكتب اسم الدرس والوصف");
         return;
+
     }
 
 
-    try {
+    try{
+
 
         await addDoc(collection(db, "foundation-lessons"), {
+
             title: title,
+
             description: description,
+
+            videoUrl: videoUrl,
+
+            pdfUrl: pdfUrl,
+
+            grade: currentGrade,
+
+            section: currentSection,
+
             createdAt: new Date()
+
         });
+
 
 
         showToast("✅ تم حفظ الدرس بنجاح");
 
 
-       document.getElementById("add-lesson-form").style.display = "none";
 
-        document.getElementById("lesson-title").value = "";
-        document.getElementById("lesson-description").value = "";
+        document.getElementById("add-lesson-form").style.display="none";
 
 
-    } catch(error){
+        document.getElementById("lesson-title").value="";
+        document.getElementById("lesson-description").value="";
+        document.getElementById("lesson-video").value="";
+        document.getElementById("lesson-pdf").value="";
 
-        console.log("خطا الحفظ",error);
+
+        loadGrammarLessons();
+
+
+
+    }catch(error){
+
+        console.log("خطأ الحفظ",error);
+
         showToast("❌ حدث خطأ أثناء حفظ الدرس");
 
     }
 
 }
+
 
 window.loadGrammarLessons = async function(){
 
@@ -2823,27 +3427,217 @@ window.loadGrammarLessons = async function(){
 
     snapshot.forEach((doc)=>{
 
-        const lesson = doc.data();
+    const lesson = doc.data();
 
 
-        container.innerHTML += `
+    let videoHTML = "";
 
-        <div class="card">
+    if(lesson.videoUrl){
 
-            <h3>${lesson.title}</h3>
+        let videoId = "";
 
-           <p class="lesson-description">${lesson.description}</p>
+        if(lesson.videoUrl.includes("watch?v=")){
 
-           ${isTeacher ? `
-          <button class="btn btn-sm" onclick="deleteLesson('${doc.id}')">
-          🗑️ حذف الدرس </button> ` : ""}
-        </div>
+            videoId = lesson.videoUrl.split("watch?v=")[1].split("&")[0];
 
-        `;
+        }
 
-    });
+        else if(lesson.videoUrl.includes("youtu.be/")){
+
+            videoId = lesson.videoUrl.split("youtu.be/")[1];
+
+        }
+
+
+        if(videoId){
+
+            videoHTML = `
+
+            <iframe
+
+            width="100%"
+
+            height="250"
+
+            src="https://www.youtube.com/embed/${videoId}"
+
+            frameborder="0"
+
+            allowfullscreen>
+
+            </iframe>
+
+            `;
+
+        }
+
+    }
+
+
+
+    container.innerHTML += `
+
+    <div class="card">
+
+        <h3>${lesson.title}</h3>
+
+
+        <p class="lesson-description">
+
+        ${lesson.description}
+
+        </p>
+
+
+        
+${lesson.videoUrl ? `
+<button class="btn btn-sm" onclick="openVideo('${lesson.videoUrl}')">
+▶️ مشاهدة الفيديو
+</button>
+` : ""}
+
+
+
+       
+  id="1m7j9a"  
+${lesson.pdfUrl ? `
+
+<button class="btn btn-sm" onclick="downloadPDF('${lesson.pdfUrl}')"> 📄 تحميل ملف PDF</button>
+
+` : ""}
+
+
+
+        ${isTeacher ? `
+
+        <button class="btn btn-sm"
+
+        onclick="deleteLesson('${doc.id}')">
+
+        🗑️ حذف الدرس
+
+        </button>
+
+        ` : ""}
+
+
+    </div>
+
+    `;
+
+
+});
+}
+
+
+
+
+window.openVideo = function(url){
+
+let videoId = "";
+
+if(url.includes("watch?v=")){
+    videoId = url.split("watch?v=")[1].split("&")[0];
+}
+
+else if(url.includes("youtu.be/")){
+    videoId = url.split("youtu.be/")[1];
+}
+
+
+document.body.innerHTML += `
+
+<div id="video-box"
+style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000b;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+">
+
+<div>
+
+<iframe
+width="700"
+height="400"
+src="https://www.youtube.com/embed/${videoId}"
+allowfullscreen>
+</iframe>
+
+
+<br>
+
+<button onclick="closeVideo()"
+class="btn btn-sm">
+إغلاق ❌
+</button>
+
+
+</div>
+
+</div>
+
+`;
 
 }
+
+
+
+window.closeVideo=function(){
+
+document.getElementById("video-box").remove();
+
+}
+
+
+window.downloadPDF = function(url){
+
+    showToast("⏳ جاري بدء تحميل ملف PDF...");
+
+
+    try{
+
+        const link = document.createElement("a");
+
+        link.href = url;
+
+        link.target = "_blank";
+
+        link.download = "lesson.pdf";
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+
+        showToast("✅ بدأ تحميل الملف");
+
+
+    }catch(error){
+
+        console.log(error);
+
+        showToast("❌ فشل تحميل الملف");
+
+    }
+
+}
+
+
+
+
+
+
+
 
 
 let lessonToDelete = null;
@@ -2961,7 +3755,6 @@ window.confirmActionDone = function(){
     confirmAction = "";
 
 };
-
 
 
 </script>
