@@ -925,6 +925,73 @@
 
 
 
+
+
+
+.urgent-bar{
+    width:100%;
+    background:#d90429;
+    color:white;
+    padding:10px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    overflow:hidden;
+}
+
+
+.urgent-title{
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+
+.urgent-text-box{
+    flex:1;
+    overflow:hidden;
+}
+
+
+.urgent-text{
+    white-space:nowrap;
+    animation:moveUrgent 12s linear infinite;
+}
+
+
+#edit-announcement-btn{
+    background:white;
+    color:#d90429;
+    border:none;
+    padding:6px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+
+@keyframes moveUrgent{
+
+    from{
+        transform:translateX(100%);
+    }
+
+    to{
+        transform:translateX(-100%);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -2037,10 +2104,91 @@ onclick="switchPage('sections')">
 
 
 
+
+<div id="urgent-bar" class="urgent-bar">
+
+    <div class="urgent-title">
+        🔴 عاجل:
+    </div>
+
+    <div class="urgent-text-box">
+        <div class="urgent-text">
+            سيتم نشر الدروس الجديدة قريباً
+        </div>
+    </div>
+
+    <button id="edit-announcement-btn"
+    onclick="openAnnouncementEdit()"
+    style="display:none;">
+        ✏️ تعديل
+    </button>
+
+</div>
+
+<div id="announcement-edit-page" class="page">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn btn-sm"
+            onclick="closeAnnouncementEdit()">
+                ⬅️ مغادرة
+            </button>
+
+
+            <h2 style="margin-top:20px;">
+                📢 تعديل الشريط العاجل
+            </h2>
+
+
+            <textarea
+            id="announcement-text"
+            placeholder="اكتب رسالة الشريط العاجل"
+            style="
+            width:100%;
+            min-height:120px;
+            padding:12px;
+            border-radius:10px;
+            margin-top:15px;
+            "></textarea>
+
+
+            <button
+            class="btn"
+            style="margin-top:15px;"
+            onclick="saveAnnouncement()">
+
+                💾 حفظ
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 <!-- الفوتر -->
     <footer>
         <p>جميع حقوق الطبع محفوظة © 2026 | منصة الأستاذ نادر الحصني للتفوق الدراسي</p>
     </footer>
+
+
+
+
+
+
 
     <script>
         
@@ -2514,6 +2662,24 @@ onAuthStateChanged(auth, async (user) => {
                 adminMenu.style.display = "none";
 
             }
+            
+
+const editBtn = document.getElementById("edit-announcement-btn");
+
+if(editBtn){
+
+    if(isTeacher){
+        editBtn.style.display = "block";
+    }else{
+        editBtn.style.display = "none";
+    }
+
+}
+
+
+
+
+
 
         }
 
@@ -3331,6 +3497,55 @@ document.getElementById("save-student-btn")
 
 
 };
+
+window.openAnnouncementEdit = function(){
+
+    document.getElementById("announcement-edit-page")
+    .style.display="block";
+
+
+    document.getElementById("announcement-text").value =
+    document.querySelector(".urgent-text").textContent.replace("🔴 ","");
+
+};
+
+
+
+window.closeAnnouncementEdit = function(){
+
+    document.getElementById("announcement-edit-page")
+    .style.display="none";
+
+};
+
+
+
+window.saveAnnouncement = function(){
+
+    const text = document.getElementById("announcement-text").value.trim();
+
+    if(!text){
+        showToast("⚠️ اكتب الرسالة أولاً");
+        return;
+    }
+
+
+    document.querySelector(".urgent-text").textContent =
+    "🔴 " + text;
+
+
+    closeAnnouncementEdit();
+
+    showToast("✅ تم تعديل الشريط");
+
+};
+
+
+
+
+
+
+
 
 window.saveLesson = async function(){
 
