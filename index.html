@@ -929,15 +929,23 @@
 
 
 .urgent-bar{
+    position:fixed;
+    bottom:0;
+    left:0;
     width:100%;
+    z-index:9998;
+
     background:#d90429;
     color:white;
-    padding:10px;
+    padding:10px 15px;
+
     display:flex;
     align-items:center;
-    gap:15px;
     overflow:hidden;
+    box-sizing:border-box;
 }
+
+
 
 
 .urgent-title{
@@ -969,17 +977,25 @@
 }
 
 
+
+
+
 @keyframes moveUrgent{
-
     from{
-        transform:translateX(100%);
-    }
-
-    to{
         transform:translateX(-100%);
     }
 
+    to{
+        transform:translateX(100%);
+    }
 }
+
+
+
+body{
+    padding-bottom:55px;
+}
+
 
 
 
