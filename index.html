@@ -3558,7 +3558,7 @@ window.openVideo = function(url){
     left:0;
     width:100%;
     height:100%;
-    background:#000;
+    background:rgba(0,0,0,0.85);
     z-index:9999;
     display:flex;
     align-items:center;
@@ -3570,31 +3570,46 @@ window.openVideo = function(url){
 
         <div style="
         width:100%;
-        max-width:900px;
-        text-align:center;
+        max-width:1000px;
+        background:#fff;
+        padding:12px;
+        border-radius:15px;
         ">
 
 
-            <iframe
-
-            style="
+            <div style="
+            position:relative;
             width:100%;
-            aspect-ratio:16/9;
-            display:block;
-            border-radius:12px;
-            "
+            padding-top:56.25%;
+            ">
 
-            src="https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1&controls=1"
 
-            title="درس المنصة"
+                <iframe
 
-            frameborder="0"
+                style="
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+                border:0;
+                border-radius:12px;
+                "
 
-            allow="autoplay; encrypted-media; picture-in-picture"
+                src="https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1&controls=1"
 
-            allowfullscreen>
+                title="درس المنصة"
 
-            </iframe>
+                frameborder="0"
+
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+
+                allowfullscreen>
+
+                </iframe>
+
+
+            </div>
 
 
             <button
@@ -3603,6 +3618,7 @@ window.openVideo = function(url){
 
             style="
             margin-top:15px;
+            width:100%;
             "
 
             onclick="closeVideo()">
@@ -3621,6 +3637,17 @@ window.openVideo = function(url){
 
 };
 
+
+
+window.closeVideo = function(){
+
+    const videoBox = document.getElementById("video-box");
+
+    if(videoBox){
+        videoBox.remove();
+    }
+
+};
 
 
 window.closeVideo = function(){
