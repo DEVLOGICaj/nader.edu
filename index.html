@@ -3499,7 +3499,7 @@ ${lesson.videoUrl ? `
 
 
        
-  id="1m7j9a"  
+  
 ${lesson.pdfUrl ? `
 
 <button class="btn btn-sm" onclick="downloadPDF('${lesson.pdfUrl}')"> 📄 تحميل ملف PDF</button>
@@ -3534,59 +3534,114 @@ ${lesson.pdfUrl ? `
 
 window.openVideo = function(url){
 
-let videoId = "";
+    let videoId = "";
 
-if(url.includes("watch?v=")){
-    videoId = url.split("watch?v=")[1].split("&")[0];
-}
+    if(url.includes("watch?v=")){
+        videoId = url.split("watch?v=")[1].split("&")[0];
+    }
+    else if(url.includes("youtu.be/")){
+        videoId = url.split("youtu.be/")[1].split("?")[0];
+    }
 
-else if(url.includes("youtu.be/")){
-    videoId = url.split("youtu.be/")[1];
-}
-
-
-document.body.innerHTML += `
-
-<div id="video-box"
-style="
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#000b;
-z-index:9999;
-display:flex;
-align-items:center;
-justify-content:center;
-">
-
-<div>
-
-<iframe
-width="700"
-height="400"
-src="https://www.youtube.com/embed/${videoId}"
-allowfullscreen>
-</iframe>
+    if(!videoId){
+        showToast("❌ رابط الفيديو غير صالح");
+        return;
+    }
 
 
-<br>
+    document.body.insertAdjacentHTML("beforeend",`
 
-<button onclick="closeVideo()"
-class="btn btn-sm">
-إغلاق ❌
-</button>
+    <div id="video-box"
+    style="
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    box-sizing:border-box;
+    ">
 
 
-</div>
+        <div style="
+        width:100%;
+        max-width:900px;
+        text-align:center;
+        ">
 
-</div>
 
-`;
+            <iframe
 
-}
+            style="
+            width:100%;
+            aspect-ratio:16/9;
+            display:block;
+            border-radius:12px;
+            "
 
+            src="https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1&controls=1"
+
+            title="درس المنصة"
+
+            frameborder="0"
+
+            allow="autoplay; encrypted-media; picture-in-picture"
+
+            allowfullscreen>
+
+            </iframe>
+
+
+            <button
+
+            class="btn btn-sm"
+
+            style="
+            margin-top:15px;
+            "
+
+            onclick="closeVideo()">
+
+            إغلاق ❌
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+    `);
+
+};
+
+
+
+window.closeVideo = function(){
+
+    const videoBox = document.getElementById("video-box");
+
+    if(videoBox){
+        videoBox.remove();
+    }
+
+};
+
+window.closeVideo = function(){
+
+    const box = document.getElementById("video-box");
+
+    if(box){
+        box.remove();
+    }
+
+};
 
 
 window.closeVideo=function(){
