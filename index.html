@@ -2631,7 +2631,7 @@ document.getElementById("logout-btn").onclick=function(){
 
 // مراقبة الحساب
 let isTeacher = false ;
-
+   loadAnnouncement();
 onAuthStateChanged(auth, async (user) => {
 
     
@@ -2640,6 +2640,9 @@ onAuthStateChanged(auth, async (user) => {
     const adminMenu = document.getElementById("admin-menu");
 
     if (user) {
+
+
+       
 
         logoutItem.style.display = "block";
 
@@ -3520,7 +3523,7 @@ window.closeAnnouncementEdit = function(){
 
 
 
-window.saveAnnouncement = function(){
+window.saveAnnouncement = async function(){
 
     const text = document.getElementById("announcement-text").value.trim();
 
@@ -3530,15 +3533,38 @@ window.saveAnnouncement = function(){
     }
 
 
-    document.querySelector(".urgent-text").textContent =
-    "🔴 " + text;
+    await setDoc(
+        doc(db,"settings","announcement"),
+        {
+            message:text
+        }
+    );
 
+
+    showToast("✅ تم حفظ الشريط");
 
     closeAnnouncementEdit();
 
-    showToast("✅ تم تعديل الشريط");
+};
+
+
+window.loadAnnouncement = async function(){
+
+    const snap = await getDoc(
+        doc(db,"settings","announcement")
+    );
+
+
+    if(snap.exists()){
+
+        document.querySelector(".urgent-text").textContent =
+        snap.data().message;
+
+    }
 
 };
+
+
 
 
 
