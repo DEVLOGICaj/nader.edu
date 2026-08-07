@@ -2631,7 +2631,7 @@ document.getElementById("logout-btn").onclick=function(){
 
 // مراقبة الحساب
 let isTeacher = false ;
-   
+
 onAuthStateChanged(auth, async (user) => {
 
     
@@ -2642,7 +2642,7 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
 
 
-       
+        
 
         logoutItem.style.display = "block";
 
@@ -3523,7 +3523,7 @@ window.closeAnnouncementEdit = function(){
 
 
 
-window.saveAnnouncement = async function(){
+window.saveAnnouncement = function(){
 
     const text = document.getElementById("announcement-text").value.trim();
 
@@ -3533,20 +3533,15 @@ window.saveAnnouncement = async function(){
     }
 
 
-    await setDoc(
-        doc(db,"settings","announcement"),
-        {
-            message:text
-        }
-    );
+    document.querySelector(".urgent-text").textContent =
+    text;
 
-
-    showToast("✅ تم حفظ الشريط");
 
     closeAnnouncementEdit();
 
-};
+    showToast("✅ تم تعديل الشريط");
 
+};
 
 window.loadAnnouncement = async function(){
 
@@ -3564,8 +3559,8 @@ window.loadAnnouncement = async function(){
 
 };
 
-
 loadAnnouncement();
+
 
 
 
