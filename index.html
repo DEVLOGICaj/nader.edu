@@ -2482,12 +2482,12 @@ onclick="switchPage('sections')">
 
 
         <!-- ================================================= -->
-        <!-- 3 - أجب وأتمم -->
+        <!-- 3 - أجب و اختار -->
         <!-- ================================================= -->
 
         <div class="card quiz-box">
 
-            <h3>📝 أجب وأتمم</h3>
+            <h3>📝 أجب و اختار</h3>
 
             <!-- زر تعديل القائمة -->
             <button
@@ -2515,7 +2515,7 @@ onclick="switchPage('sections')">
                     type="button"
                     class="quiz-add-btn"
                     onclick="openAddQuiz('complete-fill')">
-                    📝 إضافة أتمم
+                    📝 إضافة اختياري
                 </button>
 
             </div>
@@ -2554,9 +2554,9 @@ onclick="switchPage('sections')">
 
 
 
-            <!-- ================= قسم أتمم ================= -->
+            <!-- ================= قسم اختر ================= -->
 
-            <h4>📝 أتمم</h4>
+            <h4>📝 اختر</h4>
 
             <div class="quiz-item">
 
@@ -5180,7 +5180,7 @@ window.createQuizEditor = function(
     else if(type === "complete"){
 
         title =
-            "✏️ تعديل أسئلة أجب وأتمم";
+            "✏️ تعديل أسئلة أجب و اختر";
     }
 
 
@@ -5240,7 +5240,7 @@ window.createQuizEditor = function(
                 class="quiz-add-btn"
                 onclick="openAddQuiz('complete-fill')">
 
-                📝 إضافة سؤال أتمم
+                📝 إضافة سؤال اختر
 
             </button>
 
@@ -5415,7 +5415,7 @@ window.renderQuizEditorQuestions = function(
         else if(question.type === "complete"){
 
             typeName =
-                "📝 أتمم";
+                "📝 اختر";
         }
 
 
@@ -5569,7 +5569,7 @@ window.openAddQuiz = function(type){
 
         const title =
             finalType === "complete"
-                ? "📝 إضافة سؤال أتمم"
+                ? "📝 إضافة سؤال اختر"
                 : "➕ إضافة سؤال اختياري";
 
 
@@ -5962,7 +5962,7 @@ window.insertQuizItem = function(type){
 
 
     /* =====================================================
-       اختياري / أتمم
+       اختياري / 
        ===================================================== */
 
     else if(
