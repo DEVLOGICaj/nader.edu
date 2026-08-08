@@ -957,13 +957,13 @@
 .urgent-text-box{
     flex:1;
     overflow:hidden;
-     position: relative;
+    position: relative;
 }
 
 
 .urgent-text{
     display: inline-block;
-    white-space:nowrap;
+    white-space:pre-wrap;
     animation:moveUrgent 12s linear infinite;
 }
 
@@ -998,11 +998,253 @@ body{
     padding-bottom:55px;
 }
 
+/* ===== قسم الاختبارات ===== */
+
+.quiz-box{
+    margin-bottom:25px;
+    border-radius:18px;
+    padding:20px;
+    border:1px solid #ddd;
+}
+
+
+/* عنوان السؤال */
+
+.quiz-item{
+    margin-top:15px;
+    margin-bottom:15px;
+    padding:18px;
+    border-radius:14px;
+    background:#fafafa;
+    border:1px solid #e5e5e5;
+    direction:rtl;
+    text-align:right;
+}
+
+
+.quiz-item p{
+    font-size:19px;
+    font-weight:900;
+    color:#111;
+    margin-bottom:15px;
+}
+
+
+/* الاختيارات */
+
+.quiz-item label{
+    display:block;
+    direction:rtl;
+    text-align:right;
+    font-size:18px;
+    font-weight:700;
+    margin:10px 0;
+    cursor:pointer;
+}
+
+
+.quiz-item input[type="radio"]{
+    width:24px;
+    height:24px;
+    margin-left:10px;
+    vertical-align:middle;
+}
+
+
+
+/* مربع الإجابة */
+
+.quiz-item textarea{
+
+    width:100%;
+    min-height:120px;
+
+    direction:rtl;
+    text-align:right;
+
+    padding:12px;
+
+    font-size:17px;
+
+    border-radius:12px;
+
+    border:1px solid #ccc;
+
+    resize:vertical;
+
+}
 
 
 
 
 
+/* أزرار الإدارة */
+
+.admin-quiz-tools{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin:15px 0;
+
+}
+
+
+
+
+
+/* زر إرسال الطالب */
+
+.quiz-save-btn{
+
+    background:#ffc107;
+
+    color:#000;
+
+    font-weight:900;
+
+    border:none;
+
+    padding:13px 30px;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    margin-top:20px;
+
+}
+
+
+
+.quiz-save-btn:hover{
+
+    opacity:.85;
+
+}
+
+
+
+
+
+/* زر حفظ تعديلات المدير */
+
+.quiz-admin-save{
+
+    background:#28a745;
+
+    color:white;
+
+    font-weight:900;
+
+    border:none;
+
+    padding:13px 30px;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    margin-top:20px;
+
+}
+
+
+.quiz-admin-save:hover{
+
+    opacity:.85;
+
+}
+
+
+
+
+
+/* زر التعديل */
+
+.quiz-edit-btn{
+
+    background:#007bff;
+
+    color:white;
+
+    font-weight:800;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+/* زر الحذف */
+
+.quiz-delete-btn{
+
+    background:#dc3545;
+
+    color:white;
+
+    font-weight:800;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+/* زر الإضافة */
+
+.quiz-add-btn{
+
+    background:#17a2b8;
+
+    color:white;
+
+    font-weight:800;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+/* مسافات بين البطاقات */
+
+#quiz-section .card{
+
+    margin-bottom:25px;
+
+}
 
 
 
@@ -1738,41 +1980,21 @@ onclick="openSection('texts')">
 
 
 
-<div class="card"
-onclick="switchPage('quiz-section')">
-
+<div class="card" onclick="switchPage('quiz-section')">
 <h3>قسم الاختبارات</h3>
 
-<p>
-اختبارات وتقييمات
-</p>
+<p>اختبارات وتقييمات</p>
 
-<button class="btn btn-sm">
-فتح الاختبارات
-</button>
-
+<button class="btn btn-sm">فتح الاختبارات</button>
 </div>
-
-
 </div>
-
-
 </div>
-
-
-
-
 <div class="bottom-back-container">
 
-<button class="bottom-back-btn"
-onclick="switchPage('grades')">
+<button class="bottom-back-btn" onclick="switchPage('grades')">
 
-← العودة للمراحل
-
-</button>
-
+← العودة للمراحل </button>
 </div>
-
 
 </div>
 <!-- قسم التأسيس الشامل -->
@@ -2063,66 +2285,378 @@ onclick="switchPage('sections')">
 
 
 
-<!-- صفحة الاختبارات -->
-
+<!-- ================= صفحة الاختبارات ================= -->
 <div id="quiz-section" class="page">
 
+    <div class="container" style="margin-top:1.5rem;">
 
-<div class="container" style="margin-top:1.5rem;">
+        <!-- عنوان الصفحة -->
+        <div class="section-header">
+            <h2>📋 قسم الاختبارات</h2>
+            <p>اختبارات وتقييمات</p>
+        </div>
 
 
-<div class="section-header">
+        <!-- ================================================= -->
+        <!-- 1 - اختر الإجابة الصحيحة -->
+        <!-- ================================================= -->
 
-<h2>
-قسم الاختبارات
-</h2>
+        <div class="card quiz-box">
 
-<p>
-اختبارات وتقييمات
-</p>
+            <h3>✅ اختر الإجابة الصحيحة</h3>
+
+            <!-- زر تعديل القائمة -->
+            <button
+                type="button"
+                class="quiz-edit-btn"
+                onclick="editQuizList('multiple')">
+                ✏️ تعديل القائمة
+            </button>
+
+
+            <!-- أدوات المدير -->
+            <div
+                class="admin-quiz-tools"
+                id="multiple-admin-tools"
+                style="display:none;">
+
+                <button
+                    type="button"
+                    class="quiz-add-btn"
+                    onclick="openAddQuiz('multiple')">
+                    ➕ إضافة سؤال
+                </button>
+
+            </div>
+
+
+            <!-- السؤال الأول -->
+            <div class="quiz-item">
+
+                <p>1- ما هو الفعل؟</p>
+
+                <label>
+                    <input type="radio" name="multiple-q1">
+                    اسم
+                </label>
+
+                <label>
+                    <input type="radio" name="multiple-q1">
+                    فعل
+                </label>
+
+                <label>
+                    <input type="radio" name="multiple-q1">
+                    حرف
+                </label>
+
+
+                <!-- حذف السؤال - للمدير فقط -->
+                <div
+                    class="admin-quiz-tools"
+                    style="display:none;">
+
+                    <button
+                        type="button"
+                        class="quiz-delete-btn"
+                        onclick="deleteQuizQuestion(this)">
+                        🗑️ حذف السؤال
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- زر إرسال الطالب -->
+            <button
+                type="button"
+                class="quiz-save-btn">
+                📤 إرسال الاختبار
+            </button>
+
+
+            <!-- حفظ تعديلات المدير -->
+            <div
+                class="admin-quiz-tools"
+                style="display:none;">
+
+                <button
+                    type="button"
+                    class="quiz-admin-save"
+                    onclick="saveQuizChanges('multiple')">
+                    💾 حفظ التعديلات
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- 2 - أجب عن الأسئلة -->
+        <!-- ================================================= -->
+
+        <div class="card quiz-box">
+
+            <h3>✍️ أجب عن الأسئلة</h3>
+
+            <!-- زر تعديل القائمة -->
+            <button
+                type="button"
+                class="quiz-edit-btn"
+                onclick="editQuizList('answer')">
+                ✏️ تعديل القائمة
+            </button>
+
+
+            <!-- أدوات المدير -->
+            <div
+                class="admin-quiz-tools"
+                id="answer-admin-tools"
+                style="display:none;">
+
+                <button
+                    type="button"
+                    class="quiz-add-btn"
+                    onclick="openAddQuiz('answer')">
+                    ➕ إضافة سؤال
+                </button>
+
+            </div>
+
+
+            <!-- السؤال الأول -->
+            <div class="quiz-item">
+
+                <p>
+                    1- اشرح معنى الجملة التالية:
+                </p>
+
+                <textarea
+                    placeholder="اكتب إجابتك هنا..."></textarea>
+
+
+                <!-- حذف السؤال -->
+                <div
+                    class="admin-quiz-tools"
+                    style="display:none;">
+
+                    <button
+                        type="button"
+                        class="quiz-delete-btn"
+                        onclick="deleteQuizQuestion(this)">
+                        🗑️ حذف السؤال
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- زر إرسال الطالب -->
+            <button
+                type="button"
+                class="quiz-save-btn">
+                📤 إرسال الاختبار
+            </button>
+
+
+            <!-- حفظ تعديلات المدير -->
+            <div
+                class="admin-quiz-tools"
+                style="display:none;">
+
+                <button
+                    type="button"
+                    class="quiz-admin-save"
+                    onclick="saveQuizChanges('answer')">
+                    💾 حفظ التعديلات
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- 3 - أجب وأتمم -->
+        <!-- ================================================= -->
+
+        <div class="card quiz-box">
+
+            <h3>📝 أجب وأتمم</h3>
+
+            <!-- زر تعديل القائمة -->
+            <button
+                type="button"
+                class="quiz-edit-btn"
+                onclick="editQuizList('complete')">
+                ✏️ تعديل القائمة
+            </button>
+
+
+            <!-- أدوات المدير -->
+            <div
+                class="admin-quiz-tools"
+                id="complete-admin-tools"
+                style="display:none;">
+
+                <button
+                    type="button"
+                    class="quiz-add-btn"
+                    onclick="openAddQuiz('complete-answer')">
+                    ✍️ إضافة أجب
+                </button>
+
+                <button
+                    type="button"
+                    class="quiz-add-btn"
+                    onclick="openAddQuiz('complete-fill')">
+                    📝 إضافة أتمم
+                </button>
+
+            </div>
+
+
+
+            <!-- ================= قسم أجب ================= -->
+
+            <h4>✍️ أجب</h4>
+
+            <div class="quiz-item">
+
+                <p>
+                    1- أجب عن السؤال التالي:
+                </p>
+
+                <textarea
+                    placeholder="اكتب إجابتك هنا..."></textarea>
+
+
+                <!-- حذف السؤال -->
+                <div
+                    class="admin-quiz-tools"
+                    style="display:none;">
+
+                    <button
+                        type="button"
+                        class="quiz-delete-btn"
+                        onclick="deleteQuizQuestion(this)">
+                        🗑️ حذف السؤال
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= قسم أتمم ================= -->
+
+            <h4>📝 أتمم</h4>
+
+            <div class="quiz-item">
+
+                <p>
+                    1- أكمل الجملة التالية:
+                </p>
+
+
+                <label>
+                    <input
+                        type="radio"
+                        name="complete-q1">
+                    الخيار الأول
+                </label>
+
+
+                <label>
+                    <input
+                        type="radio"
+                        name="complete-q1">
+                    الخيار الثاني
+                </label>
+
+
+                <label>
+                    <input
+                        type="radio"
+                        name="complete-q1">
+                    الخيار الثالث
+                </label>
+
+
+                <!-- حذف السؤال -->
+                <div
+                    class="admin-quiz-tools"
+                    style="display:none;">
+
+                    <button
+                        type="button"
+                        class="quiz-delete-btn"
+                        onclick="deleteQuizQuestion(this)">
+                        🗑️ حذف السؤال
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- زر إرسال الطالب -->
+            <button
+                type="button"
+                class="quiz-save-btn">
+                📤 إرسال الاختبار
+            </button>
+
+
+            <!-- حفظ تعديلات المدير -->
+            <div
+                class="admin-quiz-tools"
+                style="display:none;">
+
+                <button
+                    type="button"
+                    class="quiz-admin-save"
+                    onclick="saveQuizChanges('complete')">
+                    💾 حفظ التعديلات
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <!-- نهاية container -->
+
+
+    <!-- العودة للأقسام -->
+    <div class="bottom-back-container">
+
+        <button
+            type="button"
+            class="bottom-back-btn"
+            onclick="switchPage('sections')">
+
+            ← العودة للأقسام
+
+        </button>
+
+    </div>
+
 
 </div>
 
 
 
-<div class="grid"
-id="quiz-lessons">
 
-
-<div class="card">
-
-<h3>
-لا يوجد اختبارات حالياً
-</h3>
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-
-<div class="bottom-back-container">
-
-<button class="bottom-back-btn"
-onclick="switchPage('sections')">
-
-← العودة للأقسام
-
-</button>
-
-</div>
-
-
-</div>
-
-
-
-
+<!-- شريط عاجل -->
 <div id="urgent-bar" class="urgent-bar">
 
     <div class="urgent-title">
@@ -2241,18 +2775,109 @@ function openSection(sectionName){
     switchPage("grammar-section");
 }
 
-        function switchPage(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+           
+
+function switchPage(pageId) {
+
+    const pages =
+        document.querySelectorAll('.page');
+
+    pages.forEach(page =>
+        page.classList.remove('active')
+    );
+
+
+    const targetPage =
+        document.getElementById(pageId);
+
+
+    if(targetPage){
+
+        targetPage.classList.add('active');
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+
+    /* =====================================================
+       قسم القواعد
+       ===================================================== */
+
+    if(pageId === "grammar-section"){
+
+        loadGrammarLessons();
+
+    }
+
+
+    /* =====================================================
+       قسم الاختبارات
+       ===================================================== */
+
+    if(pageId === "quiz-section"){
+
+        loadQuizQuestions().then(function(result){
+
+            if(!result){
+                return;
             }
-            if(pageId === "grammar-section"){
-                loadGrammarLessons();
+
+
+            /* الاختياري */
+
+            if(
+                Array.isArray(result.multiple)
+            ){
+
+                renderQuizcardQuestions(
+                    "multiple",
+                    result.multiple
+                );
+
             }
-        }
+
+
+            /* أجب */
+
+            if(
+                Array.isArray(result.answer)
+            ){
+
+                renderQuizcardQuestions(
+                    "answer",
+                    result.answer
+                );
+
+            }
+
+
+            /* أجب + اختياري */
+
+            if(
+                Array.isArray(result.complete)
+            ){
+
+                renderQuizcardQuestions(
+                    "complete",
+                    result.complete
+                );
+
+            }
+
+        });
+
+    }
+
+}
+
+
+
+
+
+
 
        function selectGrade(gradeName) {
 
@@ -2376,6 +3001,9 @@ import {
     addDoc,
     deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+ 
+window.getDoc = getDoc;
+window.doc= doc;
 
 
 
@@ -2395,6 +3023,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const db = getFirestore(app);
+window.db = db ;
 
 let confirmAction = "";
 
@@ -2648,23 +3277,20 @@ document.getElementById("logout-btn").onclick=function(){
 
 
 // مراقبة الحساب
-let isTeacher = false ;
+let isTeacher = false;
 
 onAuthStateChanged(auth, async (user) => {
-
-    
 
     const logoutItem = document.getElementById("logout-item");
     const adminMenu = document.getElementById("admin-menu");
 
     if (user) {
 
-
-        
-
         logoutItem.style.display = "block";
 
-        let snap = await getDoc(doc(db, "users", user.uid));
+        let snap = await getDoc(
+            doc(db, "users", user.uid)
+        );
 
         if (snap.exists()) {
 
@@ -2673,42 +3299,68 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById("user-name").textContent = data.name;
 
             if (data.role === "teacher") {
-               isTeacher = true ;
+
+                isTeacher = true;
                 adminMenu.style.display = "block";
                 loadStudents();
-            document.getElementById("teacher-add-lesson").style.display = "block";
-                
+
+                document.getElementById(
+                    "teacher-add-lesson"
+                ).style.display = "block";
+
             } else {
-                   isTeacher = false ;
+
+                isTeacher = false;
                 adminMenu.style.display = "none";
 
             }
-            
 
-const editBtn = document.getElementById("edit-announcement-btn");
+            document
+                .querySelectorAll(".quiz-edit-btn")
+                .forEach(btn => {
 
-if(editBtn){
+                    btn.style.display =
+                        isTeacher ? "inline-block" : "none";
 
-    if(isTeacher){
-        editBtn.style.display = "block";
-    }else{
-        editBtn.style.display = "none";
-    }
+                });
 
-}
+        }
 
+        const editBtn =
+            document.getElementById("edit-announcement-btn");
 
+        if (editBtn) {
 
-
-
+            editBtn.style.display =
+                isTeacher ? "block" : "none";
 
         }
 
     } else {
 
+        isTeacher = false;
+
         logoutItem.style.display = "none";
         adminMenu.style.display = "none";
+
         document.getElementById("user-name").textContent = "مرحباً";
+
+        document
+            .querySelectorAll(".quiz-edit-btn")
+            .forEach(btn => {
+
+                btn.style.display = "none";
+
+            });
+
+        const editBtn =
+            document.getElementById("edit-announcement-btn");
+
+        if (editBtn) {
+
+            editBtn.style.display = "none";
+
+        }
 
     }
 
@@ -3540,42 +4192,147 @@ window.closeAnnouncementEdit = function(){
 };
 
 
+/* =========================================================
+   حفظ شريط العاجل
+   ========================================================= */
 
-window.saveAnnouncement = function(){
+window.saveAnnouncement = async function(){
 
-    const text = document.getElementById("announcement-text").value.trim();
+    const input =
+        document.getElementById("announcement-text");
+
+    if(!input){
+        return;
+    }
+
+    const text =
+        input.value.trim();
 
     if(!text){
-        showToast("⚠️ اكتب الرسالة أولاً");
+
+        if(typeof showToast === "function"){
+            showToast("⚠️ اكتب الرسالة أولاً");
+        }
+
         return;
     }
 
 
-    document.querySelector(".urgent-text").textContent =
-    text;
+    try{
+
+        await setDoc(
+
+            doc(
+                db,
+                "settings",
+                "announcement"
+            ),
+
+            {
+                message: text,
+                updatedAt: new Date()
+            }
+
+        );
 
 
-    closeAnnouncementEdit();
+        /* تحديث الشريط مباشرة */
 
-    showToast("✅ تم تعديل الشريط");
+        const urgentText =
+            document.querySelector(
+                ".urgent-text"
+            );
 
-};
+        if(urgentText){
 
-window.loadAnnouncement = async function(){
-
-    const snap = await getDoc(
-        doc(db,"settings","announcement")
-    );
+            urgentText.textContent =
+                text;
+        }
 
 
-    if(snap.exists()){
+        closeAnnouncementEdit();
 
-        document.querySelector(".urgent-text").textContent =
-        snap.data().message;
+
+        if(typeof showToast === "function"){
+
+            showToast(
+                "✅ تم حفظ الشريط العاجل"
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "خطأ في حفظ الشريط العاجل:",
+            error
+        );
+
+
+        if(typeof showToast === "function"){
+
+            showToast(
+                "❌ تعذر حفظ الشريط العاجل"
+            );
+
+        }
 
     }
 
 };
+
+
+/* =========================================================
+   تحميل شريط العاجل
+   ========================================================= */
+
+window.loadAnnouncement = async function(){
+
+    try{
+
+        const snap =
+            await getDoc(
+                doc(
+                    db,
+                    "settings",
+                    "announcement"
+                )
+            );
+
+
+        if(snap.exists()){
+
+            const data =
+                snap.data();
+
+            const urgentText =
+                document.querySelector(
+                    ".urgent-text"
+                );
+
+            if(urgentText){
+
+                urgentText.textContent =
+                    data.message || "";
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "خطأ في تحميل الشريط العاجل:",
+            error
+        );
+
+    }
+
+};
+
+
+/* تحميل الشريط عند تشغيل الصفحة */
 
 loadAnnouncement();
 
@@ -4091,6 +4848,2374 @@ window.confirmActionDone = function(){
     confirmAction = "";
 
 };
+
+/* =========================================================
+   نظام الاختبارات - الجزء 1 / 3
+   ========================================================= */
+
+window.quizEditing = {
+    multiple: false,
+    answer: false,
+    complete: false
+};
+
+window.currentQuizType = null;
+
+window.quizQuestionsCache = {
+    multiple: [],
+    answer: [],
+    complete: []
+};
+
+window.quizDeleteTarget = null;
+
+
+/* =========================================================
+   حماية نصوص الأسئلة
+   ========================================================= */
+
+window.escapeQuizHTML = function(text){
+
+    return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+};
+
+function getQuizGrade(){
+
+    if(currentGrade === "الصف السابع"){
+        return "grade7";
+    }
+
+    if(currentGrade === "الصف الثامن"){
+        return "grade8";
+    }
+
+    if(currentGrade === "الصف التاسع"){
+        return "grade9";
+    }
+
+    if(currentGrade === "الصف العاشر العلمي"){
+        return "grade10";
+    }
+
+    if(currentGrade === "الصف الحادي عشر العلمي"){
+        return "grade11";
+    }
+
+    if(currentGrade === "البكالوريا العلمي"){
+        return "baccalaureate_scientific";
+    }
+
+    if(currentGrade === "بكالوريا ادبي"){
+        return "baccalaureate_literary";
+    }
+
+    if(currentGrade === "بكالوريا مهني"){
+        return "baccalaureate_vocational";
+    }
+
+    return "grade7";
+}
+
+
+/* =========================================================
+   مرجع أسئلة الاختبار في Firestore
+   ========================================================= */
+
+window.getQuizQuestionsRef = function(type){
+
+    const grade = getQuizGrade();
+
+    
+
+    if(!window.db){
+        throw new Error("window.db غير موجود");
+    }
+
+    if(!window.doc){
+        throw new Error("window.doc غير موجود");
+    }
+
+    if(!grade){
+        throw new Error("grade غير موجود");
+    }
+
+    if(!type){
+        throw new Error("type غير موجود");
+    }
+
+    return window.doc(
+        window.db,
+        "quizQuestions",
+        String(grade),
+        String(type),
+        "questions"
+    );
+};
+
+
+/* =========================================================
+   جلب بطاقة الاختبار
+   ========================================================= */
+
+window.getQuizCard = function(type){
+
+    let id = "";
+
+    if(type === "multiple"){
+        id = "multiple-admin-tools";
+    }
+
+    else if(type === "answer"){
+        id = "answer-admin-tools";
+    }
+
+    else if(type === "complete"){
+        id = "complete-admin-tools";
+    }
+
+    const tools =
+        document.getElementById(id);
+
+    if(!tools){
+        return null;
+    }
+
+    return tools.closest(".quiz-box");
+};
+
+
+/* =========================================================
+   مرجع أسئلة الاختبار في Firestore
+   ========================================================= */
+
+
+
+window.loadQuizQuestions = async function(type){
+
+    try{
+
+        /* =====================================================
+           إذا لم يتم تحديد نوع:
+           تحميل الأنواع الثلاثة عند فتح صفحة الاختبارات
+           ===================================================== */
+
+        if(!type){
+
+            const types = [
+                "multiple",
+                "answer",
+                "complete"
+            ];
+
+
+            const results =
+                await Promise.all(
+                    types.map(function(quizType){
+
+                        return loadQuizQuestions(
+                            quizType
+                        );
+
+                    })
+                );
+
+
+            return {
+
+                multiple: results[0],
+                answer: results[1],
+                complete: results[2]
+
+            };
+        }
+
+
+        /* =====================================================
+           تحميل نوع واحد
+           ===================================================== */
+
+        const ref =
+            getQuizQuestionsRef(type);
+
+
+        const snap =
+            await getDoc(ref);
+
+
+        if(!snap.exists()){
+
+            window.quizQuestionsCache[type] =
+                [];
+
+            return [];
+        }
+
+
+        const data =
+            snap.data();
+
+
+        const questions =
+            Array.isArray(data.questions)
+                ? data.questions
+                : [];
+
+
+        window.quizQuestionsCache[type] =
+            questions;
+
+
+        return questions;
+
+
+    }catch(error){
+
+        console.error(
+            "خطأ في تحميل أسئلة الاختبار:",
+            error
+        );
+
+
+        if(type){
+
+            window.quizQuestionsCache[type] =
+                [];
+        }
+
+
+        if(typeof showToast === "function"){
+
+            showToast(
+                "تعذر تحميل أسئلة الاختبار"
+            );
+        }
+
+
+        return [];
+    }
+};
+
+
+/* =========================================================
+   فتح تعديل قائمة الاختبار
+   ========================================================= */
+
+window.editQuizList = async function(type){
+
+    const card =
+        getQuizCard(type);
+
+
+    if(!card){
+
+        console.error(
+            "لم يتم العثور على بطاقة الاختبار:",
+            type
+        );
+
+        return;
+    }
+
+
+    window.currentQuizType =
+        type;
+
+    window.quizEditing[type] =
+        true;
+
+
+    const questions =
+        await loadQuizQuestions(type);
+
+
+    createQuizEditor(
+        type,
+        questions
+    );
+};
+
+
+/* =========================================================
+   إنشاء قائمة تعديل الأسئلة
+   ========================================================= */
+
+window.createQuizEditor = function(
+    type,
+    questions
+){
+
+    const oldEditor =
+        document.getElementById(
+            "quiz-editor-modal"
+        );
+
+
+    if(oldEditor){
+        oldEditor.remove();
+    }
+
+
+    let title = "";
+
+
+    if(type === "multiple"){
+
+        title =
+            "✏️ تعديل أسئلة اختر الإجابة";
+
+    }
+
+    else if(type === "answer"){
+
+        title =
+            "✏️ تعديل أسئلة أجب";
+
+    }
+
+    else if(type === "complete"){
+
+        title =
+            "✏️ تعديل أسئلة أجب وأتمم";
+    }
+
+
+    let buttons = "";
+
+
+    if(type === "multiple"){
+
+        buttons = `
+
+            <button
+                type="button"
+                class="quiz-add-btn"
+                onclick="openAddQuiz('multiple')">
+
+                ➕ إضافة سؤال اختياري
+
+            </button>
+
+        `;
+    }
+
+
+    else if(type === "answer"){
+
+        buttons = `
+
+            <button
+                type="button"
+                class="quiz-add-btn"
+                onclick="openAddQuiz('answer')">
+
+                ✍️ إضافة سؤال أجب
+
+            </button>
+
+        `;
+    }
+
+
+    else if(type === "complete"){
+
+        buttons = `
+
+            <button
+                type="button"
+                class="quiz-add-btn"
+                onclick="openAddQuiz('complete-answer')">
+
+                ✍️ إضافة سؤال أجب
+
+            </button>
+
+
+            <button
+                type="button"
+                class="quiz-add-btn"
+                onclick="openAddQuiz('complete-fill')">
+
+                📝 إضافة سؤال أتمم
+
+            </button>
+
+        `;
+    }
+
+
+    const modal =
+        document.createElement("div");
+
+
+    modal.id =
+        "quiz-editor-modal";
+
+
+    modal.innerHTML = `
+
+        <div class="quiz-editor-overlay">
+
+            <div class="quiz-editor-card">
+
+                <button
+                    type="button"
+                    class="quiz-editor-close"
+                    onclick="closeQuizEditor(true)">
+
+                    ✕
+
+                </button>
+
+
+                <h2>
+                    ${title}
+                </h2>
+
+
+                <p class="quiz-editor-subtitle">
+                    إدارة أسئلة الاختبار
+                </p>
+
+
+                <div class="quiz-editor-actions">
+
+                    ${buttons}
+
+                </div>
+
+
+                <div
+                    id="quiz-editor-question-form">
+                </div>
+
+
+                <div
+                    id="quiz-editor-list">
+                </div>
+
+
+                <div class="quiz-editor-footer">
+
+                    <button
+                        type="button"
+                        class="quiz-admin-save"
+                        onclick="saveQuizChanges('${type}')">
+
+                        💾 حفظ التعديلات
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="quiz-edit-btn"
+                        onclick="closeQuizEditor(true)">
+
+                        إلغاء
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+
+    document.body.appendChild(modal);
+
+
+    renderQuizEditorQuestions(
+        type,
+        questions
+    );
+};
+
+
+/* =========================================================
+   عرض الأسئلة داخل القائمة
+   ========================================================= */
+
+window.renderQuizEditorQuestions = function(
+    type,
+    questions
+){
+
+    const list =
+        document.getElementById(
+            "quiz-editor-list"
+        );
+
+
+    if(!list){
+        return;
+    }
+
+
+    if(!questions.length){
+
+        list.innerHTML = `
+
+            <div class="quiz-editor-empty">
+
+                <div style="font-size:40px;">
+                    📭
+                </div>
+
+                <strong>
+                    لا توجد أسئلة حالياً
+                </strong>
+
+                <br>
+
+                <span>
+                    أضف سؤالاً من الأزرار بالأعلى
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML = "";
+
+
+    questions.forEach(function(
+        question,
+        index
+    ){
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "quiz-editor-question";
+
+
+        let typeName =
+            "✍️ أجب";
+
+
+        if(question.type === "multiple"){
+
+            typeName =
+                "🟦 اختياري";
+        }
+
+        else if(question.type === "complete"){
+
+            typeName =
+                "📝 أتمم";
+        }
+
+
+        let optionsHTML = "";
+
+
+        if(
+            question.type === "multiple" ||
+            question.type === "complete"
+        ){
+
+            const options =
+                Array.isArray(question.options)
+                    ? question.options
+                    : [];
+
+
+            optionsHTML = `
+
+                <div class="quiz-editor-options">
+
+                    ${
+                        options.map(function(
+                            option,
+                            optionIndex
+                        ){
+
+                            const correct =
+                                Number(
+                                    question.correctIndex
+                                ) === optionIndex;
+
+
+                            return `
+
+                                <div
+                                    class="quiz-editor-option">
+
+                                    ${
+                                        correct
+                                            ? "✅ "
+                                            : ""
+                                    }
+
+                                    ${escapeQuizHTML(option)}
+
+                                </div>
+
+                            `;
+
+                        }).join("")
+                    }
+
+                </div>
+            `;
+        }
+
+
+        item.innerHTML = `
+
+            <div class="quiz-editor-question-head">
+
+                <span class="quiz-editor-number">
+                    ${index + 1}
+                </span>
+
+
+                <span class="quiz-editor-type">
+                    ${typeName}
+                </span>
+
+            </div>
+
+
+            <div class="quiz-editor-question-text">
+
+                ${escapeQuizHTML(
+                    question.question
+                )}
+
+            </div>
+
+
+            ${optionsHTML}
+
+
+            <button
+                type="button"
+                class="quiz-delete-btn"
+                onclick="
+                    openDeleteQuizModal(
+                        ${index},
+                        '${type}'
+                    )
+                ">
+
+                🗑️ حذف السؤال
+
+            </button>
+
+        `;
+
+
+        list.appendChild(item);
+
+    });
+
+
+    renumberQuizQuestions();
+};
+
+/* =========================================================
+   نظام الاختبارات - الجزء 2 / 3
+   ========================================================= */
+
+
+/* =========================================================
+   فتح إضافة سؤال
+   ========================================================= */
+
+window.openAddQuiz = function(type){
+
+    const form =
+        document.getElementById(
+            "quiz-editor-question-form"
+        );
+
+
+    if(!form){
+        return;
+    }
+
+
+    form.innerHTML = "";
+
+
+    /* =====================================================
+       اختياري
+       ===================================================== */
+
+    if(
+        type === "multiple" ||
+        type === "complete-fill"
+    ){
+
+        const finalType =
+            type === "complete-fill"
+                ? "complete"
+                : "multiple";
+
+
+        const title =
+            finalType === "complete"
+                ? "📝 إضافة سؤال أتمم"
+                : "➕ إضافة سؤال اختياري";
+
+
+        form.innerHTML = `
+
+            <div class="quiz-add-form">
+
+                <h3>
+                    ${title}
+                </h3>
+
+
+                <textarea
+                    id="newQuizQuestion"
+                    class="quiz-add-input"
+                    placeholder="اكتب السؤال هنا..."></textarea>
+
+
+                <div
+                    id="quiz-options-container">
+
+                    <div class="quiz-option-row">
+
+                        <input
+                            type="text"
+                            class="quiz-option-input"
+                            placeholder="الخيار الأول">
+
+                        <button
+                            type="button"
+                            onclick="
+                                this.parentElement.remove();
+                                updateQuizCorrectSelect();
+                            ">
+
+                            🗑️
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="quiz-option-row">
+
+                        <input
+                            type="text"
+                            class="quiz-option-input"
+                            placeholder="الخيار الثاني">
+
+                        <button
+                            type="button"
+                            onclick="
+                                this.parentElement.remove();
+                                updateQuizCorrectSelect();
+                            ">
+
+                            🗑️
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="quiz-option-row">
+
+                        <input
+                            type="text"
+                            class="quiz-option-input"
+                            placeholder="الخيار الثالث">
+
+                        <button
+                            type="button"
+                            onclick="
+                                this.parentElement.remove();
+                                updateQuizCorrectSelect();
+                            ">
+
+                            🗑️
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="quiz-add-option-btn"
+                    onclick="addQuizOption()">
+
+                    ➕ إضافة خيار
+
+                </button>
+
+
+                <select
+                    id="newQuizCorrect"
+                    class="quiz-add-input">
+
+                    <option value="">
+                        اختر الإجابة الصحيحة
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="button"
+                    class="quiz-confirm-add"
+                    onclick="
+                        insertQuizItem('${finalType}')
+                    ">
+
+                    ➕ إضافة السؤال للقائمة
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        updateQuizCorrectSelect();
+
+        return;
+    }
+
+
+    /* =====================================================
+       أجب
+       ===================================================== */
+
+    if(
+        type === "answer" ||
+        type === "complete-answer"
+    ){
+
+        form.innerHTML = `
+
+            <div class="quiz-add-form">
+
+                <h3>
+                    ✍️ إضافة سؤال أجب
+                </h3>
+
+
+                <textarea
+                    id="newQuizQuestion"
+                    class="quiz-add-input"
+                    placeholder="اكتب السؤال هنا..."></textarea>
+
+
+                <div class="quiz-answer-note">
+
+                    الطالب سيكتب الإجابة بنفسه.
+                    لا يوجد جواب يدخله الأستاذ.
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="quiz-confirm-add"
+                    onclick="insertQuizItem('answer')">
+
+                    ➕ إضافة السؤال للقائمة
+
+                </button>
+
+            </div>
+
+        `;
+    }
+};
+
+
+/* =========================================================
+   إضافة خيار جديد
+   ========================================================= */
+
+window.addQuizOption = function(){
+
+    const container =
+        document.getElementById(
+            "quiz-options-container"
+        );
+
+
+    if(!container){
+        return;
+    }
+
+
+    const rows =
+        container.querySelectorAll(
+            ".quiz-option-row"
+        );
+
+
+    if(rows.length >= 5){
+
+        if(typeof showToast === "function"){
+            showToast(
+                "يمكنك إضافة 5 خيارات كحد أقصى"
+            );
+        }
+
+        return;
+    }
+
+
+    const row =
+        document.createElement("div");
+
+
+    row.className =
+        "quiz-option-row";
+
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            class="quiz-option-input"
+            placeholder="الخيار ${rows.length + 1}">
+
+
+        <button
+            type="button"
+            onclick="
+                this.parentElement.remove();
+                updateQuizCorrectSelect();
+            ">
+
+            🗑️
+
+        </button>
+
+    `;
+
+
+    container.appendChild(row);
+
+
+    updateQuizCorrectSelect();
+};
+
+
+/* =========================================================
+   تحديث قائمة الإجابة الصحيحة
+   ========================================================= */
+
+window.updateQuizCorrectSelect = function(){
+
+    const select =
+        document.getElementById(
+            "newQuizCorrect"
+        );
+
+
+    const container =
+        document.getElementById(
+            "quiz-options-container"
+        );
+
+
+    if(!select || !container){
+        return;
+    }
+
+
+    const rows =
+        container.querySelectorAll(
+            ".quiz-option-row"
+        );
+
+
+    const oldValue =
+        select.value;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            اختر الإجابة الصحيحة
+        </option>
+
+    `;
+
+
+    rows.forEach(function(
+        row,
+        index
+    ){
+
+        const input =
+            row.querySelector(
+                ".quiz-option-input"
+            );
+
+
+        const value =
+            input
+                ? input.value.trim()
+                : "";
+
+
+        const option =
+            document.createElement("option");
+
+
+        option.value =
+            index;
+
+
+        option.textContent =
+            value
+                ? `الخيار ${index + 1}: ${value}`
+                : `الخيار ${index + 1}`;
+
+
+        select.appendChild(option);
+
+    });
+
+
+    if(
+        oldValue !== "" &&
+        Number(oldValue) < rows.length
+    ){
+
+        select.value =
+            oldValue;
+    }
+};
+
+
+/* =========================================================
+   إدخال السؤال إلى القائمة
+   ========================================================= */
+
+window.insertQuizItem = function(type){
+
+    const input =
+        document.getElementById(
+            "newQuizQuestion"
+        );
+
+
+    if(!input){
+        return;
+    }
+
+
+    const question =
+        input.value.trim();
+
+
+    if(!question){
+
+        if(typeof showToast === "function"){
+            showToast(
+                "اكتب السؤال أولاً"
+            );
+        }
+
+        return;
+    }
+
+
+    let newQuestion =
+        null;
+
+
+    /* =====================================================
+       أجب
+       ===================================================== */
+
+    if(type === "answer"){
+
+        newQuestion = {
+
+            type: "answer",
+
+            question: question
+
+        };
+    }
+
+
+    /* =====================================================
+       اختياري / أتمم
+       ===================================================== */
+
+    else if(
+        type === "multiple" ||
+        type === "complete"
+    ){
+
+        const rows =
+            document.querySelectorAll(
+                "#quiz-options-container .quiz-option-row"
+            );
+
+
+        const options = [];
+
+
+        rows.forEach(function(row){
+
+            const optionInput =
+                row.querySelector(
+                    ".quiz-option-input"
+                );
+
+
+            if(optionInput){
+
+                const value =
+                    optionInput.value.trim();
+
+
+                if(value){
+                    options.push(value);
+                }
+            }
+        });
+
+
+        if(options.length < 2){
+
+            if(typeof showToast === "function"){
+                showToast(
+                    "أضف خيارين على الأقل"
+                );
+            }
+
+            return;
+        }
+
+
+        const select =
+            document.getElementById(
+                "newQuizCorrect"
+            );
+
+
+        if(
+            !select ||
+            select.value === ""
+        ){
+
+            if(typeof showToast === "function"){
+                showToast(
+                    "حدد الإجابة الصحيحة"
+                );
+            }
+
+            return;
+        }
+
+
+        newQuestion = {
+
+            type: type,
+
+            question: question,
+
+            options: options,
+
+            correctIndex:
+                Number(select.value)
+
+        };
+    }
+
+
+    if(!newQuestion){
+        return;
+    }
+
+
+    const quizType =
+        window.currentQuizType;
+
+
+    if(
+        !Array.isArray(
+            window.quizQuestionsCache[quizType]
+        )
+    ){
+
+        window.quizQuestionsCache[quizType] =
+            [];
+    }
+
+
+    window.quizQuestionsCache[quizType].push(
+        newQuestion
+    );
+
+
+    renderQuizEditorQuestions(
+        quizType,
+        window.quizQuestionsCache[quizType]
+    );
+
+
+    formClearQuizQuestion();
+
+
+    if(typeof showToast === "function"){
+        showToast(
+            "تمت إضافة السؤال للقائمة"
+        );
+    }
+};
+
+
+/* =========================================================
+   تنظيف نموذج إضافة السؤال
+   ========================================================= */
+
+window.formClearQuizQuestion = function(){
+
+    const form =
+        document.getElementById(
+            "quiz-editor-question-form"
+        );
+
+
+    if(form){
+        form.innerHTML = "";
+    }
+};
+
+
+/* =========================================================
+   إعادة ترقيم الأسئلة
+   ========================================================= */
+
+window.renumberQuizQuestions = function(){
+
+    const numbers =
+        document.querySelectorAll(
+            "#quiz-editor-list .quiz-editor-number"
+        );
+
+
+    numbers.forEach(function(
+        number,
+        index
+    ){
+
+        number.textContent =
+            index + 1;
+    });
+};
+/* =========================================================
+   نظام الاختبارات - الجزء 3 / 3
+   ========================================================= */
+
+
+/* =========================================================
+   حذف السؤال
+   ========================================================= */
+
+window.deleteQuizQuestion = function(button){
+
+    if(!button){
+        return;
+    }
+
+
+    const item =
+        button.closest(
+            ".quiz-editor-question"
+        );
+
+
+    if(!item){
+        return;
+    }
+
+
+    const items =
+        Array.from(
+            document.querySelectorAll(
+                "#quiz-editor-list .quiz-editor-question"
+            )
+        );
+
+
+    const index =
+        items.indexOf(item);
+
+
+    if(index === -1){
+        return;
+    }
+
+
+    openDeleteQuizModal(
+        index,
+        window.currentQuizType
+    );
+};
+
+
+/* =========================================================
+   نافذة تأكيد الحذف
+   ========================================================= */
+
+window.openDeleteQuizModal = function(
+    index,
+    type
+){
+
+    window.quizDeleteTarget = {
+
+        index: index,
+
+        type: type
+
+    };
+
+
+    let modal =
+        document.getElementById(
+            "quiz-delete-modal"
+        );
+
+
+    if(!modal){
+
+        modal =
+            document.createElement("div");
+
+
+        modal.id =
+            "quiz-delete-modal";
+
+
+        modal.innerHTML = `
+
+            <div class="quiz-delete-overlay">
+
+                <div class="quiz-delete-card">
+
+                    <div class="quiz-delete-icon">
+                        🗑️
+                    </div>
+
+
+                    <h3>
+                        حذف السؤال؟
+                    </h3>
+
+
+                    <p>
+                        هل أنت متأكد من حذف هذا السؤال؟
+                    </p>
+
+
+                    <div class="quiz-delete-actions">
+
+                        <button
+                            type="button"
+                            onclick="
+                                confirmDeleteQuizQuestion()
+                            ">
+
+                            🗑️ حذف
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            onclick="
+                                closeDeleteQuizModal()
+                            ">
+
+                            إلغاء
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(modal);
+    }
+
+
+    modal.style.display =
+        "flex";
+};
+
+
+/* =========================================================
+   تأكيد حذف السؤال
+   ========================================================= */
+
+window.confirmDeleteQuizQuestion = function(){
+
+    const target =
+        window.quizDeleteTarget;
+
+
+    if(!target){
+        return;
+    }
+
+
+    const questions =
+        window.quizQuestionsCache[
+            target.type
+        ];
+
+
+    if(!Array.isArray(questions)){
+
+        closeDeleteQuizModal();
+
+        return;
+    }
+
+
+    if(
+        target.index < 0 ||
+        target.index >= questions.length
+    ){
+
+        closeDeleteQuizModal();
+
+        return;
+    }
+
+
+    questions.splice(
+        target.index,
+        1
+    );
+
+
+    renderQuizEditorQuestions(
+        target.type,
+        questions
+    );
+
+
+    closeDeleteQuizModal();
+
+
+    if(typeof showToast === "function"){
+
+        showToast(
+            "تم حذف السؤال من القائمة"
+        );
+    }
+};
+
+
+/* =========================================================
+   إغلاق نافذة الحذف
+   ========================================================= */
+
+window.closeDeleteQuizModal = function(){
+
+    const modal =
+        document.getElementById(
+            "quiz-delete-modal"
+        );
+
+
+    if(modal){
+
+        modal.style.display =
+            "none";
+    }
+
+
+    window.quizDeleteTarget =
+        null;
+};
+
+
+/* =========================================================
+   حفظ الأسئلة في Firestore
+   ========================================================= */
+
+window.saveQuizQuestionsToFirestore = async function(
+    type,
+    questions
+){
+
+    const ref =
+        getQuizQuestionsRef(type);
+
+
+    await setDoc(
+        ref,
+        {
+            questions: questions,
+
+            updatedAt: new Date()
+        }
+    );
+
+
+    window.quizQuestionsCache[type] =
+        questions;
+};
+
+
+/* =========================================================
+   عرض الأسئلة داخل بطاقة الاختبار
+   ========================================================= */
+
+window.renderQuizcardQuestions = function(type, questions){
+
+    const card = getQuizCard(type);
+
+    if(!card){
+        console.error(
+            "لم يتم العثور على بطاقة الاختبار:",
+            type
+        );
+        return;
+    }
+
+
+    /* نحذف الأسئلة القديمة فقط */
+
+    card.querySelectorAll(
+        ".quiz-item"
+    ).forEach(function(item){
+
+        item.remove();
+
+    });
+
+
+    /* مكان زر إرسال الاختبار */
+
+    const submitButton =
+        card.querySelector(
+            ".quiz-save-btn"
+        );
+
+
+    if(!questions || !questions.length){
+
+        return;
+    }
+
+
+    questions.forEach(function(question, index){
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "quiz-item";
+
+
+        /* =================================================
+           السؤال
+           ================================================= */
+
+        let html = `
+
+            <p>
+                ${index + 1}-
+                ${escapeQuizHTML(
+                    question.question
+                )}
+            </p>
+
+        `;
+
+
+        /* =================================================
+           الاختياري
+           ================================================= */
+
+        if(question.type === "multiple"){
+
+            const options =
+                Array.isArray(question.options)
+                    ? question.options
+                    : [];
+
+
+            options.forEach(function(option){
+
+                html += `
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="quiz-${type}-q${index}"
+                        >
+
+                        ${escapeQuizHTML(option)}
+
+                    </label>
+
+                `;
+
+            });
+
+        }
+
+
+        /* =================================================
+           أجب
+           ================================================= */
+
+        else if(question.type === "answer"){
+
+            html += `
+
+                <textarea
+                    placeholder="اكتب إجابتك هنا..."
+                ></textarea>
+
+            `;
+
+        }
+
+
+        /* =================================================
+           complete
+           = أجب + اختياري
+           ================================================= */
+
+        else if(question.type === "complete"){
+
+            const options =
+                Array.isArray(question.options)
+                    ? question.options
+                    : [];
+
+
+            options.forEach(function(option){
+
+                html += `
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="quiz-${type}-q${index}"
+                        >
+
+                        ${escapeQuizHTML(option)}
+
+                    </label>
+
+                `;
+
+            });
+
+        }
+
+
+        item.innerHTML = html;
+
+
+        /* وضع السؤال قبل زر الإرسال */
+
+        if(submitButton){
+
+            card.insertBefore(
+                item,
+                submitButton
+            );
+
+        }else{
+
+            card.appendChild(item);
+
+        }
+
+    });
+
+};
+
+
+/* =========================================================
+   حفظ تعديلات الاختبار
+   ========================================================= */
+
+window.saveQuizChanges = async function(type){
+
+    const saveButton =
+        document.querySelector(
+            "#quiz-editor-modal .quiz-admin-save"
+        );
+
+
+    if(saveButton){
+
+        saveButton.disabled =
+            true;
+
+        saveButton.textContent =
+            "⏳ جاري الحفظ...";
+    }
+
+
+    try{
+
+        const questions =
+            Array.isArray(
+                window.quizQuestionsCache[type]
+            )
+            ?
+            window.quizQuestionsCache[type]
+            :
+            [];
+
+
+        await saveQuizQuestionsToFirestore(
+            type,
+            questions
+        );
+        renderQuizcardQuestions(
+            type,
+            questions
+        );
+
+
+        window.quizEditing[type] =
+            false;
+
+
+        const card =
+            getQuizCard(type);
+
+
+        if(card){
+
+            card.querySelectorAll(
+                ".admin-quiz-tools"
+            ).forEach(function(tool){
+
+                tool.style.display =
+                    "none";
+            });
+
+
+            const editButton =
+                card.querySelector(
+                    ".quiz-edit-btn"
+                );
+
+
+            if(editButton){
+
+                editButton.style.display =
+                    "";
+            }
+        }
+
+
+        closeQuizEditor(false);
+
+
+        if(typeof showToast === "function"){
+
+            showToast(
+                "تم حفظ تعديلات الاختبار بنجاح"
+            );
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "خطأ في حفظ الاختبار:",
+            error
+        );
+
+
+        if(saveButton){
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "💾 حفظ التعديلات";
+        }
+
+
+        if(typeof showToast === "function"){
+
+            showToast(
+                "حدث خطأ أثناء حفظ التعديلات"
+            );
+        }
+    }
+};
+
+
+/* =========================================================
+   إغلاق قائمة تعديل الاختبار
+   ========================================================= */
+
+window.closeQuizEditor = function(
+    restoreCard
+){
+
+    const modal =
+        document.getElementById(
+            "quiz-editor-modal"
+        );
+
+
+    if(modal){
+        modal.remove();
+    }
+
+
+    if(restoreCard){
+
+        const type =
+            window.currentQuizType;
+
+
+        if(type){
+
+            const card =
+                getQuizCard(type);
+
+
+            if(card){
+
+                card.querySelectorAll(
+                    ".admin-quiz-tools"
+                ).forEach(function(tool){
+
+                    tool.style.display =
+                        "none";
+                });
+
+
+                const editButton =
+                    card.querySelector(
+                        ".quiz-edit-btn"
+                    );
+
+
+                if(editButton){
+
+                    editButton.style.display =
+                        "";
+                }
+            }
+
+
+            window.quizEditing[type] =
+                false;
+        }
+    }
+};
+
+
+/* =========================================================
+   CSS الخاص بقائمة تعديل الاختبارات
+   ========================================================= */
+
+(function(){
+
+    if(
+        document.getElementById(
+            "quiz-new-system-style"
+        )
+    ){
+        return;
+    }
+
+
+    const style =
+        document.createElement("style");
+
+
+    style.id =
+        "quiz-new-system-style";
+
+
+    style.textContent = `
+
+        #quiz-editor-modal,
+        #quiz-delete-modal {
+
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+        }
+
+
+        .quiz-editor-overlay,
+        .quiz-delete-overlay {
+
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 18px;
+
+            background:
+                rgba(0,0,0,.65);
+
+            overflow-y: auto;
+        }
+
+
+        .quiz-editor-card {
+
+            position: relative;
+
+            width: min(760px,96%);
+
+            max-height: 92vh;
+
+            overflow-y: auto;
+
+            padding: 25px;
+
+            border-radius: 24px;
+
+            background:
+                var(--card-bg,#fff);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,.3);
+
+            direction: rtl;
+        }
+
+
+        .quiz-editor-close {
+
+            position: absolute;
+
+            top: 12px;
+            left: 12px;
+
+            border: 0;
+
+            background:
+                transparent;
+
+            font-size: 22px;
+
+            cursor: pointer;
+        }
+
+
+        .quiz-editor-card h2 {
+
+            text-align: center;
+
+            margin:
+                0 0 8px;
+        }
+
+
+        .quiz-editor-subtitle {
+
+            text-align: center;
+
+            opacity: .7;
+
+            margin-bottom: 20px;
+        }
+
+
+        .quiz-editor-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .quiz-editor-actions
+        .quiz-add-btn {
+
+            flex: 1;
+
+            min-width: 190px;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            padding: 13px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+        }
+
+
+        .quiz-add-form {
+
+            padding: 18px;
+
+            margin-bottom: 18px;
+
+            border-radius: 20px;
+
+            border:
+                1px solid
+                rgba(0,0,0,.12);
+        }
+
+
+        .quiz-add-form h3 {
+            margin-top: 0;
+        }
+
+
+        .quiz-add-input,
+        .quiz-option-input {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 12px;
+
+            margin: 7px 0;
+
+            border-radius: 12px;
+
+            border:
+                1px solid
+                rgba(0,0,0,.18);
+
+            font-family: inherit;
+        }
+
+
+        #newQuizQuestion {
+
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+
+        #quiz-options-container {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        .quiz-option-row {
+
+            display: flex;
+
+            gap: 7px;
+
+            align-items: center;
+        }
+
+
+        .quiz-option-row button {
+
+            border: 0;
+
+            border-radius: 10px;
+
+            padding: 9px;
+
+            cursor: pointer;
+        }
+
+
+        .quiz-add-option-btn,
+        .quiz-confirm-add {
+
+            border: 0;
+
+            border-radius: 12px;
+
+            padding: 11px 15px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+        }
+
+
+        .quiz-answer-note {
+
+            padding: 12px;
+
+            margin: 8px 0;
+
+            border-radius: 12px;
+
+            background:
+                rgba(0,0,0,.05);
+        }
+
+
+        .quiz-editor-question {
+
+            padding: 17px;
+
+            margin-bottom: 12px;
+
+            border-radius: 18px;
+
+            border:
+                1px solid
+                rgba(0,0,0,.1);
+        }
+
+
+        .quiz-editor-question-head {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .quiz-editor-number {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            font-weight: 800;
+        }
+
+
+        .quiz-editor-question-text {
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            line-height: 1.7;
+
+            margin-bottom: 10px;
+        }
+
+
+        .quiz-editor-options {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .quiz-editor-option {
+
+            padding: 9px 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(0,0,0,.04);
+        }
+
+
+        .quiz-delete-btn {
+
+            border: 0;
+
+            border-radius: 11px;
+
+            padding: 10px 14px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+        }
+
+
+        .quiz-editor-empty {
+
+            text-align: center;
+
+            padding: 35px 15px;
+
+            opacity: .7;
+        }
+
+
+        .quiz-editor-footer {
+
+            display: flex;
+
+            gap: 10px;
+
+            position: sticky;
+
+            bottom: 0;
+
+            padding-top: 15px;
+
+            background:
+                var(--card-bg,#fff);
+        }
+
+
+        .quiz-editor-footer
+        .quiz-admin-save {
+
+            flex: 1;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            padding: 13px;
+
+            cursor: pointer;
+
+            font-weight: 800;
+        }
+
+
+        .quiz-delete-card {
+
+            width: min(420px,92%);
+
+            padding: 25px;
+
+            text-align: center;
+
+            border-radius: 22px;
+
+            background:
+                var(--card-bg,#fff);
+
+            direction: rtl;
+        }
+
+
+        .quiz-delete-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .quiz-delete-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+
+        .quiz-delete-actions button {
+
+            flex: 1;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            padding: 12px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+        }
+
+
+        @media(max-width:600px){
+
+            .quiz-editor-card {
+
+                padding: 20px 14px;
+            }
+
+
+            .quiz-option-row {
+
+                align-items: stretch;
+            }
+
+
+            .quiz-editor-footer {
+
+                flex-direction: column;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(style);
+
+})();
+
 
 
 </script>
