@@ -1988,20 +1988,9 @@ onclick="openSection('texts')">
 <button class="btn btn-sm">فتح الاختبارات</button>
 </div>
 </div>
+ <br>
 
-<div class="card">
-
-    <h3>نوطة الصف 📄</h3>
-
-    <p>تحميل ملف PDF الخاص بهذا الصف</p>
-
-    <button
-        class="btn btn-sm"
-        onclick="downloadGradePDF()">
-
-        تحميل النوطة 📥
-
-    </button>
+  
 
     <button
         id="teacher-grade-pdf-btn"
@@ -2011,10 +2000,8 @@ onclick="openSection('texts')">
 
         ➕ إضافة النوطة
 
-    </button>
-
-</div>
-<div id="grade-pdfs-list"></div>
+    </button><br><br>
+<div id="grade-pdfs-list"><br></div>
 
 <!-- نموذج إضافة نوطة للصف -->
 <div id="grade-pdf-form" style="display:none; margin-top:1.5rem;">
@@ -2109,7 +2096,7 @@ onclick="openSection('texts')">
 
 
 <div class="card"
-onclick="openSection('grammar')">
+onclick="isFoundationSection=true; openSection('grammar')">
 
 <h3>
 القواعد
@@ -2129,7 +2116,7 @@ onclick="openSection('grammar')">
 
 
 <div class="card"
-onclick="openSection('reading')">
+onclick="isFoundationSection=true;openSection('reading')">
 
 <h3>
 القراءة
@@ -2149,7 +2136,7 @@ onclick="openSection('reading')">
 
 
 <div class="card"
-onclick="openSection('nahw')">
+onclick="isFoundationSection=true;openSection('nahw')">
 
 <h3>
 النحو
@@ -2346,15 +2333,22 @@ id="grammar-lessons">
 
 <div class="bottom-back-container">
 
-<button class="bottom-back-btn"
-onclick="switchPage('sections')">
+    <button
+        class="bottom-back-btn"
+        onclick="
+            if(isFoundationSection){
+                isFoundationSection = false;
+                switchPage('foundation-sections');
+            }else{
+                switchPage('sections');
+            }
+        ">
 
-← العودة للأقسام
+        العودة للأقسام ←
 
-</button>
+    </button>
 
 </div>
-
 
 </div>
 
@@ -2823,11 +2817,10 @@ onclick="switchPage('sections')">
         
 let currentGrade= "";
 let currentSection= "";
-
+let isFoundationSection = false;
 function openSection(sectionName){
 
-         currentSection = sectionName;
-   
+    currentSection = sectionName;
 
     const titles = {
         grammar: "قسم القواعد",
@@ -7491,7 +7484,6 @@ window.deleteGradePDF = function(pdfId){
 
 };
 
-
 window.downloadGradePDF = function(pdfUrl){
 
     if(!pdfUrl){
@@ -7518,6 +7510,7 @@ window.downloadGradePDF = function(pdfUrl){
     }
 
 };
+
 
 
 
