@@ -963,7 +963,7 @@
 
 .urgent-text{
     display: inline-block;
-    white-space:pre;
+    white-space:pre-wrap;
     animation:moveUrgent 12s linear infinite;
 }
 
@@ -1988,6 +1988,91 @@ onclick="openSection('texts')">
 <button class="btn btn-sm">فتح الاختبارات</button>
 </div>
 </div>
+
+<div class="card">
+
+    <h3>نوطة الصف 📄</h3>
+
+    <p>تحميل ملف PDF الخاص بهذا الصف</p>
+
+    <button
+        class="btn btn-sm"
+        onclick="downloadGradePDF()">
+
+        تحميل النوطة 📥
+
+    </button>
+
+    <button
+        id="teacher-grade-pdf-btn"
+        class="btn btn-sm"
+        style="display:none;"
+        onclick="openGradePDFAdmin()">
+
+        ➕ إضافة النوطة
+
+    </button>
+
+</div>
+<div id="grade-pdfs-list"></div>
+
+<!-- نموذج إضافة نوطة للصف -->
+<div id="grade-pdf-form" style="display:none; margin-top:1.5rem;">
+
+    <div class="card" style="max-width:600px; margin:auto;">
+
+        <button
+            class="close-add-btn"
+            onclick="closeGradePDFForm()">
+            ❌
+        </button>
+
+        <h3 style="margin-bottom:1rem; color:var(--primary-color);">
+            📄 إضافة نوطة الصف
+        </h3>
+     
+        <input
+    id="grade-pdf-title"
+    type="text"
+    placeholder="📌 اسم النوطة"
+    style="
+        width:100%;
+        padding:12px;
+        margin-bottom:12px;
+        border-radius:10px;
+        border:1px solid #ddd;
+    ">
+
+
+        <input
+            id="grade-pdf-url"
+            type="text"
+            placeholder="🔗 رابط ملف PDF"
+            style="
+                width:100%;
+                padding:12px;
+                margin-bottom:12px;
+                border-radius:10px;
+                border:1px solid #ddd;
+            ">
+
+
+        <button
+            class="btn btn-sm"
+            onclick="saveGradePDF()">
+
+            💾 حفظ النوطة
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+
+
 </div>
 <div class="bottom-back-container">
 
@@ -2219,18 +2304,6 @@ border:1px solid #ddd;
 ">
 
 
-<input id="lesson-pdf"
-type="text"
-placeholder="رابط ملف PDF 📄"
-style="
-width:100%;
-padding:12px;
-margin-bottom:12px;
-border-radius:10px;
-border:1px solid #ddd;
-">
-
-
         <button class="btn btn-sm" onclick="saveLesson()">
             💾 حفظ الدرس
         </button>
@@ -2238,6 +2311,10 @@ border:1px solid #ddd;
     </div>
 
 </div>
+
+
+
+
 
 
 
@@ -2482,12 +2559,12 @@ onclick="switchPage('sections')">
 
 
         <!-- ================================================= -->
-        <!-- 3 - أجب و اختار -->
+        <!-- 3 - أجب وأتمم -->
         <!-- ================================================= -->
 
         <div class="card quiz-box">
 
-            <h3>📝 أجب و اختر</h3>
+            <h3>📝 أجب وأتمم</h3>
 
             <!-- زر تعديل القائمة -->
             <button
@@ -2515,7 +2592,7 @@ onclick="switchPage('sections')">
                     type="button"
                     class="quiz-add-btn"
                     onclick="openAddQuiz('complete-fill')">
-                    📝 إضافة اختياري
+                    📝 إضافة أتمم
                 </button>
 
             </div>
@@ -2554,9 +2631,9 @@ onclick="switchPage('sections')">
 
 
 
-            <!-- ================= قسم اختر ================= -->
+            <!-- ================= قسم أتمم ================= -->
 
-            <h4>📝 اختر</h4>
+            <h4>📝 أتمم</h4>
 
             <div class="quiz-item">
 
@@ -2779,16 +2856,14 @@ function openSection(sectionName){
 
 function switchPage(pageId) {
 
-    const pages =
-        document.querySelectorAll('.page');
+    const pages = document.querySelectorAll('.page');
 
     pages.forEach(page =>
         page.classList.remove('active')
     );
 
 
-    const targetPage =
-        document.getElementById(pageId);
+    const targetPage =document.getElementById(pageId);
 
 
     if(targetPage){
@@ -2808,10 +2883,17 @@ function switchPage(pageId) {
 
     if(pageId === "grammar-section"){
 
-        loadGrammarLessons();
+        loadSectionLessons();
 
     }
 
+
+     if(pageId === "sections"){
+
+        loadGradePDFs();
+
+    }
+      
 
     /* =====================================================
        قسم الاختبارات
@@ -2832,45 +2914,20 @@ function switchPage(pageId) {
                 Array.isArray(result.multiple)
             ){
 
-                renderQuizcardQuestions(
-                    "multiple",
-                    result.multiple
-                );
-
+                renderQuizcardQuestions("multiple",result.multiple);
             }
-
-
             /* أجب */
-
             if(
-                Array.isArray(result.answer)
-            ){
-
-                renderQuizcardQuestions(
-                    "answer",
-                    result.answer
-                );
-
+                Array.isArray(result.answer)){
+                renderQuizcardQuestions( "answer",result.answer);
             }
-
-
             /* أجب + اختياري */
+            if( Array.isArray(result.complete)){
 
-            if(
-                Array.isArray(result.complete)
-            ){
-
-                renderQuizcardQuestions(
-                    "complete",
-                    result.complete
-                );
-
+                renderQuizcardQuestions("complete",  result.complete);
             }
-
         });
-
     }
-
 }
 
 
@@ -2999,7 +3056,9 @@ import {
     collection,
     getDocs,
     addDoc,
-    deleteDoc
+    deleteDoc,
+    where,
+    query
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
  
 window.getDoc = getDoc;
@@ -3275,7 +3334,6 @@ document.getElementById("logout-btn").onclick=function(){
 
 
 
-
 // مراقبة الحساب
 let isTeacher = false;
 
@@ -3283,6 +3341,10 @@ onAuthStateChanged(auth, async (user) => {
 
     const logoutItem = document.getElementById("logout-item");
     const adminMenu = document.getElementById("admin-menu");
+
+    const gradePdfBtn =
+        document.getElementById("teacher-grade-pdf-btn");
+
 
     if (user) {
 
@@ -3292,58 +3354,98 @@ onAuthStateChanged(auth, async (user) => {
             doc(db, "users", user.uid)
         );
 
+
         if (snap.exists()) {
 
             let data = snap.data();
 
-            document.getElementById("user-name").textContent = data.name;
+            document.getElementById("user-name").textContent =
+                data.name;
+
 
             if (data.role === "teacher") {
 
                 isTeacher = true;
+
                 adminMenu.style.display = "block";
+
                 loadStudents();
+
 
                 document.getElementById(
                     "teacher-add-lesson"
                 ).style.display = "block";
 
+
+                // إظهار زر إضافة النوطة للأستاذ
+                if (gradePdfBtn) {
+                    gradePdfBtn.style.display = "inline-block";
+                }
+
+
             } else {
 
                 isTeacher = false;
+
                 adminMenu.style.display = "none";
 
+
+                // إخفاء زر إضافة النوطة عن الطالب
+                if (gradePdfBtn) {
+                    gradePdfBtn.style.display = "none";
+                }
+
             }
+
 
             document
                 .querySelectorAll(".quiz-edit-btn")
                 .forEach(btn => {
 
                     btn.style.display =
-                        isTeacher ? "inline-block" : "none";
+                        isTeacher
+                            ? "inline-block"
+                            : "none";
 
                 });
 
         }
 
+
         const editBtn =
-            document.getElementById("edit-announcement-btn");
+            document.getElementById(
+                "edit-announcement-btn"
+            );
+
 
         if (editBtn) {
 
             editBtn.style.display =
-                isTeacher ? "block" : "none";
+                isTeacher
+                    ? "block"
+                    : "none";
 
         }
+
 
     } else {
 
         isTeacher = false;
 
         logoutItem.style.display = "none";
+
         adminMenu.style.display = "none";
 
-        document.getElementById("user-name").textContent = "مرحباً";
+        document.getElementById(
+            "user-name"
+        ).textContent = "مرحباً";
+
+
+        // إخفاء زر إضافة النوطة عند عدم تسجيل الدخول
+        if (gradePdfBtn) {
+            gradePdfBtn.style.display = "none";
+        }
+
 
         document
             .querySelectorAll(".quiz-edit-btn")
@@ -3353,8 +3455,12 @@ onAuthStateChanged(auth, async (user) => {
 
             });
 
+
         const editBtn =
-            document.getElementById("edit-announcement-btn");
+            document.getElementById(
+                "edit-announcement-btn"
+            );
+
 
         if (editBtn) {
 
@@ -3365,6 +3471,8 @@ onAuthStateChanged(auth, async (user) => {
     }
 
 });
+
+
 // =========================
 // تسجيل الدخول
 // =========================
@@ -4349,8 +4457,7 @@ window.saveLesson = async function(){
     const description = document.getElementById("lesson-description").value.trim();
 
     const videoUrl = document.getElementById("lesson-video").value.trim();
-    const pdfUrl = document.getElementById("lesson-pdf").value.trim();
-
+   
 
     if(!title || !description){
 
@@ -4370,8 +4477,6 @@ window.saveLesson = async function(){
             description: description,
 
             videoUrl: videoUrl,
-
-            pdfUrl: pdfUrl,
 
             grade: currentGrade,
 
@@ -4393,10 +4498,9 @@ window.saveLesson = async function(){
         document.getElementById("lesson-title").value="";
         document.getElementById("lesson-description").value="";
         document.getElementById("lesson-video").value="";
-        document.getElementById("lesson-pdf").value="";
+        
 
-
-        loadGrammarLessons();
+        loadSectionLessons();
 
 
 
@@ -4411,136 +4515,96 @@ window.saveLesson = async function(){
 }
 
 
-window.loadGrammarLessons = async function(){
+window.loadSectionLessons = async function(){
 
-    const container = document.getElementById("grammar-lessons");
+    const container =
+        document.getElementById("grammar-lessons");
 
     if(!container) return;
 
-
-    container.innerHTML = "";
-
-
-    const snapshot = await getDocs(collection(db, "foundation-lessons"));
-
-
-    if(snapshot.empty){
-
-        container.innerHTML = `
+    container.innerHTML = `
         <div class="card">
-            <h3>لا توجد دروس حالياً</h3>
+            <h3>جاري تحميل الدروس...</h3>
         </div>
-        `;
-
-        return;
-    }
-
-
-    snapshot.forEach((doc)=>{
-
-    const lesson = doc.data();
-
-
-    let videoHTML = "";
-
-    if(lesson.videoUrl){
-
-        let videoId = "";
-
-        if(lesson.videoUrl.includes("watch?v=")){
-
-            videoId = lesson.videoUrl.split("watch?v=")[1].split("&")[0];
-
-        }
-
-        else if(lesson.videoUrl.includes("youtu.be/")){
-
-            videoId = lesson.videoUrl.split("youtu.be/")[1];
-
-        }
-
-
-        if(videoId){
-
-            videoHTML = `
-
-            <iframe
-
-            width="100%"
-
-            height="250"
-
-            src="https://www.youtube.com/embed/${videoId}"
-
-            frameborder="0"
-
-            allowfullscreen>
-
-            </iframe>
-
-            `;
-
-        }
-
-    }
-
-
-
-    container.innerHTML += `
-
-    <div class="card">
-
-        <h3>${lesson.title}</h3>
-
-
-        <p class="lesson-description">
-
-        ${lesson.description}
-
-        </p>
-
-
-        
-${lesson.videoUrl ? `
-<button class="btn btn-sm" onclick="openVideo('${lesson.videoUrl}')">
-▶️ مشاهدة الفيديو
-</button>
-` : ""}
-
-
-
-       
-  
-${lesson.pdfUrl ? `
-
-<button class="btn btn-sm" onclick="downloadPDF('${lesson.pdfUrl}')"> 📄 تحميل ملف PDF</button>
-
-` : ""}
-
-
-
-        ${isTeacher ? `
-
-        <button class="btn btn-sm"
-
-        onclick="deleteLesson('${doc.id}')">
-
-        🗑️ حذف الدرس
-
-        </button>
-
-        ` : ""}
-
-
-    </div>
-
     `;
 
+    try{
 
-});
-}
+        const snapshot = await getDocs(
+            query(
+                collection(db, "foundation-lessons"),
+                where("grade", "==", currentGrade),
+                where("section", "==", currentSection)
+            )
+        );
 
+        if(snapshot.empty){
 
+            container.innerHTML = `
+                <div class="card">
+                    <h3>لا توجد دروس حالياً</h3>
+                </div>
+            `;
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        snapshot.forEach((doc)=>{
+
+            const lesson = doc.data();
+
+            container.innerHTML += `
+                <div class="card">
+
+                    <h3>${lesson.title}</h3>
+
+                    <p class="lesson-description">
+                        ${lesson.description}
+                    </p>
+
+                    ${lesson.videoUrl ? `
+                        <button
+                            class="btn btn-sm"
+                            onclick="openVideo('${lesson.videoUrl}')">
+
+                            مشاهدة الفيديو 🎥
+
+                        </button>
+                    ` : ""}
+
+                    ${isTeacher ? `
+                        <button
+                            class="btn btn-sm"
+                            onclick="deleteLesson('${doc.id}')">
+
+                            حذف الدرس 🗑️
+
+                        </button>
+                    ` : ""}
+
+                </div>
+            `;
+
+        });
+
+    }catch(error){
+
+        console.error(
+            "خطأ في تحميل الدروس:",
+            error
+        );
+
+        container.innerHTML = `
+            <div class="card">
+                <h3>❌ حدث خطأ أثناء تحميل الدروس</h3>
+            </div>
+        `;
+
+    }
+
+};
 
 
 window.openVideo = function(url){
@@ -4742,9 +4806,9 @@ window.deleteLesson = function(lessonId){
 
     confirmAction = "delete";
 
-    document.getElementById("delete-confirm-title").textContent = "⚠️ تأكيد حذف الدرس";
+    document.getElementById("delete-confirm-title").textContent = "⚠️ تأكيد الحذف ";
 
-    document.getElementById("delete-confirm-text").textContent = "هل أنت متأكد من حذف هذا الدرس؟";
+    document.getElementById("delete-confirm-text").textContent = "هل أنت متأكد من الحذف ؟";
 
     document.getElementById("delete-confirm-box").style.display = "flex";
 
@@ -4768,23 +4832,53 @@ window.confirmDeleteLesson = async function(){
 
     try {
 
-        await deleteDoc(doc(db, "foundation-lessons", lessonToDelete));
+        // حذف نوطة
+        if(confirmAction === "deleteGradePDF"){
 
-        showToast("🗑️ تم حذف الدرس");
+            await deleteDoc(
+                doc(db, "grade-pdfs", lessonToDelete)
+            );
 
-        closeDeleteBox();
+            showToast("🗑️ تم حذف النوطة");
 
-        loadGrammarLessons();
+            closeDeleteBox();
+
+            loadGradePDFs();
+
+            return;
+        }
+
+
+        // حذف درس
+        if(confirmAction === "delete"){
+
+            await deleteDoc(
+                doc(
+                    db,
+                    "foundation-lessons",
+                    lessonToDelete
+                )
+            );
+
+            showToast("🗑️ تم الحذف");
+
+            closeDeleteBox();
+
+            loadSectionLessons();
+
+        }
 
     } catch(error){
 
         console.log(error);
 
-        showToast("❌ حدث خطأ أثناء الحذف");
+        showToast(
+            "❌ حدث خطأ أثناء الحذف"
+        );
 
     }
 
-}; 
+};
 
 
 window.closeAddLesson = function(){
@@ -4834,16 +4928,23 @@ window.confirmActionDone = function(){
 
     }
 
+    if(confirmAction === "deleteGradePDF"){
 
-    if(confirmAction === "closeAdd"){
-
-        document.getElementById("add-lesson-form").style.display = "none";
+        confirmDeleteLesson();
 
     }
 
+    if(confirmAction === "closeAdd"){
 
-    document.getElementById("delete-confirm-box").style.display = "none";
+        document.getElementById(
+            "add-lesson-form"
+        ).style.display = "none";
 
+    }
+
+    document.getElementById(
+        "delete-confirm-box"
+    ).style.display = "none";
 
     confirmAction = "";
 
@@ -5180,7 +5281,7 @@ window.createQuizEditor = function(
     else if(type === "complete"){
 
         title =
-            "✏️ تعديل أسئلة أجب و اختر";
+            "✏️ تعديل أسئلة أجب وأتمم";
     }
 
 
@@ -5240,7 +5341,7 @@ window.createQuizEditor = function(
                 class="quiz-add-btn"
                 onclick="openAddQuiz('complete-fill')">
 
-                📝 إضافة سؤال اختر
+                📝 إضافة سؤال أتمم
 
             </button>
 
@@ -5415,7 +5516,7 @@ window.renderQuizEditorQuestions = function(
         else if(question.type === "complete"){
 
             typeName =
-                "📝 اختر";
+                "📝 أتمم";
         }
 
 
@@ -5569,7 +5670,7 @@ window.openAddQuiz = function(type){
 
         const title =
             finalType === "complete"
-                ? "📝 إضافة سؤال اختر"
+                ? "📝 إضافة سؤال أتمم"
                 : "➕ إضافة سؤال اختياري";
 
 
@@ -5962,7 +6063,7 @@ window.insertQuizItem = function(type){
 
 
     /* =====================================================
-       اختياري / 
+       اختياري / أتمم
        ===================================================== */
 
     else if(
@@ -7215,6 +7316,183 @@ window.closeQuizEditor = function(
     document.head.appendChild(style);
 
 })();
+
+
+
+window.openGradePDFAdmin = function(){
+
+    const form = document.getElementById("grade-pdf-form");
+
+    if (!form) {
+        console.error("❌ لم يتم العثور على grade-pdf-form");
+        return;
+    }
+
+    form.style.display = "block";
+
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+};
+
+
+
+window.saveGradePDF = async function(){
+
+    const titleInput =
+        document.getElementById("grade-pdf-title");
+
+    const urlInput =
+        document.getElementById("grade-pdf-url");
+
+    const title = titleInput.value.trim();
+    const pdfUrl = urlInput.value.trim();
+
+    if(!title){
+        showToast("⚠️ اكتب اسم النوطة أولاً");
+        return;
+    }
+
+    if(!pdfUrl){
+        showToast("⚠️ ضع رابط ملف PDF أولاً");
+        return;
+    }
+
+    try{
+
+        await addDoc(
+            collection(db, "grade-pdfs"),
+            {
+                title: title,
+                pdfUrl: pdfUrl,
+                grade: currentGrade,
+                createdAt: new Date()
+            }
+        );
+
+        showToast("✅ تم حفظ النوطة بنجاح");
+
+        document.getElementById(
+            "grade-pdf-form"
+        ).style.display = "none";
+
+        titleInput.value = "";
+        urlInput.value = "";
+
+        loadGradePDFs();
+
+    }catch(error){
+
+        console.error(
+            "❌ خطأ حفظ النوطة بالتفصيل:",
+            error
+        );
+
+        showToast(
+            "❌ حدث خطأ أثناء حفظ النوطة"
+        );
+
+    }
+
+};
+
+
+window.loadGradePDFs = async function(){
+
+    const container =
+        document.getElementById("grade-pdfs-list");
+
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    try{
+
+        const q = query(
+            collection(db, "grade-pdfs"),
+            where("grade", "==", currentGrade)
+        );
+
+        const snapshot = await getDocs(q);
+
+        if(snapshot.empty){
+
+            container.innerHTML = `
+                <div class="card">
+                    <h3>لا توجد نوطات حالياً</h3>
+                </div>
+            `;
+
+            return;
+        }
+
+        snapshot.forEach((pdfDoc) => {
+
+            const pdf = pdfDoc.data();
+
+            container.innerHTML += `
+                <div class="card">
+
+                    <h3>📄 ${pdf.title}</h3>
+
+                    <button
+                        class="btn btn-sm"
+                        onclick="downloadGradePDF('${pdf.pdfUrl}')">
+
+                        تحميل النوطة 📥
+
+                    </button>
+
+                    ${isTeacher ? `
+                        <button
+                            class="btn btn-sm"
+                            onclick="deleteGradePDF('${pdfDoc.id}')">
+
+                            حذف النوطة 🗑️
+
+                        </button>
+                    ` : ""}
+
+                </div>
+            `;
+
+        });
+
+    }catch(error){
+
+        console.error(
+            "❌ خطأ تحميل النوَطات:",
+            error
+        );
+
+    }
+
+};
+
+
+window.deleteGradePDF = function(pdfId){
+
+    lessonToDelete = pdfId;
+    confirmAction = "deleteGradePDF";
+
+    document.getElementById(
+        "delete-confirm-title"
+    ).textContent = "⚠️ تأكيد حذف النوطة";
+
+    document.getElementById(
+        "delete-confirm-text"
+    ).textContent = "هل أنت متأكد من حذف هذه النوطة؟";
+
+    document.getElementById(
+        "delete-confirm-box"
+    ).style.display = "flex";
+
+};
+
+
+
 
 
 
