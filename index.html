@@ -7492,7 +7492,32 @@ window.deleteGradePDF = function(pdfId){
 };
 
 
+window.downloadGradePDF = function(pdfUrl){
 
+    if(!pdfUrl){
+        showToast("❌ رابط النوطة غير موجود");
+        return;
+    }
+
+    const fileIdMatch =
+        pdfUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+
+    if(fileIdMatch){
+
+        const fileId = fileIdMatch[1];
+
+        const downloadUrl =
+            `https://drive.google.com/uc?export=download&id=${fileId}`;
+
+        window.location.href = downloadUrl;
+
+    }else{
+
+        showToast("⚠️ رابط Google Drive غير صالح");
+
+    }
+
+};
 
 
 
