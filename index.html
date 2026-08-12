@@ -927,20 +927,23 @@
 
 
 
-
 .urgent-bar{
     position:fixed;
     bottom:0;
     left:0;
     width:100%;
+    height:42px;
+
     z-index:9998;
 
     background:#d90429;
     color:white;
-    padding:10px 15px;
+
+    padding:0 15px;
 
     display:flex;
     align-items:center;
+
     overflow:hidden;
     box-sizing:border-box;
 }
@@ -1252,7 +1255,284 @@ body{
 
 
 
+    
+
+        /* =========================
+           نتائج الاختبارات - الإدارة
+           ========================= */
+        .quiz-submissions-tools{
+            display:flex;
+            flex-wrap:wrap;
+            gap:.75rem;
+            margin:1rem 0;
+        }
+
+        .quiz-submissions-list{
+            display:grid;
+            gap:1rem;
+        }
+
+        .quiz-submission-card{
+            background:var(--card-bg);
+            border:1px solid var(--border-color);
+            border-radius:16px;
+            padding:1rem;
+            box-shadow:var(--shadow);
+        }
+
+        .quiz-submission-card h3{
+            margin-bottom:.5rem;
+        }
+
+        .quiz-submission-meta{
+            display:grid;
+            gap:.35rem;
+            color:var(--gray-text);
+            margin-bottom:.85rem;
+        }
+
+        .quiz-submission-actions{
+            display:flex;
+            flex-wrap:wrap;
+            gap:.5rem;
+        }
+
+        .quiz-results-empty{
+            text-align:center;
+            padding:2rem 1rem;
+            color:var(--gray-text);
+        }
+
+        .quiz-result-modal{
+            position:fixed;
+            inset:0;
+            z-index:3000;
+            background:rgba(0,0,0,.55);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            padding:1rem;
+        }
+
+        .quiz-result-modal-card{
+            width:min(900px,100%);
+            max-height:90vh;
+            overflow:auto;
+            background:var(--card-bg);
+            color:var(--text-color);
+            border-radius:18px;
+            padding:1.25rem;
+        }
+
+        .quiz-result-answer{
+            border:1px solid var(--border-color);
+            border-radius:12px;
+            padding:.9rem;
+            margin:.7rem 0;
+        }
+
+        .quiz-result-answer .student-answer{
+            margin-top:.5rem;
+            padding:.7rem;
+            border-radius:10px;
+            background:var(--bg-light);
+            white-space:pre-wrap;
+        }
+
+        .quiz-result-grade-box{
+            display:grid;
+            gap:.6rem;
+            margin-top:1rem;
+            padding:1rem;
+            border:1px solid var(--border-color);
+            border-radius:14px;
+        }
+
+        .quiz-result-grade-box input,
+        .quiz-result-grade-box textarea{
+            width:100%;
+            padding:.7rem;
+            border:1px solid var(--border-color);
+            border-radius:10px;
+            background:var(--white);
+            color:var(--text-color);
+        }
+
+        .quiz-filter-select{
+            min-width:180px;
+            padding:.7rem .9rem;
+            border:1px solid var(--border-color);
+            border-radius:12px;
+            background:var(--white);
+            color:var(--text-color);
+            font-weight:700;
+        }
+
+        .quiz-student-group{
+            background:var(--card-bg);
+            border:1px solid var(--border-color);
+            border-radius:18px;
+            padding:1rem;
+            box-shadow:var(--shadow);
+        }
+
+        .quiz-student-group + .quiz-student-group{
+            margin-top:1rem;
+        }
+
+        .quiz-student-header{
+            display:flex;
+            flex-wrap:wrap;
+            align-items:center;
+            justify-content:space-between;
+            gap:.75rem;
+            padding-bottom:.85rem;
+            border-bottom:1px solid var(--border-color);
+            margin-bottom:.85rem;
+        }
+
+        .quiz-student-header h3{
+            margin:0;
+        }
+
+        .quiz-student-tests{
+            display:grid;
+            gap:.75rem;
+        }
+
+        .quiz-test-row{
+            border:1px solid var(--border-color);
+            border-radius:14px;
+            padding:.85rem;
+            display:flex;
+            flex-wrap:wrap;
+            align-items:center;
+            justify-content:space-between;
+            gap:.75rem;
+        }
+
+        .quiz-test-row .quiz-test-info{
+            flex:1;
+            min-width:220px;
+        }
+
+        .quiz-test-row .quiz-test-info strong{
+            display:block;
+            margin-bottom:.25rem;
+        }
+
+        .quiz-test-status{
+            font-weight:800;
+        }
+
+        .student-quiz-result{
+            margin-top:1rem;
+            padding:1rem;
+            border:1px solid var(--border-color);
+            border-radius:16px;
+            background:var(--card-bg);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
+            gap:.6rem;
+            text-align:center;
+        }
+
+        .student-result-circle{
+            width:128px;
+            height:128px;
+            border-radius:50%;
+            display:grid;
+            place-items:center;
+            position:relative;
+            background:conic-gradient(var(--result-color) var(--result-angle), var(--bg-light) 0);
+        }
+
+        .student-result-circle::after{
+            content:"";
+            position:absolute;
+            width:92px;
+            height:92px;
+            border-radius:50%;
+            background:var(--card-bg);
+        }
+
+        .student-result-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:560px;
+    background:var(--card-bg);
+}
+.student-result-table th,
+.student-result-table td{
+    border:1px solid var(--border-color);
+    padding:.65rem;
+    text-align:right;
+    vertical-align:top;
+}
+.student-result-table th{
+    font-weight:900;
+}
+.student-quiz-overall-result{
+    margin-top:1.5rem;
+    padding:1.25rem;
+    border:1px solid var(--border-color);
+    border-radius:18px;
+    background:var(--card-bg);
+    box-shadow:var(--shadow);
+    text-align:center;
+}
+
+.student-result-circle span{
+            position:relative;
+            z-index:1;
+            font-size:1.35rem;
+            font-weight:900;
+            color:var(--result-color);
+        }
+
+        .student-result-pass{
+            --result-color:#16a34a;
+        }
+
+        .student-result-fail{
+            --result-color:#dc2626;
+        }
+
+        .student-result-pending{
+            --result-color:var(--gray-text);
+        }
+
+        .student-result-title{
+            font-size:1.05rem;
+            font-weight:900;
+        }
+
+        .student-result-note{
+            color:var(--gray-text);
+            max-width:600px;
+        }
+
+        .register-control{
+            width:100%;
+            padding:12px 14px;
+            margin-bottom:10px;
+            border-radius:12px;
+            border:1px solid var(--border-color);
+            background:var(--white);
+            color:var(--text-color);
+            outline:none;
+            font-size:1rem;
+        }
+
+        .register-control:focus{
+            border-color:var(--accent-color);
+            box-shadow:0 0 0 3px var(--bg-light);
+        }
+
     </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 <div id="toast"></div>
@@ -1286,6 +1566,7 @@ body{
             <li><a onclick="switchPage('cv-page'); toggleSidebar();">👤 السيرة الذاتية (CV)</a></li>
             <li><button class="sidebar-btn" onclick="toggleTheme()">✨ تبديل الثيم</button></li>
            <li id="admin-menu" style="display:none;"><a onclick="switchPage('student-list'); toggleSidebar();">👨‍🏫 لوحة الإدارة </a></li>
+           <li id="quiz-submissions-menu" style="display:none;"><a onclick="switchPage('quiz-submissions'); toggleSidebar();">📋 نتائج الاختبارات</a></li>
            
             <li><a href="https://wa.me/963996102881" target="_blank" class="sidebar-whatsapp">💬 تواصل واتساب</a></li>
             <li id="logout-item" class="logout-itme" style="display: none;" onclick="toggleSidebar(); "><a id="logout-btn"> 🚪 تسجيل الخروج </a></li> 
@@ -1413,6 +1694,63 @@ body{
     </div>
 
 </div>
+<div id="quiz-submissions" class="page">
+
+    <div class="admin-dashboard">
+
+        <h2 class="admin-title">📋 نتائج الاختبارات</h2>
+        <p style="color:var(--gray-text);margin-bottom:1rem;">
+            هنا تظهر إجابات الطلاب، ويمكن للأستاذ فتح كل اختبار وإضافة العلامة والملاحظة.
+        </p>
+
+        <div class="quiz-submissions-tools">
+            <select id="quiz-grade-filter" class="quiz-filter-select" onchange="applyQuizSubmissionFilters()">
+                <option value="all">كل الصفوف</option>
+                <option value="السابع">السابع</option>
+                <option value="الثامن">الثامن</option>
+                <option value="التاسع">التاسع</option>
+                <option value="عاشر">عاشر</option>
+                <option value="حادي عشر">حادي عشر</option>
+                <option value="بكالوريا">بكالوريا</option>
+            </select>
+
+            <select id="quiz-branch-filter" class="quiz-filter-select" onchange="applyQuizSubmissionFilters()">
+                <option value="all">كل الفروع</option>
+                <option value="علمي">علمي</option>
+                <option value="أدبي">أدبي</option>
+                <option value="مهني">مهني</option>
+            </select>
+
+            <button class="btn" type="button" onclick="loadQuizSubmissions()">
+                🔄 تحديث النتائج
+            </button>
+        </div>
+
+        <div id="quiz-submissions-list" class="quiz-submissions-list">
+            <div class="quiz-results-empty">لا توجد نتائج محملة بعد.</div>
+        </div>
+
+        <div style="text-align:center;margin:1rem 0;">
+            <button class="btn" type="button" onclick="toggleQuizOverallResults()">📊 النتائج</button>
+        </div>
+
+        <div id="quiz-overall-results-panel" style="display:none;margin-top:1rem;">
+            <div class="admin-card">
+                <h3 style="text-align:center;margin-bottom:1rem;">📊 جداول النتائج والمجموع العام للطلاب</h3>
+                <div id="quiz-overall-results-content"></div>
+            </div>
+        </div>
+
+        <div class="bottom-back-container">
+            <button class="bottom-back-btn" onclick="switchPage('student-list')">
+                ← العودة للوحة الإدارة
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
 <div id="student-profile" class="page">
     <div class="container">
 
@@ -1628,7 +1966,7 @@ body{
 
 
 <div class="card"
-onclick="selectGrade('الصف السابع')">
+data-protected-grade="الصف السابع" onclick="selectGrade('الصف السابع')">
 
 <h3>الصف السابع</h3>
 
@@ -1644,7 +1982,7 @@ onclick="selectGrade('الصف السابع')">
 
 
 <div class="card"
-onclick="selectGrade('الصف الثامن')">
+data-protected-grade="الصف الثامن" onclick="selectGrade('الصف الثامن')">
 
 <h3>الصف الثامن</h3>
 
@@ -1661,7 +1999,7 @@ onclick="selectGrade('الصف الثامن')">
 
 
 <div class="card"
-onclick="selectGrade('الصف التاسع')">
+data-protected-grade="الصف التاسع" onclick="selectGrade('الصف التاسع')">
 
 <h3>الصف التاسع</h3>
 
@@ -1738,7 +2076,7 @@ onclick="switchPage('science-branch')">
 
 
 <div class="card"
-onclick="selectGrade('بكالوريا أدبي')">
+data-protected-grade="بكالوريا أدبي" onclick="selectGrade('بكالوريا أدبي')">
 
 <h3>البكالوريا الأدبي</h3>
 
@@ -1756,7 +2094,7 @@ onclick="selectGrade('بكالوريا أدبي')">
 
 
 <div class="card"
-onclick="selectGrade('بكالوريا مهني')">
+data-protected-grade="بكالوريا مهني" onclick="selectGrade('بكالوريا مهني')">
 
 <h3>البكالوريا المهني</h3>
 
@@ -1811,7 +2149,7 @@ onclick="switchPage('grades')">
 
 
 <div class="card"
-onclick="selectGrade('الصف العاشر العلمي')">
+data-protected-grade="الصف العاشر العلمي" onclick="selectGrade('الصف العاشر العلمي')">
 
 <h3>الصف العاشر العلمي</h3>
 
@@ -1826,7 +2164,7 @@ onclick="selectGrade('الصف العاشر العلمي')">
 
 
 <div class="card"
-onclick="selectGrade('الصف الحادي عشر العلمي')">
+data-protected-grade="الصف الحادي عشر العلمي" onclick="selectGrade('الصف الحادي عشر العلمي')">
 
 <h3>الصف الحادي عشر العلمي</h3>
 
@@ -1841,7 +2179,7 @@ onclick="selectGrade('الصف الحادي عشر العلمي')">
 
 
 <div class="card"
-onclick="selectGrade('البكالوريا العلمي')">
+data-protected-grade="البكالوريا العلمي" onclick="selectGrade('البكالوريا العلمي')">
 
 <h3>البكالوريا العلمي</h3>
 
@@ -2398,6 +2736,13 @@ id="grammar-lessons">
                     ➕ إضافة سؤال
                 </button>
 
+                <button
+                    type="button"
+                    class="quiz-delete-btn"
+                    onclick="deleteQuizStudentAnswers('multiple')">
+                    🗑️ حذف إجابات الطلاب السابقة
+                </button>
+
             </div>
 
 
@@ -2442,9 +2787,11 @@ id="grammar-lessons">
             <!-- زر إرسال الطالب -->
             <button
                 type="button"
-                class="quiz-save-btn">
+                class="quiz-save-btn"
+                onclick="submitQuiz('multiple')">
                 📤 إرسال الاختبار
             </button>
+            <div id="student-quiz-result-multiple" class="student-quiz-result" style="display:none;"></div>
 
 
             <!-- حفظ تعديلات المدير -->
@@ -2495,6 +2842,13 @@ id="grammar-lessons">
                     ➕ إضافة سؤال
                 </button>
 
+                <button
+                    type="button"
+                    class="quiz-delete-btn"
+                    onclick="deleteQuizStudentAnswers('answer')">
+                    🗑️ حذف إجابات الطلاب السابقة
+                </button>
+
             </div>
 
 
@@ -2529,9 +2883,11 @@ id="grammar-lessons">
             <!-- زر إرسال الطالب -->
             <button
                 type="button"
-                class="quiz-save-btn">
+                class="quiz-save-btn"
+                onclick="submitQuiz('answer')">
                 📤 إرسال الاختبار
             </button>
+            <div id="student-quiz-result-answer" class="student-quiz-result" style="display:none;"></div>
 
 
             <!-- حفظ تعديلات المدير -->
@@ -2553,12 +2909,12 @@ id="grammar-lessons">
 
 
         <!-- ================================================= -->
-        <!-- 3 - أجب وأتمم -->
+        <!-- 3 - أجب اختر -->
         <!-- ================================================= -->
 
         <div class="card quiz-box">
 
-            <h3>📝 أجب وأتمم</h3>
+            <h3>📝 أجب و اختر </h3>
 
             <!-- زر تعديل القائمة -->
             <button
@@ -2586,7 +2942,15 @@ id="grammar-lessons">
                     type="button"
                     class="quiz-add-btn"
                     onclick="openAddQuiz('complete-fill')">
-                    📝 إضافة أتمم
+                    📝 إضافة اختر
+
+                </button>
+
+                <button
+                    type="button"
+                    class="quiz-delete-btn"
+                    onclick="deleteQuizStudentAnswers('complete')">
+                    🗑️ حذف إجابات الطلاب السابقة
                 </button>
 
             </div>
@@ -2625,9 +2989,9 @@ id="grammar-lessons">
 
 
 
-            <!-- ================= قسم أتمم ================= -->
+            <!-- ================= قسم اختر ================= -->
 
-            <h4>📝 أتمم</h4>
+            <h4>📝 اختر</h4>
 
             <div class="quiz-item">
 
@@ -2681,9 +3045,11 @@ id="grammar-lessons">
             <!-- زر إرسال الطالب -->
             <button
                 type="button"
-                class="quiz-save-btn">
+                class="quiz-save-btn"
+                onclick="submitQuiz('complete')">
                 📤 إرسال الاختبار
             </button>
+            <div id="student-quiz-result-complete" class="student-quiz-result" style="display:none;"></div>
 
 
             <!-- حفظ تعديلات المدير -->
@@ -2795,21 +3161,10 @@ id="grammar-lessons">
 
 
 
-
-
-
-
-
-
-
 <!-- الفوتر -->
     <footer>
         <p>جميع حقوق الطبع محفوظة © 2026 | منصة الأستاذ نادر الحصني للتفوق الدراسي</p>
     </footer>
-
-
-
-
 
 
 
@@ -2883,10 +3238,28 @@ function switchPage(pageId) {
 
      if(pageId === "sections"){
 
+        updateGradeCardLockStatus();
         loadGradePDFs();
 
     }
+
+    if(
+        pageId === "middle-school" ||
+        pageId === "high-school" ||
+        pageId === "science-branch"
+    ){
+        updateGradeCardLockStatus();
+    }
       
+
+    /* =====================================================
+       نتائج الاختبارات - الإدارة
+       ===================================================== */
+
+    if(pageId === "quiz-submissions"){
+        loadQuizSubmissions();
+    }
+
 
     /* =====================================================
        قسم الاختبارات
@@ -2894,7 +3267,12 @@ function switchPage(pageId) {
 
     if(pageId === "quiz-section"){
 
-        loadQuizQuestions().then(function(result){
+        // لوحة الاختبارات للأستاذ مخصصة لإدارة الأسئلة فقط؛ لا تعرض نتائج الطلاب داخلها.
+        document.querySelectorAll(".student-quiz-result, #student-overall-quiz-result").forEach(function(el){
+            el.style.display = "none";
+        });
+
+        loadQuizQuestions().then(async function(result){
 
             if(!result){
                 return;
@@ -2919,29 +3297,210 @@ function switchPage(pageId) {
 
                 renderQuizcardQuestions("complete",  result.complete);
             }
+
+            // تحميل النتائج بعد إنشاء بطاقات الاختبارات
+            // لأن عناصر عرض النتيجة لا تكون موجودة قبل الـ render.
+            if (auth.currentUser) {
+                const userSnap = await getDoc(
+                    doc(db, "users", auth.currentUser.uid)
+                );
+
+                if (userSnap.exists() && userSnap.data().role === "student") {
+                    await loadStudentQuizResults();
+                } else {
+                    document.querySelectorAll(".student-quiz-result, #student-overall-quiz-result").forEach(function(el){
+                        el.style.display = "none";
+                    });
+                }
+            }
         });
     }
 }
 
+async function selectGrade(gradeName) {
 
+    const allowed = await checkGradeAccess(gradeName);
 
-
-
-
-
-       function selectGrade(gradeName) {
+    if(!allowed){
+        return;
+    }
 
     currentGrade = gradeName;
 
+    console.log("CURRENT GRADE:", currentGrade);
+
     document.getElementById('current-grade-title').textContent =
-    "أنت تتصفح: " + gradeName;
+        "أنت تتصفح: " + gradeName;
 
     switchPage('sections');
-
 }
 
-        function selectFoundationSections(gradeName) {
-             currentGrade = gradeName;
+
+function getSelectedGradeData(gradeName){
+
+    const gradeMap = {
+        "الصف السابع": "السابع",
+        "الصف الثامن": "الثامن",
+        "الصف التاسع": "التاسع",
+        "الصف العاشر العلمي": "عاشر",
+        "الصف الحادي عشر العلمي": "حادي عشر",
+        "البكالوريا العلمي": "بكالوريا",
+        "بكالوريا أدبي": "بكالوريا",
+        "بكالوريا مهني": "بكالوريا"
+    };
+
+    const selectedGrade =
+        gradeMap[gradeName] || gradeName;
+
+    let selectedBranch = "";
+
+    if(gradeName === "البكالوريا العلمي"){
+        selectedBranch = "علمي";
+    }
+    else if(gradeName === "بكالوريا أدبي"){
+        selectedBranch = "أدبي";
+    }
+    else if(gradeName === "بكالوريا مهني"){
+        selectedBranch = "مهني";
+    }
+
+    return { selectedGrade, selectedBranch };
+}
+
+
+async function getCurrentUserData(){
+
+    if(!auth.currentUser){
+        return null;
+    }
+
+    const userSnap = await getDoc(
+        doc(db, "users", auth.currentUser.uid)
+    );
+
+    if(!userSnap.exists()){
+        return null;
+    }
+
+    return userSnap.data();
+}
+
+
+async function checkGradeAccess(gradeName){
+
+    if(!auth.currentUser){
+        showToast("🔒 يجب تسجيل الدخول أولاً");
+        return false;
+    }
+
+    try{
+        const userData = await getCurrentUserData();
+
+        if(!userData){
+            showToast("❌ لم يتم العثور على بيانات الحساب");
+            return false;
+        }
+
+        if(userData.role === "teacher"){
+            return true;
+        }
+
+        if(userData.subscription !== "مفعل"){
+            showToast("🔒 يجب تفعيل اشتراكك لفتح هذا الصف");
+            return false;
+        }
+
+        const { selectedGrade, selectedBranch } = getSelectedGradeData(gradeName);
+
+        if(userData.grade !== selectedGrade){
+            showToast("🔒 اشتراكك مفعّل للصف " + userData.grade + " فقط");
+            return false;
+        }
+
+        if(selectedGrade === "بكالوريا" && selectedBranch && userData.branch !== selectedBranch){
+            showToast("🔒 اشتراكك مخصص لفرع " + userData.branch + " فقط");
+            return false;
+        }
+
+        return true;
+    }catch(error){
+        console.error("خطأ في التحقق من صلاحية الصف:", error);
+        showToast("❌ حدث خطأ أثناء التحقق من الحساب");
+        return false;
+    }
+}
+
+
+async function updateGradeCardLockStatus(){
+
+    const cards = document.querySelectorAll("[data-protected-grade]");
+
+    if(!cards.length){
+        return;
+    }
+
+    cards.forEach(card => {
+        const button = card.querySelector(".btn");
+        if(button){
+            button.textContent = "🔒 الصف مقفل";
+            button.setAttribute("aria-label", "الصف مقفل");
+            button.classList.add("grade-locked");
+            button.classList.remove("grade-unlocked");
+        }
+        card.querySelectorAll(".grade-lock-indicator, .grade-card-lock, [data-grade-lock]").forEach(el => el.remove());
+    });
+
+    if(!auth.currentUser){
+        return;
+    }
+
+    try{
+        const userData = await getCurrentUserData();
+
+        if(!userData){
+            return;
+        }
+
+        if(userData.role === "teacher"){
+            cards.forEach(card => {
+                const button = card.querySelector(".btn");
+                if(button){
+                    button.textContent = "🔓 فتح الصف";
+                }
+            });
+            return;
+        }
+
+        if(userData.subscription !== "مفعل"){
+            return;
+        }
+
+        cards.forEach(card => {
+            const { selectedGrade, selectedBranch } = getSelectedGradeData(card.dataset.protectedGrade);
+            const allowed =
+                userData.grade === selectedGrade &&
+                (selectedGrade !== "بكالوريا" || !selectedBranch || userData.branch === selectedBranch);
+
+            const button = card.querySelector(".btn");
+            if(button){
+                button.textContent = allowed ? "🔓 فتح الصف" : "🔒 الصف مقفل";
+                button.setAttribute("aria-label", allowed ? "فتح الصف" : "الصف مقفل");
+                button.classList.toggle("grade-locked", !allowed);
+                button.classList.toggle("grade-unlocked", allowed);
+            }
+
+            // إزالة أي عناصر قفل إضافية كانت مضافة داخل البطاقة، حتى لا يظهر
+            // "فتح الصف" مع "🔒" كعنصرين منفصلين.
+            card.querySelectorAll(".grade-lock-indicator, .grade-card-lock, [data-grade-lock]").forEach(el => el.remove());
+        });
+    }catch(error){
+        console.error("خطأ في تحديث أقفال الصفوف:", error);
+    }
+}
+
+
+function selectFoundationSections(gradeName) {
+             currentGrade = "قسم التأسيس الشامل";
             switchPage('foundation-sections');
         }
 
@@ -3073,6 +3632,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+window.auth = auth;
 
 const db = getFirestore(app);
 window.db = db ;
@@ -3334,6 +3894,7 @@ onAuthStateChanged(auth, async (user) => {
 
     const logoutItem = document.getElementById("logout-item");
     const adminMenu = document.getElementById("admin-menu");
+    const quizSubmissionsMenu = document.getElementById("quiz-submissions-menu");
 
     const gradePdfBtn =
         document.getElementById("teacher-grade-pdf-btn");
@@ -3361,6 +3922,7 @@ onAuthStateChanged(auth, async (user) => {
                 isTeacher = true;
 
                 adminMenu.style.display = "block";
+                if (quizSubmissionsMenu) quizSubmissionsMenu.style.display = "block";
 
                 loadStudents();
 
@@ -3381,6 +3943,7 @@ onAuthStateChanged(auth, async (user) => {
                 isTeacher = false;
 
                 adminMenu.style.display = "none";
+                if (quizSubmissionsMenu) quizSubmissionsMenu.style.display = "none";
 
 
                 // إخفاء زر إضافة النوطة عن الطالب
@@ -3402,6 +3965,13 @@ onAuthStateChanged(auth, async (user) => {
 
                 });
 
+        }
+
+
+        updateGradeCardLockStatus();
+
+        if(data.role === "student"){
+            loadStudentQuizResults();
         }
 
 
@@ -3428,6 +3998,7 @@ onAuthStateChanged(auth, async (user) => {
         logoutItem.style.display = "none";
 
         adminMenu.style.display = "none";
+        if (quizSubmissionsMenu) quizSubmissionsMenu.style.display = "none";
 
         document.getElementById(
             "user-name"
@@ -3447,6 +4018,9 @@ onAuthStateChanged(auth, async (user) => {
                 btn.style.display = "none";
 
             });
+
+
+        updateGradeCardLockStatus();
 
 
         const editBtn =
@@ -4557,15 +5131,16 @@ window.loadSectionLessons = async function(){
                         ${lesson.description}
                     </p>
 
-                    ${lesson.videoUrl ? `
-                        <button
-                            class="btn btn-sm"
-                            onclick="openVideo('${lesson.videoUrl}')">
+                   ${lesson.videoUrl ? `
+    <button
+        class="btn btn-sm"
+        onclick="openProtectedVideo('${lesson.videoUrl}')"
+        id="video-btn-${doc.id}">
 
-                            مشاهدة الفيديو 🎥
+        🔒 مشاهدة الفيديو
 
-                        </button>
-                    ` : ""}
+    </button>
+` : ""}
 
                     ${isTeacher ? `
                         <button
@@ -4579,9 +5154,9 @@ window.loadSectionLessons = async function(){
 
                 </div>
             `;
-
+         
         });
-
+         await updateVideoLockStatus();
     }catch(error){
 
         console.error(
@@ -4597,6 +5172,63 @@ window.loadSectionLessons = async function(){
 
     }
 
+};
+
+window.checkContentAccess = async function(){
+
+    if(currentGrade === "قسم التأسيس الشامل"){
+        if(!auth.currentUser){
+            showToast("🔒 يجب تسجيل الدخول أولاً");
+            return false;
+        }
+        return true;
+    }
+
+    if(!auth.currentUser){
+        showToast("🔒 يجب تسجيل الدخول أولاً");
+        return false;
+    }
+
+    try{
+        const userData = await getCurrentUserData();
+
+        if(!userData){
+            showToast("❌ لم يتم العثور على بيانات الحساب");
+            return false;
+        }
+
+        if(userData.role === "teacher"){
+            return true;
+        }
+
+        const activePage = document.querySelector(".page.active")?.id;
+        if(activePage === "quiz-section"){
+            return true;
+        }
+
+        if(userData.subscription !== "مفعل"){
+            showToast("🔒 يجب تفعيل اشتراكك لفتح هذا المحتوى");
+            return false;
+        }
+
+        const { selectedGrade, selectedBranch } = getSelectedGradeData(currentGrade);
+
+        if(userData.grade !== selectedGrade){
+            showToast("🔒 اشتراكك مفعّل للصف " + userData.grade + " فقط");
+            return false;
+        }
+
+        if(selectedGrade === "بكالوريا" && selectedBranch && userData.branch !== selectedBranch){
+            showToast("🔒 هذا المحتوى مخصص لفرع " + selectedBranch + " فقط");
+            return false;
+        }
+
+        return true;
+    }catch(error){
+        console.error("خطأ في التحقق من صلاحية المحتوى:", error);
+        showToast("❌ حدث خطأ أثناء التحقق من الحساب");
+        return false;
+    }
 };
 
 
@@ -4705,16 +5337,59 @@ window.openVideo = function(url){
 
 };
 
+window.openProtectedVideo = async function(url){
 
+    const allowed = await checkContentAccess();
 
-window.closeVideo = function(){
-
-    const videoBox = document.getElementById("video-box");
-
-    if(videoBox){
-        videoBox.remove();
+    if(!allowed){
+        return;
     }
 
+    openVideo(url);
+};
+
+
+
+
+window.updateVideoLockStatus = async function(){
+
+    const buttons = document.querySelectorAll('[id^="video-btn-"]');
+
+    if(!buttons.length){ return; }
+
+    if(!auth.currentUser){
+        buttons.forEach(btn => btn.textContent = "🔒 مشاهدة الفيديو");
+        return;
+    }
+
+    try{
+        const userData = await getCurrentUserData();
+        if(!userData){ return; }
+
+        if(userData.role === "teacher"){
+            buttons.forEach(btn => btn.textContent = "🎥 مشاهدة الفيديو");
+            return;
+        }
+
+        if(currentGrade === "قسم التأسيس الشامل"){
+            buttons.forEach(btn => btn.textContent = "🎥 مشاهدة الفيديو");
+            return;
+        }
+
+        if(userData.subscription !== "مفعل"){
+            buttons.forEach(btn => btn.textContent = "🔒 مشاهدة الفيديو");
+            return;
+        }
+
+        const { selectedGrade, selectedBranch } = getSelectedGradeData(currentGrade);
+        const allowed = userData.grade === selectedGrade &&
+            (selectedGrade !== "بكالوريا" || !selectedBranch || userData.branch === selectedBranch);
+
+        buttons.forEach(btn => btn.textContent = allowed ? "🎥 مشاهدة الفيديو" : "🔒 مشاهدة الفيديو");
+    }catch(error){
+        console.error("خطأ في تحديث حالة الفيديو:", error);
+        buttons.forEach(btn => btn.textContent = "🔒 مشاهدة الفيديو");
+    }
 };
 
 
@@ -4727,23 +5402,6 @@ window.closeVideo = function(){
     }
 
 };
-
-window.closeVideo = function(){
-
-    const box = document.getElementById("video-box");
-
-    if(box){
-        box.remove();
-    }
-
-};
-
-
-window.closeVideo=function(){
-
-document.getElementById("video-box").remove();
-
-}
 
 
 window.downloadPDF = function(url){
@@ -5274,7 +5932,7 @@ window.createQuizEditor = function(
     else if(type === "complete"){
 
         title =
-            "✏️ تعديل أسئلة أجب وأتمم";
+            "✏️ تعديل أسئلة أجب اخترر";
     }
 
 
@@ -5334,7 +5992,7 @@ window.createQuizEditor = function(
                 class="quiz-add-btn"
                 onclick="openAddQuiz('complete-fill')">
 
-                📝 إضافة سؤال أتمم
+                📝 إضافة سؤال اختر
 
             </button>
 
@@ -5509,7 +6167,7 @@ window.renderQuizEditorQuestions = function(
         else if(question.type === "complete"){
 
             typeName =
-                "📝 أتمم";
+                "📝 اختر";
         }
 
 
@@ -5592,6 +6250,10 @@ window.renderQuizEditorQuestions = function(
 
             </div>
 
+            <div class="quiz-editor-question-points" style="margin:.55rem 0;font-weight:800;">
+                ⭐ علامة السؤال: ${Number(question.points ?? 1)}
+            </div>
+
 
             ${optionsHTML}
 
@@ -5663,7 +6325,7 @@ window.openAddQuiz = function(type){
 
         const title =
             finalType === "complete"
-                ? "📝 إضافة سؤال أتمم"
+                ? "📝 إضافة سؤال اختر"
                 : "➕ إضافة سؤال اختياري";
 
 
@@ -5770,6 +6432,15 @@ window.openAddQuiz = function(type){
 
                 </select>
 
+                <input
+                    id="newQuizPoints"
+                    class="quiz-add-input"
+                    type="number"
+                    min="0.5"
+                    step="0.5"
+                    value="1"
+                    placeholder="علامة السؤال (مثلاً 5)">
+
 
                 <button
                     type="button"
@@ -5823,6 +6494,15 @@ window.openAddQuiz = function(type){
                     لا يوجد جواب يدخله الأستاذ.
 
                 </div>
+
+                <input
+                    id="newQuizPoints"
+                    class="quiz-add-input"
+                    type="number"
+                    min="0.5"
+                    step="0.5"
+                    value="1"
+                    placeholder="علامة السؤال (مثلاً 5)">
 
 
                 <button
@@ -6022,6 +6702,16 @@ window.insertQuizItem = function(type){
     const question =
         input.value.trim();
 
+    const pointsInput = document.getElementById("newQuizPoints");
+    const points = pointsInput ? Number(pointsInput.value) : 1;
+
+    if(!Number.isFinite(points) || points <= 0){
+        if(typeof showToast === "function"){
+            showToast("اكتب علامة صحيحة للسؤال");
+        }
+        return;
+    }
+
 
     if(!question){
 
@@ -6049,14 +6739,16 @@ window.insertQuizItem = function(type){
 
             type: "answer",
 
-            question: question
+            question: question,
+
+            points: points
 
         };
     }
 
 
     /* =====================================================
-       اختياري / أتمم
+       اختياري / اختر
        ===================================================== */
 
     else if(
@@ -6136,7 +6828,9 @@ window.insertQuizItem = function(type){
             options: options,
 
             correctIndex:
-                Number(select.value)
+                Number(select.value),
+
+            points: points
 
         };
     }
@@ -7431,12 +8125,13 @@ window.loadGradePDFs = async function(){
                     <h3>📄 ${pdf.title}</h3>
 
                     <button
-                        class="btn btn-sm"
-                        onclick="downloadGradePDF('${pdf.pdfUrl}')">
+    class="btn btn-sm"
+    onclick="downloadGradePDF('${pdf.pdfUrl}')"
+    id="pdf-btn-${pdfDoc.id}">
 
-                        تحميل النوطة 📥
+    🔒 تحميل النوطة
 
-                    </button>
+</button>
 
                     ${isTeacher ? `
                         <button
@@ -7452,7 +8147,8 @@ window.loadGradePDFs = async function(){
             `;
 
         });
-
+       
+await updatePDFLockStatus();
     }catch(error){
 
         console.error(
@@ -7484,10 +8180,16 @@ window.deleteGradePDF = function(pdfId){
 
 };
 
-window.downloadGradePDF = function(pdfUrl){
+window.downloadGradePDF = async function(pdfUrl){
+
+    const allowed = await checkContentAccess();
+
+    if(!allowed){
+        return;
+    }
 
     if(!pdfUrl){
-        showToast("❌ رابط النوطة غير موجود");
+        showToast("رابط النوطة غير موجود ❌");
         return;
     }
 
@@ -7505,14 +8207,1426 @@ window.downloadGradePDF = function(pdfUrl){
 
     }else{
 
-        showToast("⚠️ رابط Google Drive غير صالح");
+        showToast("رابط Google Drive غير صالح ⚠️");
 
     }
-
 };
 
 
 
+window.updatePDFLockStatus = async function(){
+
+    const buttons = document.querySelectorAll('[id^="pdf-btn-"]');
+
+    if(!buttons.length){ return; }
+
+    if(!auth.currentUser){
+        buttons.forEach(btn => btn.textContent = "🔒 تحميل النوطة");
+        return;
+    }
+
+    try{
+        const userData = await getCurrentUserData();
+        if(!userData){ return; }
+
+        if(userData.role === "teacher"){
+            buttons.forEach(btn => btn.textContent = "📥 تحميل النوطة");
+            return;
+        }
+
+        if(currentGrade === "قسم التأسيس الشامل"){
+            buttons.forEach(btn => btn.textContent = "📥 تحميل النوطة");
+            return;
+        }
+
+        if(userData.subscription !== "مفعل"){
+            buttons.forEach(btn => btn.textContent = "🔒 تحميل النوطة");
+            return;
+        }
+
+        const { selectedGrade, selectedBranch } = getSelectedGradeData(currentGrade);
+        const allowed = userData.grade === selectedGrade &&
+            (selectedGrade !== "بكالوريا" || !selectedBranch || userData.branch === selectedBranch);
+
+        buttons.forEach(btn => btn.textContent = allowed ? "📥 تحميل النوطة" : "🔒 تحميل النوطة");
+    }catch(error){
+        console.error("خطأ في تحديث حالة النوطة:", error);
+        buttons.forEach(btn => btn.textContent = "🔒 تحميل النوطة");
+    }
+};
+
+
+
+
+/* =========================================================
+   إرسال إجابات الاختبارات للمدير
+   ========================================================= */
+
+function getQuizSubmissionGrade(userData){
+
+    if(currentGrade && currentGrade !== "قسم التأسيس الشامل"){
+        return currentGrade;
+    }
+
+    const gradeMap = {
+        "السابع": "الصف السابع",
+        "الثامن": "الصف الثامن",
+        "التاسع": "الصف التاسع",
+        "عاشر": "الصف العاشر العلمي",
+        "حادي عشر": "الصف الحادي عشر العلمي",
+        "بكالوريا": "البكالوريا العلمي"
+    };
+
+    return gradeMap[userData?.grade] || userData?.grade || "غير محدد";
+}
+
+
+function getQuizSubmissionBranch(userData, gradeName){
+
+    if(userData?.branch){
+        return userData.branch;
+    }
+
+    if(gradeName === "البكالوريا العلمي"){
+        return "علمي";
+    }
+
+    if(gradeName === "بكالوريا أدبي"){
+        return "أدبي";
+    }
+
+    if(gradeName === "بكالوريا مهني"){
+        return "مهني";
+    }
+
+    return "";
+}
+
+
+function getQuizTypeLabel(type){
+
+    if(type === "multiple") return "اختر الإجابة الصحيحة";
+    if(type === "answer") return "أجب عن الأسئلة";
+    if(type === "complete") return "أجب و اختر";
+
+    return type || "اختبار";
+}
+
+
+window.submitQuiz = async function(type){
+
+    if(!auth.currentUser){
+        showToast("🔒 يجب تسجيل الدخول أولاً");
+        return;
+    }
+
+    const card = getQuizCard(type);
+
+    if(!card){
+        showToast("❌ لم يتم العثور على الاختبار");
+        return;
+    }
+
+    try{
+
+        const userData = await getCurrentUserData();
+
+        if(!userData){
+            showToast("❌ لم يتم العثور على بيانات الطالب");
+            return;
+        }
+
+        if(userData.role !== "student"){
+            showToast("ℹ️ إرسال الإجابات مخصص للطلاب");
+            return;
+        }
+
+        const questions = Array.isArray(window.quizQuestionsCache[type])
+            ? window.quizQuestionsCache[type]
+            : [];
+
+        if(!questions.length){
+            showToast("⚠️ لا توجد أسئلة لإرسالها");
+            return;
+        }
+
+        const items = Array.from(card.querySelectorAll(".quiz-item"));
+        const answers = [];
+
+        questions.forEach(function(question, index){
+
+            const item = items[index];
+
+            if(!item){
+                return;
+            }
+
+            const checked = item.querySelector('input[type="radio"]:checked');
+            const textarea = item.querySelector("textarea");
+
+            let answer = "";
+
+            if(checked){
+                answer = checked.parentElement
+                    ? checked.parentElement.textContent.trim()
+                    : checked.value;
+            }
+
+            if(textarea && textarea.value.trim()){
+                answer = textarea.value.trim();
+            }
+
+            answers.push({
+                question: question.question || "",
+                type: question.type || "",
+                answer: answer,
+                points: Number(question.points ?? 1),
+                earnedPoints: null,
+                options: Array.isArray(question.options)
+                    ? question.options
+                    : []
+            });
+        });
+
+        const unanswered = answers.filter(function(item){
+            return !item.answer;
+        }).length;
+
+        if(unanswered === answers.length){
+            showToast("⚠️ أجب عن الأسئلة قبل الإرسال");
+            return;
+        }
+
+        const gradeName = getQuizSubmissionGrade(userData);
+        const branch = getQuizSubmissionBranch(userData, gradeName);
+
+        const totalQuestionPoints = answers.reduce(function(sum, item){
+            return sum + Math.max(0, Number(item.points ?? 1));
+        }, 0);
+
+        await addDoc(
+            collection(db, "quizSubmissions"),
+            {
+                studentId: auth.currentUser.uid,
+                studentName: userData.name || "غير محدد",
+                studentEmail: auth.currentUser.email || "",
+                grade: userData.grade || "",
+                gradeName: gradeName,
+                branch: branch,
+                quizType: type,
+                quizTitle: getQuizTypeLabel(type),
+                answers: answers,
+                maxScore: totalQuestionPoints,
+                score: null,
+                earnedPoints: null,
+                failedQuestionCount: null,
+                questionResults: [],
+                teacherNote: "",
+                submittedAt: new Date()
+            }
+        );
+
+        card.querySelectorAll("input, textarea, button.quiz-save-btn")
+            .forEach(function(element){
+                if(!element.classList.contains("quiz-edit-btn")){
+                    if(element.matches("input, textarea")){
+                        element.disabled = true;
+                    }
+                }
+            });
+
+        const submitButton = card.querySelector(".quiz-save-btn");
+        if(submitButton){
+            submitButton.disabled = true;
+            submitButton.textContent = "✅ تم إرسال الاختبار";
+        }
+
+        renderStudentQuizResult(type, {
+            score: null,
+            maxScore: 100,
+            teacherNote: "",
+            submittedAt: new Date()
+        });
+
+        showToast("✅ تم إرسال إجاباتك للأستاذ بنجاح");
+
+    }catch(error){
+
+        console.error("خطأ في إرسال الاختبار:", error);
+        showToast("❌ تعذر إرسال الاختبار");
+    }
+};
+
+
+/* =========================================================
+   لوحة نتائج الاختبارات
+   ========================================================= */
+
+window.quizSubmissionCache = [];
+window.currentQuizSubmission = null;
+
+
+function formatQuizSubmissionDate(value){
+
+    if(!value){
+        return "غير محدد";
+    }
+
+    try{
+        const date = typeof value.toDate === "function"
+            ? value.toDate()
+            : new Date(value);
+
+        return date.toLocaleString("ar-SY", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        });
+    }catch(error){
+        return "غير محدد";
+    }
+}
+
+
+window.deleteQuizStudentAnswers = async function(type){
+
+    try{
+        const userData = await getCurrentUserData();
+
+        if(!userData || userData.role !== "teacher"){
+            showToast("🔒 هذه العملية للمدير/الأستاذ فقط");
+            return;
+        }
+
+        const typeLabel = getQuizTypeLabel(type);
+        const gradeName = getQuizSubmissionGrade(userData);
+        const branch = getQuizSubmissionBranch(userData, gradeName);
+
+        if(!gradeName || gradeName === "غير محدد"){
+            showToast("⚠️ اختر الصف أولاً قبل حذف الإجابات");
+            return;
+        }
+
+        const branchText = branch ? ` — فرع ${branch}` : "";
+        const confirmed = window.confirm(
+            `⚠️ سيتم حذف إجابات ونتائج الطلاب السابقة فقط.\n\n` +
+            `الفحص: ${typeLabel}\n` +
+            `الصف: ${gradeName}${branchText}\n\n` +
+            `الأسئلة نفسها لن تُحذف، وسيتمكن الطلاب من تقديم الفحص من جديد.\n\nهل أنت متأكد؟`
+        );
+
+        if(!confirmed){
+            return;
+        }
+
+        const constraints = [
+            where("quizType", "==", type),
+            where("gradeName", "==", gradeName)
+        ];
+
+        if(branch){
+            constraints.push(where("branch", "==", branch));
+        }
+
+        const q = query(
+            collection(db, "quizSubmissions"),
+            ...constraints
+        );
+
+        const snapshot = await getDocs(q);
+
+        if(snapshot.empty){
+            showToast("ℹ️ لا توجد إجابات سابقة لهذا الفحص");
+            return;
+        }
+
+        await Promise.all(
+            snapshot.docs.map(function(docSnap){
+                return deleteDoc(doc(db, "quizSubmissions", docSnap.id));
+            })
+        );
+
+        window.quizSubmissionCache = (window.quizSubmissionCache || []).filter(function(item){
+            if(item.quizType !== type) return true;
+            if(String(item.gradeName || "") !== String(gradeName)) return true;
+            if(branch && String(item.branch || "") !== String(branch)) return true;
+            return false;
+        });
+
+        if(document.getElementById("quiz-submissions-list")){
+            applyQuizSubmissionFilters();
+        }
+
+        showToast(`✅ تم حذف ${snapshot.size} إجابة/نتيجة. الأسئلة بقيت محفوظة والطلاب يستطيعون إعادة الفحص.`);
+
+    }catch(error){
+        console.error("خطأ في حذف إجابات الطلاب:", error);
+        showToast("❌ تعذر حذف الإجابات. تأكد من صلاحيات Firestore.");
+    }
+};
+
+
+
+window.deleteAllStudentQuizAnswers = async function(studentId, studentName){
+
+    try{
+        const userData = await getCurrentUserData();
+
+        if(!userData || userData.role !== "teacher"){
+            showToast("🔒 هذه العملية للمدير/الأستاذ فقط");
+            return;
+        }
+
+        if(!studentId){
+            showToast("❌ لم يتم تحديد الطالب");
+            return;
+        }
+
+        const confirmed = window.confirm(
+            `⚠️ سيتم حذف جميع إجابات ونتائج الطالب «${studentName || "هذا الطالب"}» السابقة.\n\n` +
+            `الأسئلة نفسها لن تُحذف، وسيتمكن الطالب من إعادة تقديم الاختبارات.\n\nهل أنت متأكد؟`
+        );
+
+        if(!confirmed){
+            return;
+        }
+
+        const snapshot = await getDocs(
+            query(
+                collection(db, "quizSubmissions"),
+                where("studentId", "==", studentId)
+            )
+        );
+
+        if(snapshot.empty){
+            showToast("ℹ️ لا توجد إجابات سابقة لهذا الطالب");
+            return;
+        }
+
+        await Promise.all(
+            snapshot.docs.map(function(docSnap){
+                return deleteDoc(doc(db, "quizSubmissions", docSnap.id));
+            })
+        );
+
+        window.quizSubmissionCache = (window.quizSubmissionCache || []).filter(function(item){
+            return String(item.studentId || "") !== String(studentId);
+        });
+
+        applyQuizSubmissionFilters();
+        showToast(`✅ تم حذف ${snapshot.size} إجابة/نتيجة للطالب، والأسئلة بقيت محفوظة.`);
+
+    }catch(error){
+        console.error("خطأ في حذف إجابات الطالب:", error);
+        showToast("❌ تعذر حذف إجابات الطالب. تأكد من صلاحيات Firestore.");
+    }
+};
+
+window.loadQuizSubmissions = async function(){
+
+    const list = document.getElementById("quiz-submissions-list");
+
+    if(!list){
+        return;
+    }
+
+    if(!auth.currentUser){
+        list.innerHTML = '<div class="quiz-results-empty">🔒 يجب تسجيل الدخول.</div>';
+        return;
+    }
+
+    try{
+
+        const userData = await getCurrentUserData();
+
+        if(!userData || userData.role !== "teacher"){
+            list.innerHTML = '<div class="quiz-results-empty">🔒 هذه الصفحة للأستاذ فقط.</div>';
+            return;
+        }
+
+        list.innerHTML = '<div class="quiz-results-empty">⏳ جاري تحميل النتائج...</div>';
+
+        const snapshot = await getDocs(
+            collection(db, "quizSubmissions")
+        );
+
+        const submissions = [];
+
+        snapshot.forEach(function(docSnap){
+            submissions.push({
+                id: docSnap.id,
+                ...docSnap.data()
+            });
+        });
+
+        submissions.sort(function(a,b){
+            const aDate = a.submittedAt?.toDate
+                ? a.submittedAt.toDate().getTime()
+                : new Date(a.submittedAt || 0).getTime();
+
+            const bDate = b.submittedAt?.toDate
+                ? b.submittedAt.toDate().getTime()
+                : new Date(b.submittedAt || 0).getTime();
+
+            return bDate - aDate;
+        });
+
+        window.quizSubmissionCache = submissions;
+
+        renderQuizSubmissions(submissions);
+
+    }catch(error){
+
+        console.error("خطأ في تحميل نتائج الاختبارات:", error);
+
+        list.innerHTML = '<div class="quiz-results-empty">❌ تعذر تحميل النتائج. تأكد من صلاحيات Firestore.</div>';
+    }
+};
+
+
+function renderQuizSubmissions(submissions){
+
+    const list = document.getElementById("quiz-submissions-list");
+
+    if(!list){
+        return;
+    }
+
+    if(!submissions.length){
+        list.innerHTML = '<div class="quiz-results-empty">📭 لا توجد نتائج مطابقة للفلاتر.</div>';
+        return;
+    }
+
+    const latestByStudent = {};
+
+    submissions.forEach(function(submission){
+
+        const studentKey =
+            submission.studentId ||
+            submission.studentEmail ||
+            submission.studentName ||
+            "unknown";
+
+        const key =
+            studentKey + "__" + (submission.quizType || "unknown");
+
+        const current = latestByStudent[key];
+
+        if(!current){
+            latestByStudent[key] = submission;
+            return;
+        }
+
+        const currentTime =
+            current.submittedAt?.toDate
+                ? current.submittedAt.toDate().getTime()
+                : new Date(current.submittedAt || 0).getTime();
+
+        const newTime =
+            submission.submittedAt?.toDate
+                ? submission.submittedAt.toDate().getTime()
+                : new Date(submission.submittedAt || 0).getTime();
+
+        if(newTime >= currentTime){
+            latestByStudent[key] = submission;
+        }
+    });
+
+    const grouped = {};
+
+    Object.values(latestByStudent).forEach(function(submission){
+
+        const studentKey =
+            submission.studentId ||
+            submission.studentEmail ||
+            submission.studentName ||
+            "unknown";
+
+        if(!grouped[studentKey]){
+            grouped[studentKey] = {
+                studentId: submission.studentId || "",
+                studentName: submission.studentName || "غير محدد",
+                studentEmail: submission.studentEmail || "",
+                grade: submission.grade || "",
+                gradeName: submission.gradeName || "",
+                branch: submission.branch || "",
+                tests: []
+            };
+        }
+
+        grouped[studentKey].tests.push(submission);
+    });
+
+    const typeOrder = {
+        multiple: 1,
+        answer: 2,
+        complete: 3
+    };
+
+    const groups = Object.values(grouped).sort(function(a,b){
+        return String(a.studentName).localeCompare(String(b.studentName), "ar");
+    });
+
+    list.innerHTML = "";
+
+    groups.forEach(function(student){
+
+        student.tests.sort(function(a,b){
+            return (typeOrder[a.quizType] || 99) - (typeOrder[b.quizType] || 99);
+        });
+
+        const group = document.createElement("div");
+        group.className = "quiz-student-group";
+
+        const testsHTML = student.tests.map(function(submission){
+
+            const hasScore =
+                submission.score !== null &&
+                submission.score !== undefined &&
+                submission.score !== "";
+
+            const scoreText = hasScore
+                ? `${escapeQuizHTML(submission.score)} / 100`
+                : "بانتظار التصحيح";
+
+            const status =
+                hasScore
+                    ? (Number(submission.score) >= 50
+                        ? '<span style="color:#16a34a;">ناجح</span>'
+                        : '<span style="color:#dc2626;">راسب</span>')
+                    : '<span style="color:var(--gray-text);">بانتظار التصحيح</span>';
+
+            return `
+                <div class="quiz-test-row">
+                    <div class="quiz-test-info">
+                        <strong>📝 ${escapeQuizHTML(
+                            submission.quizTitle ||
+                            getQuizTypeLabel(submission.quizType)
+                        )}</strong>
+                        <div>🕒 ${escapeQuizHTML(
+                            formatQuizSubmissionDate(submission.submittedAt)
+                        )}</div>
+                        <div class="quiz-test-status">
+                            ⭐ ${scoreText} — ${status}
+                        </div>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn"
+                        onclick="openQuizSubmission('${submission.id}')">
+                        👁️ عرض الإجابات
+                    </button>
+                </div>
+            `;
+        }).join("");
+
+        group.innerHTML = `
+            <div class="quiz-student-header">
+                <div>
+                    <h3>👤 ${escapeQuizHTML(student.studentName)}</h3>
+                    <div style="color:var(--gray-text);margin-top:.25rem;">
+                        ${escapeQuizHTML(student.studentEmail || "")}
+                    </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:flex-end;">
+                    <div style="color:var(--gray-text);">
+                        📚 ${escapeQuizHTML(student.gradeName || student.grade || "غير محدد")}
+                        ${student.branch ? " — 🌿 " + escapeQuizHTML(student.branch) : ""}
+                    </div>
+                    <button
+                        type="button"
+                        class="btn quiz-delete-student-btn"
+                        onclick="deleteAllStudentQuizAnswers('${student.studentId || ""}', '${String(student.studentName || "").replace(/'/g, "\'")}')">
+                        🗑️ حذف إجابات الطالب
+                    </button>
+                </div>
+            </div>
+
+            <div class="quiz-student-tests">
+                ${testsHTML}
+            </div>
+        `;
+
+        list.appendChild(group);
+    });
+}
+
+
+window.toggleQuizOverallResults = function(){
+    const panel = document.getElementById("quiz-overall-results-panel");
+    if(!panel) return;
+    const opening = panel.style.display === "none" || !panel.style.display;
+    panel.style.display = opening ? "block" : "none";
+    if(opening) renderQuizOverallResults(window.quizSubmissionCache || []);
+};
+
+function renderQuizOverallResults(submissions){
+    const content = document.getElementById("quiz-overall-results-content");
+    if(!content) return;
+    const gradeFilter = document.getElementById("quiz-grade-filter")?.value || "all";
+    const branchFilter = document.getElementById("quiz-branch-filter")?.value || "all";
+    const latest = {};
+    submissions.forEach(function(s){
+        if(gradeFilter !== "all" && String(s.grade || "") !== gradeFilter) return;
+        if(branchFilter !== "all" && String(s.branch || "") !== branchFilter) return;
+        const key = String(s.studentId || s.studentEmail || s.studentName || "unknown") + "__" + String(s.quizType || "unknown");
+        const old = latest[key];
+        const t = s.submittedAt?.toDate ? s.submittedAt.toDate().getTime() : new Date(s.submittedAt || 0).getTime();
+        const ot = old?.submittedAt?.toDate ? old.submittedAt.toDate().getTime() : new Date(old?.submittedAt || 0).getTime();
+        if(!old || t >= ot) latest[key] = s;
+    });
+    const students = {};
+    Object.values(latest).forEach(function(s){
+        const key = String(s.studentId || s.studentEmail || s.studentName || "unknown");
+        if(!students[key]) students[key] = {name:s.studentName || "غير محدد", grade:s.gradeName || s.grade || "غير محدد", branch:s.branch || "", scores:{multiple:null,answer:null,complete:null}};
+        if(Object.prototype.hasOwnProperty.call(students[key].scores, s.quizType)){
+            students[key].scores[s.quizType] = (s.score !== null && s.score !== undefined && s.score !== "") ? Number(s.score) : null;
+        }
+    });
+    const rows = Object.values(students).sort(function(a,b){return String(a.name).localeCompare(String(b.name),"ar");});
+    if(!rows.length){content.innerHTML='<div class="quiz-results-empty">📭 لا توجد نتائج مطابقة للفلاتر.</div>';return;}
+    const cell=function(v){return v===null?"—":escapeQuizHTML(String(v));};
+    let html=`<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;text-align:center;min-width:760px;"><thead><tr style="background:var(--bg-light);"><th style="padding:12px;border:1px solid var(--border-color);">#</th><th style="padding:12px;border:1px solid var(--border-color);">الطالب</th><th style="padding:12px;border:1px solid var(--border-color);">الصف</th><th style="padding:12px;border:1px solid var(--border-color);">الفرع</th><th style="padding:12px;border:1px solid var(--border-color);">الاختبار الأول</th><th style="padding:12px;border:1px solid var(--border-color);">الاختبار الثاني</th><th style="padding:12px;border:1px solid var(--border-color);">الاختبار الثالث</th><th style="padding:12px;border:1px solid var(--border-color);">المجموع العام</th><th style="padding:12px;border:1px solid var(--border-color);">النتيجة</th></tr></thead><tbody>`;
+    rows.forEach(function(st,i){
+        const vals=[st.scores.multiple,st.scores.answer,st.scores.complete];
+        const complete=vals.every(function(v){return v!==null;});
+        const avg=complete?(vals[0]+vals[1]+vals[2])/3:null;
+        const avgText=avg===null?"بانتظار اكتمال التصحيح":avg.toFixed(2)+" / 100";
+        const resultText=avg===null?"بانتظار التصحيح":(avg>=50?"ناجح":"راسب");
+        const resultColor=avg===null?"var(--gray-text)":(avg>=50?"#16a34a":"#dc2626");
+        html+=`<tr><td style="padding:10px;border:1px solid var(--border-color);">${i+1}</td><td style="padding:10px;border:1px solid var(--border-color);font-weight:700;">${escapeQuizHTML(st.name)}</td><td style="padding:10px;border:1px solid var(--border-color);">${escapeQuizHTML(st.grade)}</td><td style="padding:10px;border:1px solid var(--border-color);">${escapeQuizHTML(st.branch||"—")}</td><td style="padding:10px;border:1px solid var(--border-color);">${cell(st.scores.multiple)}</td><td style="padding:10px;border:1px solid var(--border-color);">${cell(st.scores.answer)}</td><td style="padding:10px;border:1px solid var(--border-color);">${cell(st.scores.complete)}</td><td style="padding:10px;border:1px solid var(--border-color);font-weight:900;">${escapeQuizHTML(avgText)}</td><td style="padding:10px;border:1px solid var(--border-color);font-weight:900;color:${resultColor};">${resultText}</td></tr>`;
+    });
+    content.innerHTML=html+'</tbody></table></div>';
+}
+
+window.applyQuizSubmissionFilters = function(){
+
+    const gradeFilter =
+        document.getElementById("quiz-grade-filter");
+
+    const branchFilter =
+        document.getElementById("quiz-branch-filter");
+
+    const gradeValue =
+        gradeFilter ? gradeFilter.value : "all";
+
+    const branchValue =
+        branchFilter ? branchFilter.value : "all";
+
+    const filtered =
+        (window.quizSubmissionCache || []).filter(function(submission){
+
+            const grade =
+                String(submission.grade || "").trim();
+
+            const branch =
+                String(submission.branch || "").trim();
+
+            return (
+                (gradeValue === "all" || grade === gradeValue) &&
+                (branchValue === "all" || branch === branchValue)
+            );
+        });
+
+    renderQuizSubmissions(filtered);
+}
+
+
+window.openQuizSubmission = function(id){
+
+    const submission = window.quizSubmissionCache.find(function(item){
+        return item.id === id;
+    });
+
+    if(!submission){
+        showToast("❌ لم يتم العثور على الاختبار");
+        return;
+    }
+
+    window.currentQuizSubmission = submission;
+
+    let modal = document.getElementById("quiz-result-modal");
+
+    if(!modal){
+        modal = document.createElement("div");
+        modal.id = "quiz-result-modal";
+        modal.className = "quiz-result-modal";
+        document.body.appendChild(modal);
+    }
+
+    const answers = Array.isArray(submission.answers) ? submission.answers : [];
+
+    const answersHTML = answers.map(function(item,index){
+        const max = Math.max(0, Number(item.points ?? 1));
+        const earned = item.earnedPoints === null || item.earnedPoints === undefined ? "" : item.earnedPoints;
+        return `
+            <div class="quiz-result-answer" data-question-index="${index}">
+                <strong>${index + 1}- ${escapeQuizHTML(item.question || "")}</strong>
+                <div class="student-answer">
+                    ${escapeQuizHTML(item.answer || "لم يجب الطالب")}
+                </div>
+                <div style="margin-top:.6rem;font-weight:800;">
+                    ⭐ العلامة الكاملة: ${max}
+                </div>
+                <label style="display:block;margin-top:.45rem;">
+                    العلامة المحصّلة:
+                    <input
+                        class="quiz-question-earned"
+                        data-question-index="${index}"
+                        type="number"
+                        min="0"
+                        max="${max}"
+                        step="0.5"
+                        value="${earned}"
+                        placeholder="من ${max}">
+                </label>
+                <div class="quiz-question-fail-hint" style="margin-top:.35rem;font-weight:800;color:#dc2626;display:none;">
+                    ❌ راسب بهذا السؤال (أقل من نصف العلامة)
+                </div>
+            </div>
+        `;
+    }).join("");
+
+    const totalMax = answers.reduce(function(sum,item){
+        return sum + Math.max(0, Number(item.points ?? 1));
+    },0);
+
+    modal.innerHTML = `
+        <div class="quiz-result-modal-card">
+            <div style="display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:1rem;">
+                <div>
+                    <h2>📋 تصحيح الاختبار</h2>
+                    <p style="color:var(--gray-text);">
+                        ${escapeQuizHTML(submission.studentName || "غير محدد")}
+                        — ${escapeQuizHTML(submission.gradeName || submission.grade || "غير محدد")}
+                        ${submission.branch ? " — " + escapeQuizHTML(submission.branch) : ""}
+                    </p>
+                </div>
+                <button type="button" class="btn" onclick="closeQuizSubmission()">✕ إغلاق</button>
+            </div>
+
+            <div style="margin-bottom:1rem;padding:.85rem;border:1px solid var(--border-color);border-radius:12px;font-weight:800;">
+                مجموع العلامات الكاملة: ${totalMax}
+            </div>
+
+            <div id="quiz-question-grading-list">
+                ${answersHTML || '<div class="quiz-results-empty">لا توجد إجابات.</div>'}
+            </div>
+
+            <div class="quiz-result-grade-box">
+                <div id="quiz-live-grade-summary" style="font-weight:900;">
+                    المجموع: — / ${totalMax}
+                </div>
+                <label><strong>📝 ملاحظة الأستاذ</strong></label>
+                <textarea
+                    id="quiz-submission-note"
+                    rows="4"
+                    placeholder="اكتب ملاحظتك للطالب...">${escapeQuizHTML(submission.teacherNote || "")}</textarea>
+
+                <button type="button" class="btn" onclick="saveQuizSubmissionGrade()">
+                    💾 حفظ التصحيح
+                </button>
+            </div>
+        </div>
+    `;
+
+    modal.querySelectorAll(".quiz-question-earned").forEach(function(input){
+        input.addEventListener("input", function(){
+            const max = Number(input.max || 0);
+            let value = Number(input.value || 0);
+            if(value < 0) value = 0;
+            if(value > max){
+                input.value = max;
+                value = max;
+            }
+            const hint = input.closest(".quiz-result-answer")?.querySelector(".quiz-question-fail-hint");
+            if(hint){
+                hint.style.display = value < (max / 2) ? "block" : "none";
+            }
+            const total = Array.from(modal.querySelectorAll(".quiz-question-earned")).reduce(function(sum,el){
+                return sum + Math.max(0, Math.min(Number(el.max || 0), Number(el.value || 0)));
+            },0);
+            const summary = document.getElementById("quiz-live-grade-summary");
+            if(summary) summary.textContent = `المجموع: ${total} / ${totalMax}`;
+        });
+    });
+
+    modal.style.display = "flex";
+};
+
+
+window.closeQuizSubmission = function(){
+
+    const modal = document.getElementById("quiz-result-modal");
+
+    if(modal){
+        modal.style.display = "none";
+    }
+};
+
+
+window.saveQuizSubmissionGrade = async function(){
+
+    const submission = window.currentQuizSubmission;
+
+    if(!submission){
+        return;
+    }
+
+    try{
+
+        const userData = await getCurrentUserData();
+
+        if(!userData || userData.role !== "teacher"){
+            showToast("🔒 ليس لديك صلاحية تعديل العلامة");
+            return;
+        }
+
+        const answerInputs = Array.from(document.querySelectorAll("#quiz-result-modal .quiz-question-earned"));
+        const answers = Array.isArray(submission.answers) ? submission.answers : [];
+
+        if(answerInputs.length !== answers.length){
+            showToast("❌ تعذر قراءة علامات الأسئلة");
+            return;
+        }
+
+        let totalMax = 0;
+        let totalEarned = 0;
+        let failedQuestionCount = 0;
+        const questionResults = [];
+
+        answers.forEach(function(item,index){
+            const input = answerInputs[index];
+            const max = Math.max(0, Number(item.points ?? 1));
+            const value = Number(input.value);
+
+            if(!Number.isFinite(value) || value < 0 || value > max){
+                throw new Error(`علامة السؤال ${index + 1} يجب أن تكون بين 0 و${max}`);
+            }
+
+            const rounded = Math.round(value * 100) / 100;
+            const failed = rounded < (max / 2);
+
+            totalMax += max;
+            totalEarned += rounded;
+            if(failed) failedQuestionCount++;
+
+            questionResults.push({
+                questionNumber: index + 1,
+                question: item.question || "",
+                maxPoints: max,
+                earnedPoints: rounded,
+                failed: failed
+            });
+
+            item.earnedPoints = rounded;
+        });
+
+        const numericScore = totalMax > 0
+            ? Math.round((totalEarned / totalMax) * 10000) / 100
+            : 0;
+
+        const passed = failedQuestionCount < 2;
+        const teacherNote = document.getElementById("quiz-submission-note")?.value.trim() || "";
+
+        await setDoc(
+            doc(db, "quizSubmissions", submission.id),
+            {
+                score: numericScore,
+                maxScore: totalMax,
+                earnedPoints: totalEarned,
+                failedQuestionCount: failedQuestionCount,
+                passed: passed,
+                questionResults: questionResults,
+                teacherNote: teacherNote,
+                gradedBy: auth.currentUser.uid,
+                gradedAt: new Date()
+            },
+            { merge: true }
+        );
+
+        submission.score = numericScore;
+        submission.maxScore = totalMax;
+        submission.earnedPoints = totalEarned;
+        submission.failedQuestionCount = failedQuestionCount;
+        submission.passed = passed;
+        submission.questionResults = questionResults;
+        submission.teacherNote = teacherNote;
+        submission.answers = answers;
+
+        closeQuizSubmission();
+        renderQuizSubmissions(window.quizSubmissionCache);
+
+        showToast(
+            failedQuestionCount >= 2
+                ? "⚠️ تم حفظ التصحيح — الطالب راسب في الاختبار لأنه رسب في سؤالين أو أكثر"
+                : "✅ تم حفظ تصحيح الاختبار"
+        );
+
+    }catch(error){
+
+        console.error("خطأ في حفظ تصحيح الاختبار:", error);
+        showToast("❌ " + (error.message || "تعذر حفظ التصحيح"));
+    }
+};
+
+
+/* =========================================================
+   نتائج الاختبارات للطالب
+   ========================================================= */
+
+function getStudentQuizResultElement(type){
+
+    const id = "student-quiz-result-" + type;
+    let element = document.getElementById(id);
+
+    if(!element){
+
+        const card = getQuizCard(type);
+
+        if(!card){
+            return null;
+        }
+
+        element = document.createElement("div");
+        element.id = id;
+        element.className = "student-quiz-result";
+        element.style.display = "none";
+
+        const submitButton =
+            card.querySelector(".quiz-save-btn");
+
+        if(submitButton){
+            submitButton.insertAdjacentElement("afterend", element);
+        }else{
+            card.appendChild(element);
+        }
+    }
+
+    return element;
+}
+
+
+window.renderStudentQuizResult = function(type, submission){
+
+    const element = getStudentQuizResultElement(type);
+    if(!element) return;
+
+    element.style.display = "flex";
+
+    const score = submission?.score;
+    const hasScore = score !== null && score !== undefined && score !== "";
+
+    if(!hasScore){
+        element.className = "student-quiz-result student-result-pending";
+        element.innerHTML = `
+            <div class="student-result-circle" style="--result-color:var(--gray-text);--result-angle:0deg;">
+                <span>—</span>
+            </div>
+            <div class="student-result-title">⏳ النتيجة: بانتظار تصحيح الأستاذ</div>
+        `;
+        return;
+    }
+
+    const numericScore = Math.max(0, Math.min(100, Number(score)));
+    const passed = submission.passed !== false;
+    const angle = (numericScore / 100) * 360;
+    const results = Array.isArray(submission.questionResults) ? submission.questionResults : [];
+
+    const tableRows = results.map(function(item){
+        return `
+            <tr>
+                <td>${item.questionNumber}</td>
+                <td>${escapeQuizHTML(item.question || "")}</td>
+                <td>${Number(item.earnedPoints ?? 0)} / ${Number(item.maxPoints ?? 0)}</td>
+                <td style="color:${item.failed ? "#dc2626" : "#16a34a"};font-weight:900;">
+                    ${item.failed ? "راسب" : "ناجح"}
+                </td>
+            </tr>
+        `;
+    }).join("");
+
+    element.className = "student-quiz-result " + (passed ? "student-result-pass" : "student-result-fail");
+    element.innerHTML = `
+        <div class="student-result-circle" style="--result-angle:${angle}deg;--result-color:${passed ? "#16a34a" : "#dc2626"};">
+            <span>${numericScore}</span>
+        </div>
+        <div class="student-result-title" style="color:${passed ? "#16a34a" : "#dc2626"};">
+            النتيجة: ${numericScore} / 100 — ${passed ? "ناجح" : "راسب"}
+        </div>
+        ${submission.failedQuestionCount !== undefined && submission.failedQuestionCount !== null
+            ? `<div style="font-weight:800;">الأسئلة الراسبة: ${submission.failedQuestionCount}</div>` : ""}
+        ${results.length ? `
+            <div style="width:100%;overflow:auto;">
+                <table class="student-result-table">
+                    <thead><tr><th>#</th><th>السؤال</th><th>العلامة</th><th>الحالة</th></tr></thead>
+                    <tbody>${tableRows}</tbody>
+                </table>
+            </div>` : ""}
+        ${submission.teacherNote ? `<div class="student-result-note">📝 ملاحظة الأستاذ: ${escapeQuizHTML(submission.teacherNote)}</div>` : ""}
+    `;
+};
+
+
+window.renderStudentOverallQuizResult = function(latestByType){
+
+    let box = document.getElementById("student-overall-quiz-result");
+    const quizSection = document.getElementById("quiz-section");
+    if(!quizSection) return;
+
+    if(!box){
+        box = document.createElement("div");
+        box.id = "student-overall-quiz-result";
+        box.className = "student-quiz-overall-result";
+        quizSection.appendChild(box);
+    }
+
+    const types = ["multiple", "answer", "complete"];
+    const tests = types.map(t => latestByType[t]).filter(Boolean);
+
+    if(!tests.length){
+        box.style.display = "none";
+        return;
+    }
+
+    const ready = tests.filter(t => t.score !== null && t.score !== undefined && t.score !== "");
+    const percentages = ready.map(t => Number(t.score));
+    const overall = ready.length === 3
+        ? Math.round((percentages.reduce((a,b)=>a+b,0) / 3) * 100) / 100
+        : null;
+    const failedTests = ready.filter(t => t.passed === false).length;
+    const overallPassed = overall !== null && overall >= 50;
+
+    const rows = types.map(function(type){
+        const t = latestByType[type];
+        const label = getQuizTypeLabel(type);
+        if(!t){
+            return `<tr><td>${escapeQuizHTML(label)}</td><td colspan="3">لم يُرسل بعد</td></tr>`;
+        }
+        const status = t.score === null || t.score === undefined || t.score === ""
+            ? "بانتظار التصحيح"
+            : (t.passed === false ? "راسب" : "ناجح");
+        return `<tr><td>${escapeQuizHTML(label)}</td><td>${t.score ?? "—"} / 100</td><td>${t.failedQuestionCount ?? 0}</td><td>${status}</td></tr>`;
+    }).join("");
+
+    box.style.display = "block";
+    const angle = overall === null ? 0 : Math.max(0, Math.min(100, overall)) * 3.6;
+    const color = overallPassed ? "#16a34a" : (ready.length === 3 ? "#dc2626" : "var(--gray-text)");
+
+    box.innerHTML = `
+        <div style="display:flex;justify-content:flex-start;align-items:center;margin-bottom:1rem;">
+            <button type="button" class="btn" id="save-student-result-image-btn" onclick="saveStudentResultAsImage()">
+                📸 حفظ النتيجة كصورة
+            </button>
+        </div>
+        <h2>📊 النتيجة النهائية للاختبارات الثلاثة</h2>
+        <div class="student-result-circle" style="--result-angle:${angle}deg;--result-color:${color};margin:1rem auto;">
+            <span>${overall === null ? "—" : overall}</span>
+        </div>
+        <div class="student-result-title" style="color:${color};">
+            ${overall === null ? "بانتظار التصحيح" : `المعدل النهائي: ${overall} / 100 — ${overallPassed ? "ناجح" : "راسب"}`}
+        </div>
+        <div style="overflow:auto;margin-top:1rem;">
+            <table class="student-result-table">
+                <thead><tr><th>الاختبار</th><th>العلامة</th><th>أسئلة راسبة</th><th>الحالة</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>
+        <div style="margin-top:.75rem;font-weight:800;">
+            يتم حساب المعدل النهائي بجمع علامات الاختبارات الثلاثة وقسمتها على 3.
+        </div>
+    `;
+};
+
+
+
+window.saveStudentResultAsImage = async function(){
+
+    const box = document.getElementById("student-overall-quiz-result");
+
+    if(!box){
+        showToast("❌ لم يتم العثور على النتيجة");
+        return;
+    }
+
+    if(typeof html2canvas === "undefined"){
+        showToast("❌ تعذر تجهيز الصورة. تحقق من اتصال الإنترنت.");
+        return;
+    }
+
+    const button = document.getElementById("save-student-result-image-btn");
+    const originalText = button ? button.innerHTML : "";
+    let exportBox = null;
+
+    try{
+
+        if(button){
+            button.disabled = true;
+            button.innerHTML = "⏳ جاري تجهيز الصورة...";
+        }
+
+        /*
+         * نسخة مستقلة مخصصة للصورة، بعرض مناسب للجوال.
+         * نستخدم 390px كحد أقصى حتى لا تخرج الصورة عريضة على الهاتف.
+         */
+        exportBox = box.cloneNode(true);
+        exportBox.id = "student-result-image-export";
+        exportBox.style.cssText = `
+            position: fixed;
+            left: -10000px;
+            top: 0;
+            width: 390px;
+            max-width: 390px;
+            min-width: 390px;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 20px 16px;
+            background: #ffffff;
+            color: #111827;
+            direction: rtl;
+            font-family: Arial, Tahoma, sans-serif;
+            overflow: visible;
+            border-radius: 18px;
+        `;
+
+        /* حذف زر الحفظ من النسخة التي ستتحول إلى صورة */
+        const exportButton = exportBox.querySelector("#save-student-result-image-btn");
+        if(exportButton){
+            exportButton.remove();
+        }
+
+        /* رأس الصورة */
+        const header = document.createElement("div");
+        header.style.cssText = `
+            text-align: center;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #e5e7eb;
+        `;
+        header.innerHTML = `
+            <div style="font-size:24px;font-weight:900;margin-bottom:5px;color:#111827;">
+                الأستاذ نادر الحصني
+            </div>
+            <div style="font-size:14px;font-weight:700;color:#6b7280;">
+                النتيجة النهائية للاختبارات
+            </div>
+        `;
+        exportBox.insertBefore(header, exportBox.firstChild);
+
+        /* إجبار الجدول والدائرة على التناسب مع شاشة الجوال */
+        const table = exportBox.querySelector(".student-result-table");
+        if(table){
+            table.style.width = "100%";
+            table.style.tableLayout = "fixed";
+            table.style.fontSize = "12px";
+            table.style.wordBreak = "break-word";
+        }
+
+        exportBox.querySelectorAll("th, td").forEach(function(cell){
+            cell.style.padding = "7px 4px";
+            cell.style.wordBreak = "break-word";
+            cell.style.textAlign = "center";
+        });
+
+        /*
+         * html2canvas لا يرسم conic-gradient + ::after بشكل موثوق في بعض
+         * نسخ المتصفحات، لذلك نستبدل دائرة المعدل داخل نسخة الصورة بـ SVG.
+         * هكذا تظهر الدائرة والجزء الملوّن داخل الصورة دائمًا.
+         */
+        exportBox.querySelectorAll(".student-result-circle").forEach(function(circle){
+            const valueText = (circle.querySelector("span")?.textContent || "0").trim();
+            const value = valueText === "—" ? 0 : Math.max(0, Math.min(100, parseFloat(valueText) || 0));
+            const color = getComputedStyle(circle).getPropertyValue("--result-color").trim() || "#16a34a";
+
+            const size = 160;
+            const stroke = 18;
+            const radius = (size - stroke) / 2;
+            const circumference = 2 * Math.PI * radius;
+            const dash = (value / 100) * circumference;
+
+            circle.style.cssText = `
+                width:${size}px;
+                height:${size}px;
+                margin:16px auto;
+                position:relative;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:transparent;
+                overflow:visible;
+            `;
+
+            circle.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="${size}" height="${size}"
+                     viewBox="0 0 ${size} ${size}"
+                     style="position:absolute;inset:0;width:${size}px;height:${size}px;display:block;">
+                    <circle cx="${size/2}" cy="${size/2}" r="${radius}"
+                            fill="none" stroke="#e5e7eb" stroke-width="${stroke}"/>
+                    <circle cx="${size/2}" cy="${size/2}" r="${radius}"
+                            fill="none" stroke="${color}" stroke-width="${stroke}"
+                            stroke-linecap="round"
+                            stroke-dasharray="${dash} ${circumference - dash}"
+                            transform="rotate(-90 ${size/2} ${size/2})"/>
+                </svg>
+                <span style="
+                    position:relative;
+                    z-index:2;
+                    font-size:24px;
+                    line-height:1;
+                    font-weight:900;
+                    color:${color};
+                ">${valueText}</span>
+            `;
+        });
+
+        document.body.appendChild(exportBox);
+
+        /* إعطاء المتصفح لحظة لترتيب النسخة قبل التصوير */
+        await new Promise(function(resolve){
+            requestAnimationFrame(function(){
+                requestAnimationFrame(resolve);
+            });
+        });
+
+        const canvas = await html2canvas(exportBox, {
+            backgroundColor: "#ffffff",
+            scale: Math.min(3, Math.max(2, window.devicePixelRatio || 2)),
+            useCORS: true,
+            logging: false,
+            width: 390,
+            windowWidth: 390,
+            scrollX: 0,
+            scrollY: 0
+        });
+
+        const link = document.createElement("a");
+        const studentName =
+            (await getCurrentUserData())?.name || "الطالب";
+
+        const safeName = String(studentName)
+            .replace(/[\\/:*?"<>|]/g, "_")
+            .trim() || "الطالب";
+
+        link.download = `نتيجة_${safeName}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        showToast("✅ تم حفظ صورة النتيجة بحجم مناسب للجوال");
+
+    }catch(error){
+
+        console.error("خطأ في حفظ صورة النتيجة:", error);
+        showToast("❌ تعذر حفظ صورة النتيجة");
+
+    }finally{
+
+        if(exportBox && exportBox.parentNode){
+            exportBox.parentNode.removeChild(exportBox);
+        }
+
+        if(button){
+            button.disabled = false;
+            button.innerHTML = originalText;
+        }
+    }
+};
+
+
+window.loadStudentQuizResults = async function(){
+
+    if(!auth.currentUser){
+        return;
+    }
+
+    try{
+
+        const userData =
+            await getCurrentUserData();
+
+        if(!userData || userData.role !== "student"){
+            return;
+        }
+
+        const q = query(
+            collection(db, "quizSubmissions"),
+            where("studentId", "==", auth.currentUser.uid)
+        );
+
+        const snapshot =
+            await getDocs(q);
+
+        const latestByType = {};
+
+                const userGrade = String(userData.grade || "").trim();
+        const userBranch = String(userData.branch || "").trim();
+
+        snapshot.forEach(function(docSnap){
+
+            const submission = {
+                id: docSnap.id,
+                ...docSnap.data()
+            };
+
+                        const submissionGrade = String(submission.grade || "").trim();
+            const submissionBranch = String(submission.branch || "").trim();
+
+            // حماية إضافية: لا تعرض للطالب نتيجة من صف/فرع آخر.
+            if (submissionGrade !== userGrade) {
+                return;
+            }
+
+            if (userGrade === "بكالوريا" && submissionBranch !== userBranch) {
+                return;
+            }
+
+            const type =
+                submission.quizType || "unknown";
+
+            const current =
+                latestByType[type];
+
+            if(!current){
+                latestByType[type] = submission;
+                return;
+            }
+
+            const currentTime =
+                current.submittedAt?.toDate
+                    ? current.submittedAt.toDate().getTime()
+                    : new Date(current.submittedAt || 0).getTime();
+
+            const newTime =
+                submission.submittedAt?.toDate
+                    ? submission.submittedAt.toDate().getTime()
+                    : new Date(submission.submittedAt || 0).getTime();
+
+            if(newTime >= currentTime){
+                latestByType[type] = submission;
+            }
+        });
+
+        ["multiple", "answer", "complete"].forEach(function(type){
+
+            if(latestByType[type]){
+                renderStudentQuizResult(
+                    type,
+                    latestByType[type]
+                );
+            }
+        });
+
+        renderStudentOverallQuizResult(latestByType);
+
+    }catch(error){
+
+        console.error(
+            "خطأ في تحميل نتيجة الطالب:",
+            error
+        );
+    }
+};
 
 </script>
 
@@ -7543,21 +9657,18 @@ window.downloadGradePDF = function(pdfUrl){
             style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc;">
 
 
-<select id="stage" onchange="changeStage()"
-style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;">
+<select id="stage" class="register-control" onchange="changeStage()">
     <option value="">اختر المرحلة</option>
     <option value="إعدادي">إعدادي</option>
     <option value="ثانوي">ثانوي</option>
 </select>
 
 
-<select id="branch" onchange="changeBranch()"
-style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;display:none;">
+<select id="branch" class="register-control" onchange="changeBranch()" style="display:none;">
 </select>
 
 
-<select id="grade"
-style="width:100%;padding:12px;margin-bottom:15px;border-radius:10px;display:none;">
+<select id="grade" class="register-control" style="display:none;">
 </select>
             <button class="btn" style="width:100%" onclick="registerUser() ">
                 إنشاء الحساب
