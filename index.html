@@ -972,6 +972,11 @@
 
 
 #edit-announcement-btn{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    flex:0 0 auto;
     background:white;
     color:#d90429;
     border:none;
@@ -996,6 +1001,14 @@
 }
 
 
+
+.grade-locked{
+    opacity:.78;
+}
+
+.grade-unlocked{
+    opacity:1;
+}
 
 body{
     padding-bottom:55px;
@@ -1531,31 +1544,42 @@ body{
             box-shadow:0 0 0 3px var(--bg-light);
         }
 
-    </style>
+    
+/* ===== نظام إشعارات المنصة ===== */
+.notification-wrap{position:relative;display:flex;align-items:center;gap:8px;}
+.notification-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--border-color);background:var(--card-bg);color:var(--primary-color);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:.2s;box-shadow:0 4px 14px rgba(15,23,42,.08);}
+.notification-btn:hover{transform:translateY(-1px);box-shadow:0 7px 20px rgba(15,23,42,.14);}
+.notification-btn.has-unread{animation:notificationPulse 1.8s infinite;}
+.notification-badge{position:absolute;top:-4px;left:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:#e53935;color:#fff;font-size:11px;font-weight:900;display:none;align-items:center;justify-content:center;border:2px solid var(--card-bg);}
+.notification-panel{position:absolute;top:52px;left:0;width:min(410px,calc(100vw - 24px));max-height:72vh;overflow:auto;background:var(--card-bg);border:1px solid var(--border-color);border-radius:20px;box-shadow:0 24px 70px rgba(15,23,42,.24);padding:0;display:none;z-index:5000;overflow-x:hidden;}
+.notification-panel.active{display:block;animation:notificationPanelIn .18s ease-out;}
+.notification-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px;background:var(--card-bg);border-bottom:1px solid var(--border-color);}
+.notification-head h3{margin:0;font-size:1.05rem;color:var(--primary-color);}
+.notification-item{position:relative;display:flex;gap:11px;padding:14px 13px;margin:0;border:0;border-bottom:1px solid var(--border-color);background:var(--card-bg);cursor:pointer;transition:.15s;text-align:right;}
+.notification-item:hover{background:var(--bg-light);}
+.notification-item.unread{background:rgba(184,134,11,.07);}
+.notification-item.unread:before{content:"";width:8px;height:8px;border-radius:50%;background:#e53935;flex:0 0 8px;margin-top:7px;}
+.notification-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(184,134,11,.12);font-size:20px;flex:0 0 42px;}
+.notification-item strong{display:block;margin-bottom:3px;color:var(--primary-color);font-size:.93rem;}
+.notification-item p{margin:0;color:var(--text-color);line-height:1.55;font-size:.88rem;}
+.notification-item small{display:block;margin-top:6px;color:var(--gray-text);font-size:.72rem;}
+.notification-item .notification-unread-label{font-size:.68rem;font-weight:900;color:#e53935;margin-top:5px;}
+.notification-empty{text-align:center;color:var(--gray-text);padding:30px 10px;}
+@keyframes notificationPulse{0%,100%{box-shadow:0 0 0 0 rgba(229,57,53,.2)}50%{box-shadow:0 0 0 7px rgba(229,57,53,0)}}
+@keyframes notificationPanelIn{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}
+@media(max-width:600px){#edit-announcement-btn{padding:5px 9px;font-size:.8rem}.urgent-title{font-size:.85rem}.notification-panel{position:fixed;top:74px;left:10px;right:10px;width:auto;max-height:68vh;}.nav-container{gap:8px}.notification-wrap{margin-right:auto;}.notification-btn,.settings-btn{width:38px;height:38px;}}
+.platform-notification-toast{position:fixed;top:18px;right:18px;z-index:1000000;width:min(390px,calc(100vw - 36px));display:flex;align-items:center;gap:10px;padding:13px 14px;border:1px solid var(--border-color);border-radius:17px;background:var(--card-bg);box-shadow:0 18px 55px rgba(15,23,42,.25);cursor:pointer;text-align:right;animation:notificationToastIn .25s ease-out;}
+.platform-notification-toast .pnt-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(184,134,11,.12);font-size:20px;flex:0 0 42px;}
+.platform-notification-toast .pnt-body{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1;}
+.platform-notification-toast .pnt-body strong{font-size:.9rem;color:var(--primary-color);}
+.platform-notification-toast .pnt-body span{font-size:.8rem;line-height:1.5;color:var(--text-color);}
+.platform-notification-toast .pnt-close{font-size:20px;color:var(--gray-text);}
+@keyframes notificationToastIn{from{opacity:0;transform:translateY(-12px) translateX(12px)}to{opacity:1;transform:none}}
+
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<style id="platform-select-polish">
-select {
-    font-family:inherit !important;
-    border-radius:14px !important;
-    border:1px solid var(--border-color,#dbe3ec) !important;
-    background:var(--card-bg,#fff) !important;
-    color:var(--text-color,#0f172a) !important;
-    min-height:44px;
-    padding:9px 40px 9px 14px !important;
-    font-weight:700 !important;
-    outline:none;
-    transition:.2s ease;
-}
-select:focus {
-    border-color:#b8860b !important;
-    box-shadow:0 0 0 3px rgba(184,134,11,.12) !important;
-}
-option {
-    font-family:inherit !important;
-    font-weight:600;
-}
-</style>
+
 
 
 <style id="platform-quiz-polish">
@@ -1593,6 +1617,75 @@ option {
 }
 </style>
 
+
+<style id="platform-native-control-polish">
+/* قوائم المنصة — لا تستخدم الشكل الافتراضي للمتصفح */
+select,
+select.form-control,
+select.input,
+select[class*="select"] {
+    appearance:none !important;
+    -webkit-appearance:none !important;
+    -moz-appearance:none !important;
+    width:100%;
+    min-height:48px;
+    box-sizing:border-box;
+    padding:11px 44px 11px 14px !important;
+    border:1px solid var(--border-color,#dbe3ec) !important;
+    border-radius:14px !important;
+    background-color:var(--card-bg,#fff) !important;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #64748b 50%),
+        linear-gradient(135deg, #64748b 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) 21px,
+        calc(100% - 14px) 21px;
+    background-size:6px 6px, 6px 6px;
+    background-repeat:no-repeat;
+    color:var(--text-color,#0f172a) !important;
+    font-family:inherit !important;
+    font-size:15px !important;
+    font-weight:800 !important;
+    outline:none !important;
+    cursor:pointer;
+    transition:border-color .2s ease, box-shadow .2s ease;
+}
+
+select:focus,
+select:active {
+    border-color:#b8860b !important;
+    box-shadow:0 0 0 3px rgba(184,134,11,.12) !important;
+}
+
+select option {
+    font-family:inherit !important;
+    font-weight:700;
+    background:#fff;
+    color:#0f172a;
+}
+
+/* حقول إنشاء الحساب بنفس الهوية */
+#signup-page input,
+#signup-page select,
+#register-page input,
+#register-page select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    border-radius:14px;
+    font-family:inherit;
+}
+
+/* منع شكل المتصفح من الظهور عند الحقول على iOS/Android */
+input,
+select,
+textarea,
+button {
+    font-family:inherit;
+}
+</style>
+
 </head>
 <body>
 <div id="toast"></div>
@@ -1607,6 +1700,16 @@ option {
                 </div>
             </div>
            
+            <div class="notification-wrap" id="notification-wrap">
+                <button class="notification-btn" type="button" onclick="toggleNotifications(event)" aria-label="الإشعارات">🔔<span id="notification-badge" class="notification-badge">0</span></button>
+                <div id="notification-panel" class="notification-panel" dir="rtl">
+                    <div class="notification-head">
+                        <h3>🔔 الإشعارات</h3>
+                        <button type="button" class="btn btn-sm" onclick="markAllNotificationsRead(event)">تمت المشاهدة</button>
+                    </div>
+                    <div id="notification-list"><div class="notification-empty">لا توجد إشعارات حالياً.</div></div>
+                </div>
+            </div>
             <!-- زر الإعدادات (الترس) -->
             <button class="settings-btn" onclick="toggleSidebar()" aria-label="الإعدادات">⚙️</button>
         </div>
@@ -3264,6 +3367,17 @@ function openSection(sectionName){
 
 function switchPage(pageId) {
 
+    // الاختبارات والتأسيس للمسجلين فقط.
+    if(
+        (pageId === "quiz-section" ||
+         pageId === "foundation-sections") &&
+        !auth.currentUser
+    ){
+        showToast("🔒 يجب تسجيل الدخول أولاً");
+        return;
+    }
+
+
     const pages = document.querySelectorAll('.page');
 
     pages.forEach(page =>
@@ -3327,6 +3441,10 @@ function switchPage(pageId) {
 
     if(pageId === "quiz-section"){
 
+        if(!auth.currentUser){
+            return;
+        }
+
         // لوحة الاختبارات للأستاذ مخصصة لإدارة الأسئلة فقط؛ لا تعرض نتائج الطلاب داخلها.
         document.querySelectorAll(".student-quiz-result, #student-overall-quiz-result").forEach(function(el){
             el.style.display = "none";
@@ -3379,18 +3497,16 @@ function switchPage(pageId) {
 
 async function selectGrade(gradeName) {
 
-    const allowed = await checkGradeAccess(gradeName);
-
-    if(!allowed){
-        return;
-    }
-
+    // فتح صفحة الصف للتصفح للجميع.
+    // الحماية الفعلية للمحتوى المدفوع تبقى داخل checkContentAccess().
     currentGrade = gradeName;
 
     console.log("CURRENT GRADE:", currentGrade);
 
-    document.getElementById('current-grade-title').textContent =
-        "أنت تتصفح: " + gradeName;
+    const title = document.getElementById('current-grade-title');
+    if(title){
+        title.textContent = "أنت تتصفح: " + gradeName;
+    }
 
     switchPage('sections');
 }
@@ -3466,23 +3582,29 @@ async function checkGradeAccess(gradeName){
         }
 
         if(userData.subscription !== "مفعل"){
-            showToast("🔒 يجب تفعيل اشتراكك لفتح هذا الصف");
+            showToast("🔒 يجب تفعيل اشتراكك لفتح المحتوى المدفوع");
             return false;
         }
 
-        const { selectedGrade, selectedBranch } = getSelectedGradeData(gradeName);
+        const { selectedGrade, selectedBranch } =
+            getSelectedGradeData(gradeName);
 
         if(userData.grade !== selectedGrade){
             showToast("🔒 اشتراكك مفعّل للصف " + userData.grade + " فقط");
             return false;
         }
 
-        if(selectedGrade === "بكالوريا" && selectedBranch && userData.branch !== selectedBranch){
-            showToast("🔒 اشتراكك مخصص لفرع " + userData.branch + " فقط");
+        if(
+            selectedGrade === "بكالوريا" &&
+            selectedBranch &&
+            userData.branch !== selectedBranch
+        ){
+            showToast("🔒 هذا المحتوى مخصص لفرع " + selectedBranch + " فقط");
             return false;
         }
 
         return true;
+
     }catch(error){
         console.error("خطأ في التحقق من صلاحية الصف:", error);
         showToast("❌ حدث خطأ أثناء التحقق من الحساب");
@@ -3493,74 +3615,84 @@ async function checkGradeAccess(gradeName){
 
 async function updateGradeCardLockStatus(){
 
-    const cards = document.querySelectorAll("[data-protected-grade]");
+    const cards =
+        document.querySelectorAll("[data-protected-grade]");
 
     if(!cards.length){
         return;
     }
 
+    let userData = null;
+
+    if(auth.currentUser){
+        try{
+            userData = await getCurrentUserData();
+        }catch(error){
+            console.error("خطأ في قراءة بيانات الطالب لتحديث الأقفال:", error);
+        }
+    }
+
     cards.forEach(card => {
+
         const button = card.querySelector(".btn");
+        const gradeName = card.getAttribute("data-protected-grade") || "";
+
+        let allowed = false;
+
+        // الأستاذ يرى كل الصفوف مفتوحة.
+        if(userData && userData.role === "teacher"){
+            allowed = true;
+        }
+        // الطالب المفعّل: صفه فقط.
+        else if(userData && userData.role === "student" && userData.subscription === "مفعل"){
+            const selected = getSelectedGradeData(gradeName);
+            allowed =
+                userData.grade === selected.selectedGrade &&
+                (selected.selectedGrade !== "بكالوريا" ||
+                 !selected.selectedBranch ||
+                 userData.branch === selected.selectedBranch);
+        }
+
+        // غير المسجل، وغير المفعّل، والصفوف غير التابعة للطالب تبقى مقفلة.
         if(button){
-            button.textContent = "🔒 الصف مقفل";
-            button.setAttribute("aria-label", "الصف مقفل");
-            button.classList.add("grade-locked");
-            button.classList.remove("grade-unlocked");
-        }
-        card.querySelectorAll(".grade-lock-indicator, .grade-card-lock, [data-grade-lock]").forEach(el => el.remove());
-    });
-
-    if(!auth.currentUser){
-        return;
-    }
-
-    try{
-        const userData = await getCurrentUserData();
-
-        if(!userData){
-            return;
+            button.textContent = allowed ? "🔓 تصفح الدروس" : "🔒 تصفح الدروس";
+            button.setAttribute(
+                "aria-label",
+                allowed ? "تصفح الدروس" : "الصف مقفل"
+            );
+            button.classList.toggle("grade-locked", !allowed);
+            button.classList.toggle("grade-unlocked", allowed);
         }
 
-        if(userData.role === "teacher"){
-            cards.forEach(card => {
-                const button = card.querySelector(".btn");
-                if(button){
-                    button.textContent = "🔓 فتح الصف";
-                }
-            });
-            return;
-        }
+        card.querySelectorAll(
+            ".grade-lock-indicator, .grade-card-lock, [data-grade-lock]"
+        ).forEach(el => el.remove());
 
-        if(userData.subscription !== "مفعل"){
-            return;
-        }
-
-        cards.forEach(card => {
-            const { selectedGrade, selectedBranch } = getSelectedGradeData(card.dataset.protectedGrade);
-            const allowed =
-                userData.grade === selectedGrade &&
-                (selectedGrade !== "بكالوريا" || !selectedBranch || userData.branch === selectedBranch);
-
-            const button = card.querySelector(".btn");
-            if(button){
-                button.textContent = allowed ? "🔓 فتح الصف" : "🔒 الصف مقفل";
-                button.setAttribute("aria-label", allowed ? "فتح الصف" : "الصف مقفل");
-                button.classList.toggle("grade-locked", !allowed);
-                button.classList.toggle("grade-unlocked", allowed);
+        if(!allowed){
+            const lock = document.createElement("span");
+            lock.className = "grade-card-lock";
+            lock.setAttribute("data-grade-lock", "true");
+            lock.textContent = "🔒";
+            lock.style.cssText = "position:absolute;top:12px;left:12px;font-size:22px;z-index:2;";
+            if(getComputedStyle(card).position === "static"){
+                card.style.position = "relative";
             }
-
-            // إزالة أي عناصر قفل إضافية كانت مضافة داخل البطاقة، حتى لا يظهر
-            // "فتح الصف" مع "🔒" كعنصرين منفصلين.
-            card.querySelectorAll(".grade-lock-indicator, .grade-card-lock, [data-grade-lock]").forEach(el => el.remove());
-        });
-    }catch(error){
-        console.error("خطأ في تحديث أقفال الصفوف:", error);
-    }
+            card.appendChild(lock);
+        }
+    });
 }
 
 
 function selectFoundationSections(gradeName) {
-             currentGrade = "قسم التأسيس الشامل";
+            currentGrade = "قسم التأسيس الشامل";
+
+            // التأسيس له اختبارات مستقلة عن الصف السابع
+            window.quizQuestionsCache = {
+                multiple: [],
+                answer: [],
+                complete: []
+            };
+
             switchPage('foundation-sections');
         }
 
@@ -3670,7 +3802,8 @@ import {
     addDoc,
     deleteDoc,
     where,
-    query
+    query,
+    onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
  
 window.getDoc = getDoc;
@@ -3968,14 +4101,17 @@ onAuthStateChanged(auth, async (user) => {
             doc(db, "users", user.uid)
         );
 
+        let data = null;
+
 
         if (snap.exists()) {
 
-            let data = snap.data();
+            data = snap.data();
 
             document.getElementById("user-name").textContent =
                 data.name;
 
+            loadPlatformNotifications();
 
             if (data.role === "teacher") {
 
@@ -4030,7 +4166,7 @@ onAuthStateChanged(auth, async (user) => {
 
         updateGradeCardLockStatus();
 
-        if(data.role === "student"){
+        if(data && data.role === "student"){
             loadStudentQuizResults();
         }
 
@@ -4042,18 +4178,21 @@ onAuthStateChanged(auth, async (user) => {
 
 
         if (editBtn) {
-
-            editBtn.style.display =
-                isTeacher
-                    ? "block"
-                    : "none";
-
+            editBtn.style.display = isTeacher ? "inline-flex" : "none";
+            editBtn.style.visibility = isTeacher ? "visible" : "hidden";
         }
 
 
     } else {
 
         isTeacher = false;
+        notificationCache = [];
+        notificationListenerReady = false;
+        stopNotificationListener();
+        const notificationPanel = document.getElementById("notification-panel");
+        if(notificationPanel) notificationPanel.classList.remove("active");
+        const notificationBadge = document.getElementById("notification-badge");
+        if(notificationBadge){ notificationBadge.textContent="0"; notificationBadge.style.display="none"; }
 
         logoutItem.style.display = "none";
 
@@ -4090,9 +4229,8 @@ onAuthStateChanged(auth, async (user) => {
 
 
         if (editBtn) {
-
             editBtn.style.display = "none";
-
+            editBtn.style.visibility = "hidden";
         }
 
     }
@@ -4906,24 +5044,30 @@ document.getElementById("save-student-btn")
 
 };
 
+let announcementReturnPage = "home";
+
 window.openAnnouncementEdit = function(){
 
-    document.getElementById("announcement-edit-page")
-    .style.display="block";
+    if(!isTeacher){
+        showToast("🔒 تعديل الشريط العاجل متاح للأستاذ فقط");
+        return;
+    }
 
+    announcementReturnPage =
+        document.querySelector(".page.active")?.id || "home";
 
-    document.getElementById("announcement-text").value =
-    document.querySelector(".urgent-text").textContent.replace("🔴 ","");
+    const input = document.getElementById("announcement-text");
+    const urgent = document.querySelector(".urgent-text");
 
+    if(input){
+        input.value = urgent ? urgent.textContent.replace("🔴 ","").trim() : "";
+    }
+
+    switchPage("announcement-edit-page");
 };
 
-
-
 window.closeAnnouncementEdit = function(){
-
-    document.getElementById("announcement-edit-page")
-    .style.display="none";
-
+    switchPage(announcementReturnPage || "home");
 };
 
 
@@ -5185,30 +5329,32 @@ window.loadSectionLessons = async function(){
             container.innerHTML += `
                 <div class="card">
 
-                    <h3>${lesson.title}</h3>
+                    <h3>${lesson.title || "درس"}</h3>
 
-                    <p class="lesson-description">
-                        ${lesson.description}
-                    </p>
+                    ${auth.currentUser ? `
+                        <p class="lesson-description">
+                            ${lesson.description || ""}
+                        </p>
 
-                   ${lesson.videoUrl ? `
-    <button
-        class="btn btn-sm"
-        onclick="openProtectedVideo('${lesson.videoUrl}')"
-        id="video-btn-${doc.id}">
-
-        🔒 مشاهدة الفيديو
-
-    </button>
-` : ""}
+                        ${lesson.videoUrl ? `
+                            <button
+                                class="btn btn-sm"
+                                onclick="openProtectedVideo('${lesson.videoUrl}')"
+                                id="video-btn-${doc.id}">
+                                🔒 مشاهدة الفيديو
+                            </button>
+                        ` : ""}
+                    ` : `
+                        <div style="margin-top:.6rem;color:var(--gray-text);font-weight:800;">
+                            🔒 سجّل الدخول لفتح محتوى الدرس
+                        </div>
+                    `}
 
                     ${isTeacher ? `
                         <button
                             class="btn btn-sm"
                             onclick="deleteLesson('${doc.id}')">
-
                             حذف الدرس 🗑️
-
                         </button>
                     ` : ""}
 
@@ -5236,6 +5382,7 @@ window.loadSectionLessons = async function(){
 
 window.checkContentAccess = async function(){
 
+    // التأسيس: مجاني للمسجلين فقط.
     if(currentGrade === "قسم التأسيس الشامل"){
         if(!auth.currentUser){
             showToast("🔒 يجب تسجيل الدخول أولاً");
@@ -5244,6 +5391,7 @@ window.checkContentAccess = async function(){
         return true;
     }
 
+    // كل المحتوى يحتاج حساباً لفتح أي شيء؛ أسماء الدروس تبقى ظاهرة.
     if(!auth.currentUser){
         showToast("🔒 يجب تسجيل الدخول أولاً");
         return false;
@@ -5257,36 +5405,64 @@ window.checkContentAccess = async function(){
             return false;
         }
 
-        if(userData.role === "teacher"){
-            return true;
-        }
+        // الاختبارات مجانية لكل طالب مسجل، وللأستاذ في كل الصفوف.
+        const activePage =
+            document.querySelector(".page.active")?.id;
 
-        const activePage = document.querySelector(".page.active")?.id;
         if(activePage === "quiz-section"){
             return true;
         }
 
+        if(userData.role === "teacher"){
+            return true;
+        }
+
+        // باقي المحتوى المدفوع يبقى حسب الاشتراك والصف/الفرع.
         if(userData.subscription !== "مفعل"){
             showToast("🔒 يجب تفعيل اشتراكك لفتح هذا المحتوى");
             return false;
         }
 
-        const { selectedGrade, selectedBranch } = getSelectedGradeData(currentGrade);
+        const {
+            selectedGrade,
+            selectedBranch
+        } = getSelectedGradeData(currentGrade);
 
         if(userData.grade !== selectedGrade){
-            showToast("🔒 اشتراكك مفعّل للصف " + userData.grade + " فقط");
+            showToast(
+                "🔒 اشتراكك مفعّل للصف " +
+                userData.grade +
+                " فقط"
+            );
             return false;
         }
 
-        if(selectedGrade === "بكالوريا" && selectedBranch && userData.branch !== selectedBranch){
-            showToast("🔒 هذا المحتوى مخصص لفرع " + selectedBranch + " فقط");
+        if(
+            selectedGrade === "بكالوريا" &&
+            selectedBranch &&
+            userData.branch !== selectedBranch
+        ){
+            showToast(
+                "🔒 هذا المحتوى مخصص لفرع " +
+                selectedBranch +
+                " فقط"
+            );
             return false;
         }
 
         return true;
+
     }catch(error){
-        console.error("خطأ في التحقق من صلاحية المحتوى:", error);
-        showToast("❌ حدث خطأ أثناء التحقق من الحساب");
+
+        console.error(
+            "خطأ في التحقق من صلاحية المحتوى:",
+            error
+        );
+
+        showToast(
+            "❌ حدث خطأ أثناء التحقق من الحساب"
+        );
+
         return false;
     }
 };
@@ -5698,6 +5874,17 @@ window.escapeQuizHTML = function(text){
 
 function getQuizGrade(){
 
+    /*
+     * مهم:
+     * التأسيس والصف السابع يجب أن يكون لكل واحد منهما
+     * مجموعة اختبارات مستقلة في Firestore.
+     * سابقاً كان التأسيس يسقط تلقائياً على grade7،
+     * لذلك كان يعرض نفس أسئلة الصف السابع.
+     */
+    if(currentGrade === "قسم التأسيس الشامل"){
+        return "foundation";
+    }
+
     if(currentGrade === "الصف السابع"){
         return "grade7";
     }
@@ -5992,7 +6179,7 @@ window.createQuizEditor = function(
     else if(type === "complete"){
 
         title =
-            "✏️ تعديل أسئلة أجب اخترر";
+            "✏️ تعديل أسئلة أجب واختر";
     }
 
 
@@ -6318,19 +6505,21 @@ window.renderQuizEditorQuestions = function(
             ${optionsHTML}
 
 
-            <button
-                type="button"
-                class="quiz-delete-btn"
-                onclick="
-                    openDeleteQuizModal(
-                        ${index},
-                        '${type}'
-                    )
-                ">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:.7rem;">
+                <button
+                    type="button"
+                    class="quiz-edit-btn"
+                    onclick="openEditQuizQuestion('${type}', ${index})">
+                    ✏️ تعديل السؤال
+                </button>
 
-                🗑️ حذف السؤال
-
-            </button>
+                <button
+                    type="button"
+                    class="quiz-delete-btn"
+                    onclick="openDeleteQuizModal(${index}, '${type}')">
+                    🗑️ حذف السؤال
+                </button>
+            </div>
 
         `;
 
@@ -6341,6 +6530,89 @@ window.renderQuizEditorQuestions = function(
 
 
     renumberQuizQuestions();
+};
+
+window.openEditQuizQuestion = function(type,index){
+    const questions = window.quizQuestionsCache[type];
+    const question = Array.isArray(questions) ? questions[index] : null;
+    const form = document.getElementById("quiz-editor-question-form");
+    if(!question || !form) return;
+
+    const isChoice = question.type === "multiple" || question.type === "complete";
+    const options = Array.isArray(question.options) ? question.options : [];
+
+    form.innerHTML = `
+        <div class="quiz-add-form" style="border:2px solid var(--primary-color);">
+            <h3>✏️ تعديل السؤال ${index + 1}</h3>
+            <textarea id="editQuizQuestion" class="quiz-add-input">${escapeQuizHTML(question.question || "")}</textarea>
+            <input id="editQuizPoints" class="quiz-add-input" type="number" min="0.5" step="0.5" value="${Number(question.points ?? 1)}" placeholder="علامة السؤال">
+            ${isChoice ? `
+                <div id="edit-quiz-options-container">
+                    ${options.map((option,i)=>`
+                        <div class="quiz-option-row">
+                            <input type="text" class="quiz-option-input" value="${escapeQuizHTML(option)}" placeholder="الخيار ${i+1}">
+                            <button type="button" onclick="this.parentElement.remove()">🗑️</button>
+                        </div>`).join("")}
+                </div>
+                <button type="button" class="quiz-add-btn" onclick="addEditQuizOption()">➕ إضافة خيار</button>
+                <select id="editQuizCorrect" class="quiz-add-input">
+                    ${options.map((option,i)=>`<option value="${i}" ${Number(question.correctIndex)===i ? "selected" : ""}>الخيار ${i+1}: ${escapeQuizHTML(option)}</option>`).join("")}
+                </select>
+            ` : ""}
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                <button type="button" class="quiz-confirm-add" onclick="saveEditedQuizQuestion('${type}', ${index})">💾 حفظ تعديل السؤال</button>
+                <button type="button" class="quiz-edit-btn" onclick="formClearQuizQuestion()">إلغاء</button>
+            </div>
+        </div>`;
+};
+
+window.addEditQuizOption = function(){
+    const container=document.getElementById("edit-quiz-options-container");
+    if(!container) return;
+    const count=container.querySelectorAll(".quiz-option-row").length;
+    if(count>=5){ showToast("يمكنك إضافة 5 خيارات كحد أقصى"); return; }
+    const row=document.createElement("div");
+    row.className="quiz-option-row";
+    row.innerHTML=`<input type="text" class="quiz-option-input" placeholder="الخيار ${count+1}"><button type="button" onclick="this.parentElement.remove();refreshEditedQuizCorrectOptions()">🗑️</button>`;
+    container.appendChild(row);
+    refreshEditedQuizCorrectOptions();
+};
+
+window.refreshEditedQuizCorrectOptions = function(){
+    const select=document.getElementById("editQuizCorrect");
+    const container=document.getElementById("edit-quiz-options-container");
+    if(!select || !container) return;
+    const old=select.value;
+    select.innerHTML="";
+    container.querySelectorAll(".quiz-option-row").forEach((row,i)=>{
+        const input=row.querySelector(".quiz-option-input");
+        const opt=document.createElement("option");
+        opt.value=String(i); opt.textContent=`الخيار ${i+1}: ${(input?.value || "").trim() || "بدون نص"}`;
+        select.appendChild(opt);
+    });
+    if([...select.options].some(o=>o.value===old)) select.value=old;
+};
+
+window.saveEditedQuizQuestion = function(type,index){
+    const questions=window.quizQuestionsCache[type];
+    if(!Array.isArray(questions) || !questions[index]) return;
+    const q=questions[index];
+    const text=document.getElementById("editQuizQuestion")?.value.trim() || "";
+    const points=Number(document.getElementById("editQuizPoints")?.value);
+    if(!text){ showToast("اكتب السؤال أولاً"); return; }
+    if(!Number.isFinite(points) || points<=0){ showToast("اكتب علامة صحيحة للسؤال"); return; }
+    q.question=text; q.points=points;
+    if(q.type === "multiple" || q.type === "complete"){
+        const options=[];
+        document.querySelectorAll("#edit-quiz-options-container .quiz-option-input").forEach(input=>{ const v=input.value.trim(); if(v) options.push(v); });
+        if(options.length<2){ showToast("أضف خيارين على الأقل"); return; }
+        const correct=Number(document.getElementById("editQuizCorrect")?.value);
+        if(!Number.isInteger(correct) || correct<0 || correct>=options.length){ showToast("حدد الإجابة الصحيحة"); return; }
+        q.options=options; q.correctIndex=correct;
+    }
+    renderQuizEditorQuestions(type,questions);
+    formClearQuizQuestion();
+    showToast("تم تعديل السؤال — اضغط حفظ التعديلات لتثبيته");
 };
 
 /* =========================================================
@@ -8444,7 +8716,8 @@ window.submitQuiz = async function(type){
                 earnedPoints: null,
                 options: Array.isArray(question.options)
                     ? question.options
-                    : []
+                    : [],
+                correctIndex: question.type === "multiple" ? Number(question.correctIndex ?? -1) : null
             });
         });
 
@@ -8464,10 +8737,10 @@ window.submitQuiz = async function(type){
             return sum + Math.max(0, Number(item.points ?? 1));
         }, 0);
 
-        await addDoc(
+        const submissionRef = await addDoc(
             collection(db, "quizSubmissions"),
             {
-                studentId: auth.currentUser.uid,
+                    studentId: auth.currentUser.uid,
                 studentName: userData.name || "غير محدد",
                 studentEmail: auth.currentUser.email || "",
                 grade: userData.grade || "",
@@ -8485,6 +8758,65 @@ window.submitQuiz = async function(type){
                 submittedAt: new Date()
             }
         );
+
+        // التصحيح التلقائي محصور بنوع الاختيار المتعدد فقط.
+        if(type === "multiple"){
+            let totalMax = 0;
+            let totalEarned = 0;
+            let failedQuestionCount = 0;
+            const questionResults = [];
+
+            answers.forEach(function(item,index){
+                const max = Math.max(0, Number(item.points ?? 1));
+                const correct = Number(item.correctIndex ?? -1);
+                const selected = item.options.indexOf(item.answer);
+                const earned = selected !== -1 && selected === correct ? max : 0;
+                const failed = earned < (max / 2);
+
+                totalMax += max;
+                totalEarned += earned;
+                if(failed) failedQuestionCount++;
+
+                questionResults.push({
+                    questionNumber:index + 1,
+                    question:item.question || "",
+                    maxPoints:max,
+                    earnedPoints:earned,
+                    failed:failed,
+                    autoGraded:true
+                });
+
+                item.earnedPoints = earned;
+            });
+
+            const autoScore = totalMax > 0
+                ? Math.round((totalEarned / totalMax) * 10000) / 100
+                : 0;
+
+            await setDoc(submissionRef,{
+                score:autoScore,
+                maxScore:totalMax,
+                earnedPoints:totalEarned,
+                failedQuestionCount:failedQuestionCount,
+                passed:failedQuestionCount < 2,
+                questionResults:questionResults,
+                gradedBy:"auto",
+                gradedAt:new Date(),
+                answers:answers
+            },{merge:true});
+        }
+
+        try{
+            await notifyTeachersAboutSubmission({
+                studentName: userData.name || "طالب",
+                gradeName: gradeName,
+                branch: branch,
+                quizTitle: getQuizTypeLabel(type),
+                quizSubmissionId: submissionRef.id
+            });
+        }catch(notificationError){
+            console.error("خطأ في إشعار الأستاذ فقط:", notificationError);
+        }
 
         card.querySelectorAll("input, textarea, button.quiz-save-btn")
             .forEach(function(element){
@@ -8567,7 +8899,7 @@ window.deleteQuizStudentAnswers = async function(type){
         }
 
         const branchText = branch ? ` — فرع ${branch}` : "";
-        const confirmed = window.confirm(
+        const confirmed = await showPlatformConfirm(
             `⚠️ سيتم حذف إجابات ونتائج الطلاب السابقة فقط.\n\n` +
             `الفحص: ${typeLabel}\n` +
             `الصف: ${gradeName}${branchText}\n\n` +
@@ -8641,7 +8973,7 @@ window.deleteAllStudentQuizAnswers = async function(studentId, studentName){
             return;
         }
 
-        const confirmed = window.confirm(
+        const confirmed = await showPlatformConfirm(
             `⚠️ سيتم حذف جميع إجابات ونتائج الطالب «${studentName || "هذا الطالب"}» السابقة.\n\n` +
             `الأسئلة نفسها لن تُحذف، وسيتمكن الطالب من إعادة تقديم الاختبارات.\n\nهل أنت متأكد؟`
         );
@@ -9217,6 +9549,17 @@ window.saveQuizSubmissionGrade = async function(){
             { merge: true }
         );
 
+        await createPlatformNotification({
+            recipientId: submission.studentId,
+            recipientRole: "student",
+            type: "quiz_graded",
+            title: "تم تصحيح اختبارك ✅",
+            message: `تم تصحيح «${submission.quizTitle || getQuizTypeLabel(submission.quizType)}». علامتك ${numericScore} / 100${failedQuestionCount >= 2 ? " — النتيجة: راسب" : ""}.`,
+            quizSubmissionId: submission.id,
+            grade: submission.grade || "",
+            branch: submission.branch || ""
+        });
+
         submission.score = numericScore;
         submission.maxScore = totalMax;
         submission.earnedPoints = totalEarned;
@@ -9608,6 +9951,249 @@ window.loadStudentQuizResults = async function(){
     }
 };
 
+/* =========================================================
+   إشعارات المنصة — الطالب والأستاذ
+   ========================================================= */
+let notificationCache = [];
+let notificationUnsubscribe = null;
+let notificationListenerReady = false;
+
+function escapeNotificationHTML(value){
+    return String(value ?? "")
+        .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function formatNotificationDate(value){
+    try{
+        const d = value?.toDate ? value.toDate() : new Date(value);
+        if(Number.isNaN(d.getTime())) return "";
+        return d.toLocaleString("ar-SY", {dateStyle:"medium", timeStyle:"short"});
+    }catch(e){ return ""; }
+}
+
+window.createPlatformNotification = async function(data){
+    if(!data?.recipientId) return;
+    try{
+        await addDoc(collection(db,"notifications"),{
+            recipientId:String(data.recipientId),
+            recipientRole:data.recipientRole || "",
+            type:data.type || "general",
+            title:data.title || "إشعار جديد",
+            message:data.message || "",
+            icon:data.icon || (data.type === "quiz_submitted" ? "📥" : "✅"),
+            quizSubmissionId:data.quizSubmissionId || "",
+            grade:data.grade || "",
+            branch:data.branch || "",
+            read:false,
+            createdAt:new Date()
+        });
+    }catch(error){
+        console.error("خطأ إنشاء إشعار المنصة:",error);
+    }
+};
+
+window.notifyTeachersAboutSubmission = async function(data){
+    try{
+        const teachersSnapshot = await getDocs(
+            query(collection(db,"users"), where("role","==","teacher"))
+        );
+        await Promise.all(teachersSnapshot.docs.map(function(teacherDoc){
+            return createPlatformNotification({
+                recipientId:teacherDoc.id,
+                recipientRole:"teacher",
+                type:"quiz_submitted",
+                icon:"📥",
+                title:"طالب قدّم اختباراً جديداً",
+                message:`الطالب «${data.studentName || "طالب"}» قدّم «${data.quizTitle || "اختبار"}»${data.gradeName ? ` — ${data.gradeName}` : ""}${data.branch ? ` — فرع ${data.branch}` : ""}.`,
+                grade:data.gradeName || "",
+                branch:data.branch || "",
+                quizSubmissionId:data.quizSubmissionId || ""
+            });
+        }));
+    }catch(error){
+        console.error("خطأ إرسال إشعار تقديم الاختبار للأستاذ:",error);
+    }
+};
+
+function stopNotificationListener(){
+    if(typeof notificationUnsubscribe === "function"){
+        notificationUnsubscribe();
+        notificationUnsubscribe = null;
+    }
+    notificationListenerReady = false;
+}
+
+window.loadPlatformNotifications = async function(){
+    const user = auth.currentUser;
+    const list = document.getElementById("notification-list");
+    if(!user || !list) return;
+
+    stopNotificationListener();
+
+    try{
+        const notificationsQuery = query(
+            collection(db,"notifications"),
+            where("recipientId","==",user.uid)
+        );
+
+        notificationUnsubscribe = onSnapshot(
+            notificationsQuery,
+            function(snapshot){
+                const previousUnread = notificationCache.filter(n => n.read !== true).length;
+                const wasReady = notificationListenerReady;
+                notificationCache = snapshot.docs
+                    .map(d => ({id:d.id,...d.data()}))
+                    .sort(function(a,b){
+                        const at = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
+                        const bt = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
+                        return bt - at;
+                    });
+
+                const currentUnread = notificationCache.filter(n => n.read !== true).length;
+                renderPlatformNotifications();
+
+                if(wasReady && currentUnread > previousUnread){
+                    const newest = notificationCache.find(n => n.read !== true);
+                    if(newest){
+                        showNotificationToast(newest);
+                    }
+                }
+                notificationListenerReady = true;
+            },
+            function(error){
+                console.error("خطأ مراقبة إشعارات المنصة:",error);
+                list.innerHTML = '<div class="notification-empty">❌ تعذر تحميل الإشعارات.</div>';
+            }
+        );
+    }catch(error){
+        console.error("خطأ تحميل الإشعارات:",error);
+        list.innerHTML = '<div class="notification-empty">❌ تعذر تحميل الإشعارات.</div>';
+    }
+};
+
+function showNotificationToast(notification){
+    if(!notification) return;
+    const old = document.getElementById("platform-notification-toast");
+    if(old) old.remove();
+
+    const toast = document.createElement("button");
+    toast.type = "button";
+    toast.id = "platform-notification-toast";
+    toast.className = "platform-notification-toast";
+    toast.innerHTML = `
+        <span class="pnt-icon">${escapeNotificationHTML(notification.icon || "🔔")}</span>
+        <span class="pnt-body">
+            <strong>${escapeNotificationHTML(notification.title || "إشعار جديد")}</strong>
+            <span>${escapeNotificationHTML(notification.message || "")}</span>
+        </span>
+        <span class="pnt-close">×</span>
+    `;
+    toast.onclick = function(){
+        document.getElementById("notification-panel")?.classList.add("active");
+        markNotificationRead(notification.id);
+        toast.remove();
+    };
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 7000);
+}
+
+window.renderPlatformNotifications = function(){
+    const list = document.getElementById("notification-list");
+    const badge = document.getElementById("notification-badge");
+    const button = document.querySelector(".notification-btn");
+    if(!list || !badge) return;
+
+    const unread = notificationCache.filter(n => n.read !== true).length;
+    badge.textContent = unread > 99 ? "99+" : String(unread);
+    badge.style.display = unread ? "flex" : "none";
+    if(button) button.classList.toggle("has-unread", unread > 0);
+
+    if(!notificationCache.length){
+        list.innerHTML = '<div class="notification-empty">🔕 لا توجد إشعارات حالياً.</div>';
+        return;
+    }
+
+    list.innerHTML = notificationCache.slice(0,50).map(function(n){
+        const unreadClass = n.read === true ? "" : "unread";
+        return `
+            <button type="button" class="notification-item ${unreadClass}" data-notification-id="${escapeNotificationHTML(n.id)}">
+                <span class="notification-icon">${escapeNotificationHTML(n.icon || "🔔")}</span>
+                <span style="flex:1;min-width:0;">
+                    <strong>${escapeNotificationHTML(n.title || "إشعار")}</strong>
+                    <p>${escapeNotificationHTML(n.message || "")}</p>
+                    <small>${escapeNotificationHTML(formatNotificationDate(n.createdAt))}</small>
+                    ${n.read !== true ? '<span class="notification-unread-label">● غير مقروء</span>' : ''}
+                </span>
+            </button>
+        `;
+    }).join("");
+
+    list.querySelectorAll(".notification-item").forEach(function(item){
+        item.addEventListener("click", function(event){
+            event.stopPropagation();
+            markNotificationRead(item.dataset.notificationId);
+        });
+    });
+};
+
+window.markNotificationRead = async function(id){
+    if(!id) return;
+    const notification = notificationCache.find(n => n.id === id);
+    if(!notification || notification.read === true) return;
+    try{
+        await setDoc(doc(db,"notifications",id),{
+            read:true,
+            readAt:new Date()
+        },{merge:true});
+        notification.read = true;
+        notification.readAt = new Date();
+        renderPlatformNotifications();
+        showToast("✅ تمت مشاهدة الإشعار");
+    }catch(error){
+        console.error("خطأ تحديث قراءة الإشعار:",error);
+    }
+};
+
+window.markAllNotificationsRead = async function(event){
+    if(event) event.stopPropagation();
+    if(!auth.currentUser) return;
+    const unread = notificationCache.filter(n => n.read !== true);
+    if(!unread.length) return;
+    try{
+        await Promise.all(unread.map(function(n){
+            return setDoc(doc(db,"notifications",n.id),{
+                read:true,
+                readAt:new Date()
+            },{merge:true});
+        }));
+        const now = new Date();
+        unread.forEach(function(n){ n.read = true; n.readAt = now; });
+        renderPlatformNotifications();
+        showToast("✅ تمت مشاهدة جميع الإشعارات");
+    }catch(error){
+        console.error("خطأ تحديث قراءة الإشعارات:",error);
+        showToast("❌ تعذر تحديث الإشعارات");
+    }
+};
+
+window.toggleNotifications = async function(event){
+    if(event) event.stopPropagation();
+    const panel = document.getElementById("notification-panel");
+    if(!panel) return;
+    if(!auth.currentUser){
+        showToast("🔒 سجّل الدخول أولاً لرؤية الإشعارات");
+        return;
+    }
+    panel.classList.toggle("active");
+};
+
+document.addEventListener("click",function(event){
+    const wrap = document.getElementById("notification-wrap");
+    const panel = document.getElementById("notification-panel");
+    if(wrap && panel && !wrap.contains(event.target)) panel.classList.remove("active");
+});
 </script>
 
 <!-- صفحة إنشاء حساب -->
@@ -9685,99 +10271,189 @@ window.loadStudentQuizResults = async function(){
 
 
 
+
+
+
 <script>
 /* ============================================================
-   رسائل وتأكيدات المنصة — بنفس هوية الواجهة
+   تأكيدات المنصة — بدل نافذة Chrome الافتراضية
    ============================================================ */
-window.showPlatformConfirm = function(message, confirmText = "تأكيد", cancelText = "إلغاء") {
+window.showPlatformConfirm = function(
+    message,
+    confirmText = "تأكيد",
+    cancelText = "إلغاء"
+) {
     return new Promise(function(resolve) {
-        const old = document.getElementById("platform-confirm-modal");
-        if (old) old.remove();
 
-        const overlay = document.createElement("div");
-        overlay.id = "platform-confirm-modal";
+        const existing =
+            document.getElementById("platform-confirm-modal");
+
+        if (existing) {
+            existing.remove();
+        }
+
+        const overlay =
+            document.createElement("div");
+
+        overlay.id =
+            "platform-confirm-modal";
+
         overlay.dir = "rtl";
+
         overlay.style.cssText = `
             position:fixed;
             inset:0;
-            z-index:99999;
+            z-index:999999;
             display:flex;
             align-items:center;
             justify-content:center;
             padding:18px;
             background:rgba(15,23,42,.58);
-            backdrop-filter:blur(5px);
+            backdrop-filter:blur(7px);
+            -webkit-backdrop-filter:blur(7px);
         `;
 
-        overlay.innerHTML = `
-            <div style="
-                width:min(430px,100%);
-                background:var(--card-bg,#fff);
-                color:var(--text-color,#0f172a);
-                border:1px solid var(--border-color,#e2e8f0);
-                border-radius:22px;
-                padding:24px;
-                box-shadow:0 24px 70px rgba(15,23,42,.25);
-                text-align:right;
-            ">
-                <div style="
-                    width:46px;height:46px;
-                    display:flex;align-items:center;justify-content:center;
-                    border-radius:14px;
-                    background:rgba(184,134,11,.12);
-                    font-size:22px;
-                    margin-bottom:14px;
-                ">⚠️</div>
+        const card =
+            document.createElement("div");
 
-                <div style="
-                    font-size:19px;
-                    font-weight:900;
-                    line-height:1.7;
-                    margin-bottom:20px;
-                ">${typeof escapeQuizHTML === "function"
-                    ? escapeQuizHTML(message)
-                    : String(message).replace(/[&<>"']/g, function(c){
-                        return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c];
-                    })}</div>
-
-                <div style="
-                    display:flex;
-                    gap:10px;
-                    justify-content:flex-start;
-                    flex-wrap:wrap;
-                ">
-                    <button type="button" class="btn" id="platform-confirm-yes"
-                        style="background:linear-gradient(135deg,#0f172a,#b8860b);color:#fff;">
-                        ${confirmText}
-                    </button>
-                    <button type="button" class="btn" id="platform-confirm-no">
-                        ${cancelText}
-                    </button>
-                </div>
-            </div>
+        card.style.cssText = `
+            width:min(430px,100%);
+            box-sizing:border-box;
+            background:var(--card-bg,#fff);
+            color:var(--text-color,#0f172a);
+            border:1px solid var(--border-color,#e2e8f0);
+            border-radius:22px;
+            padding:24px;
+            box-shadow:0 25px 80px rgba(15,23,42,.28);
+            text-align:right;
+            animation:platformConfirmIn .18s ease-out;
         `;
 
+        const icon =
+            document.createElement("div");
+
+        icon.textContent = "⚠️";
+
+        icon.style.cssText = `
+            width:48px;
+            height:48px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:15px;
+            background:rgba(184,134,11,.12);
+            font-size:22px;
+            margin-bottom:14px;
+        `;
+
+        const messageEl =
+            document.createElement("div");
+
+        messageEl.textContent =
+            String(message);
+
+        messageEl.style.cssText = `
+            font-size:18px;
+            font-weight:850;
+            line-height:1.8;
+            margin-bottom:22px;
+        `;
+
+        const actions =
+            document.createElement("div");
+
+        actions.style.cssText = `
+            display:flex;
+            gap:10px;
+            justify-content:flex-start;
+            flex-wrap:wrap;
+        `;
+
+        const yes =
+            document.createElement("button");
+
+        yes.type = "button";
+        yes.textContent = confirmText;
+
+        yes.className = "btn";
+
+        yes.style.cssText = `
+            min-width:110px;
+            border:0;
+            background:linear-gradient(135deg,#0f172a,#b8860b);
+            color:#fff;
+            font-weight:900;
+        `;
+
+        const no =
+            document.createElement("button");
+
+        no.type = "button";
+        no.textContent = cancelText;
+        no.className = "btn";
+        no.style.cssText = `
+            min-width:100px;
+            font-weight:800;
+        `;
+
+        actions.appendChild(yes);
+        actions.appendChild(no);
+
+        card.appendChild(icon);
+        card.appendChild(messageEl);
+        card.appendChild(actions);
+        overlay.appendChild(card);
         document.body.appendChild(overlay);
 
-        const finish = function(value) {
+        function finish(value) {
             overlay.remove();
             resolve(value);
-        };
+        }
 
-        overlay.querySelector("#platform-confirm-yes").onclick = function() {
+        yes.onclick = function() {
             finish(true);
         };
 
-        overlay.querySelector("#platform-confirm-no").onclick = function() {
+        no.onclick = function() {
             finish(false);
         };
 
-        overlay.addEventListener("click", function(e) {
-            if (e.target === overlay) finish(false);
-        });
+        overlay.onclick = function(event) {
+            if (event.target === overlay) {
+                finish(false);
+            }
+        };
+
+        document.addEventListener(
+            "keydown",
+            function onKey(event) {
+                if (!document.getElementById("platform-confirm-modal")) {
+                    document.removeEventListener("keydown", onKey);
+                    return;
+                }
+
+                if (event.key === "Escape") {
+                    document.removeEventListener("keydown", onKey);
+                    finish(false);
+                }
+            }
+        );
     });
 };
 </script>
+
+<style id="platform-confirm-animation">
+@keyframes platformConfirmIn {
+    from {
+        opacity:0;
+        transform:translateY(10px) scale(.98);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+</style>
 
 </body>
 </html>
