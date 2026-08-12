@@ -1533,6 +1533,66 @@ body{
 
     </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style id="platform-select-polish">
+select {
+    font-family:inherit !important;
+    border-radius:14px !important;
+    border:1px solid var(--border-color,#dbe3ec) !important;
+    background:var(--card-bg,#fff) !important;
+    color:var(--text-color,#0f172a) !important;
+    min-height:44px;
+    padding:9px 40px 9px 14px !important;
+    font-weight:700 !important;
+    outline:none;
+    transition:.2s ease;
+}
+select:focus {
+    border-color:#b8860b !important;
+    box-shadow:0 0 0 3px rgba(184,134,11,.12) !important;
+}
+option {
+    font-family:inherit !important;
+    font-weight:600;
+}
+</style>
+
+
+<style id="platform-quiz-polish">
+.quiz-result-modal-card input[type="number"],
+.quiz-result-modal-card textarea {
+    width:100%;
+    box-sizing:border-box;
+    border:1px solid var(--border-color,#dbe3ec);
+    border-radius:13px;
+    padding:11px 13px;
+    font-family:inherit;
+    font-weight:700;
+    background:var(--card-bg,#fff);
+    color:var(--text-color,#0f172a);
+}
+.quiz-result-modal-card input[type="number"]:focus,
+.quiz-result-modal-card textarea:focus {
+    border-color:#b8860b;
+    outline:none;
+    box-shadow:0 0 0 3px rgba(184,134,11,.10);
+}
+.quiz-result-answer {
+    border:1px solid var(--border-color,#e2e8f0);
+    border-radius:17px;
+    padding:16px;
+    margin-bottom:12px;
+    background:var(--card-bg,#fff);
+}
+.quiz-result-grade-box {
+    margin-top:16px;
+    padding:17px;
+    border:1px solid var(--border-color,#e2e8f0);
+    border-radius:17px;
+    background:rgba(184,134,11,.045);
+}
+</style>
+
 </head>
 <body>
 <div id="toast"></div>
@@ -8966,21 +9026,23 @@ window.openQuizSubmission = function(id){
                 <div class="student-answer">
                     ${escapeQuizHTML(item.answer || "لم يجب الطالب")}
                 </div>
-                <div style="margin-top:.6rem;font-weight:800;">
-                    ⭐ العلامة الكاملة: ${max}
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:.8rem;padding:.75rem;border-radius:12px;background:var(--bg-light);">
+                    <div style="font-weight:900;">⭐ العلامة الكاملة: <span style="color:var(--primary-color);">${max}</span></div>
+                    <label style="display:flex;align-items:center;gap:8px;font-weight:900;">
+                        العلامة المحصّلة:
+                        <input
+                            class="quiz-question-earned"
+                            data-question-index="${index}"
+                            type="number"
+                            inputmode="decimal"
+                            min="0"
+                            max="${max}"
+                            step="0.01"
+                            value="${earned}"
+                            placeholder="0 - ${max}"
+                            style="width:110px;min-height:44px;padding:8px 10px;text-align:center;font-size:18px;font-weight:900;border:2px solid var(--primary-color);border-radius:10px;background:#fff;box-sizing:border-box;">
+                    </label>
                 </div>
-                <label style="display:block;margin-top:.45rem;">
-                    العلامة المحصّلة:
-                    <input
-                        class="quiz-question-earned"
-                        data-question-index="${index}"
-                        type="number"
-                        min="0"
-                        max="${max}"
-                        step="0.5"
-                        value="${earned}"
-                        placeholder="من ${max}">
-                </label>
                 <div class="quiz-question-fail-hint" style="margin-top:.35rem;font-weight:800;color:#dc2626;display:none;">
                     ❌ راسب بهذا السؤال (أقل من نصف العلامة)
                 </div>
@@ -9034,7 +9096,8 @@ window.openQuizSubmission = function(id){
     modal.querySelectorAll(".quiz-question-earned").forEach(function(input){
         input.addEventListener("input", function(){
             const max = Number(input.max || 0);
-            let value = Number(input.value || 0);
+            let value = Number(input.value);
+            if(!Number.isFinite(value)) value = 0;
             if(value < 0) value = 0;
             if(value > max){
                 input.value = max;
@@ -9049,6 +9112,14 @@ window.openQuizSubmission = function(id){
             },0);
             const summary = document.getElementById("quiz-live-grade-summary");
             if(summary) summary.textContent = `المجموع: ${total} / ${totalMax}`;
+            input.style.borderColor = (value >= 0 && value <= max) ? "var(--primary-color)" : "#dc2626";
+        });
+        input.addEventListener("blur", function(){
+            const max = Number(input.max || 0);
+            let value = Number(input.value);
+            if(!Number.isFinite(value) || value < 0) value = 0;
+            if(value > max) value = max;
+            input.value = Math.round(value * 100) / 100;
         });
     });
 
@@ -9271,6 +9342,9 @@ window.renderStudentQuizResult = function(type, submission){
 
 window.renderStudentOverallQuizResult = function(latestByType){
 
+    // حفظ أحدث نتائج الاختبارات لاستخدامها مباشرة عند إنشاء الشهادة
+    window.latestStudentQuizResults = latestByType || {};
+
     let box = document.getElementById("student-overall-quiz-result");
     const quizSection = document.getElementById("quiz-section");
     if(!quizSection) return;
@@ -9351,9 +9425,18 @@ window.saveStudentResultCertificate = async function(){
         const studentName = userData?.name || userData?.displayName || "الطالب";
         const grade = userData?.grade || "—";
         const branch = userData?.branch || "";
-        const scoreEl = box.querySelector(".student-result-circle span");
-        let overall = scoreEl ? parseFloat(String(scoreEl.textContent).replace(/[^\d.]/g,"")) : NaN;
-        if(!Number.isFinite(overall)) overall=null;
+        // حساب العلامة النهائية من نتائج الاختبارات نفسها، وليس من مكان عرض الرقم في الصفحة
+        const latest = window.latestStudentQuizResults || {};
+        const scoreValues = ["multiple","answer","complete"]
+            .map(type => latest[type]?.score)
+            .filter(score => score !== null && score !== undefined && score !== "")
+            .map(Number)
+            .filter(Number.isFinite);
+
+        let overall = scoreValues.length === 3
+            ? Math.round((scoreValues.reduce((a,b) => a + b, 0) / 3) * 100) / 100
+            : null;
+
         if(overall!==null) overall=Math.max(0,Math.min(100,overall));
         const passed = overall!==null && overall>=50;
         const mainColor = passed ? "#15803d" : (overall!==null ? "#dc2626" : "#64748b");
@@ -9375,14 +9458,50 @@ window.saveStudentResultCertificate = async function(){
         ctx.strokeStyle="#b8860b"; ctx.lineWidth=4; ctx.beginPath();ctx.moveTo(250,238);ctx.lineTo(950,238);ctx.stroke();
         ctx.fillStyle="#0f172a"; ctx.font="900 46px Cairo, Arial, sans-serif"; ctx.fillText(studentName,W/2,320);
         ctx.fillStyle="#475569"; ctx.font="700 27px Cairo, Arial, sans-serif"; ctx.fillText(`الصف: ${grade}${branch ? " — "+branch : ""}`,W/2,370);
-        const cx=W/2,cy=565,radius=150;
-        ctx.beginPath();ctx.arc(cx,cy,radius,0,Math.PI*2);ctx.strokeStyle="#dbe3ec";ctx.lineWidth=30;ctx.lineCap="round";ctx.stroke();
-        if(overall!==null){ctx.beginPath();ctx.arc(cx,cy,radius,-Math.PI/2,-Math.PI/2+(overall/100)*Math.PI*2);ctx.strokeStyle=mainColor;ctx.lineWidth=30;ctx.stroke();}
-        ctx.beginPath();ctx.arc(cx,cy,110,0,Math.PI*2);ctx.fillStyle="#0f172a";ctx.fill();
-        ctx.fillStyle="#fff";ctx.font="900 52px Cairo, Arial, sans-serif";ctx.fillText(overall===null?"—":overall.toFixed(2),cx,cy+12);
-        ctx.fillStyle="#cbd5e1";ctx.font="700 22px Cairo, Arial, sans-serif";ctx.fillText("من 100",cx,cy+52);
-        const badgeX=950,badgeY=565;ctx.beginPath();ctx.arc(badgeX,badgeY,95,0,Math.PI*2);ctx.fillStyle=passed?"#dcfce7":(overall===null?"#e2e8f0":"#fee2e2");ctx.fill();ctx.strokeStyle=mainColor;ctx.lineWidth=6;ctx.stroke();ctx.fillStyle=mainColor;ctx.font="900 31px Cairo, Arial, sans-serif";ctx.fillText(overall===null?"بانتظار":(passed?"ناجح":"راسب"),badgeX,badgeY+10);
-        const tableX=100,tableW=1000,titleY=810;ctx.fillStyle="#0f172a";drawCertRoundRect(ctx,tableX,titleY,tableW,75,16);ctx.fill();ctx.fillStyle="#fff";ctx.font="900 30px Cairo, Arial, sans-serif";ctx.fillText("تفاصيل نتائج الاختبارات",W/2,titleY+49);
+        // منطقة المعدل: مكان ثابت وواضح في منتصف الشهادة
+        const cx=W/2, cy=570, radius=158;
+
+        ctx.beginPath();
+        ctx.arc(cx,cy,radius,0,Math.PI*2);
+        ctx.strokeStyle="#dbe3ec";
+        ctx.lineWidth=30;
+        ctx.lineCap="round";
+        ctx.stroke();
+
+        if(overall!==null){
+            ctx.beginPath();
+            ctx.arc(cx,cy,radius,-Math.PI/2,-Math.PI/2+(overall/100)*Math.PI*2);
+            ctx.strokeStyle=mainColor;
+            ctx.lineWidth=30;
+            ctx.stroke();
+        }
+
+        ctx.beginPath();
+        ctx.arc(cx,cy,116,0,Math.PI*2);
+        ctx.fillStyle="#0f172a";
+        ctx.fill();
+
+        // العلامة في منتصف الدائرة تماماً
+        ctx.fillStyle="#ffffff";
+        ctx.font="900 58px Cairo, Arial, sans-serif";
+        ctx.textAlign="center";
+        ctx.textBaseline="middle";
+        ctx.fillText(overall===null?"—":overall.toFixed(2),cx,cy-8);
+
+        ctx.fillStyle="#cbd5e1";
+        ctx.font="700 23px Cairo, Arial, sans-serif";
+        ctx.fillText("من 100",cx,cy+48);
+        ctx.textBaseline="alphabetic";
+
+        // حالة الطالب تحت الدائرة بدون تداخل مع العلامة
+        const statusY=775;
+        ctx.fillStyle=mainColor;
+        drawCertRoundRect(ctx,420,statusY,360,70,18);
+        ctx.fill();
+        ctx.fillStyle="#ffffff";
+        ctx.font="900 30px Cairo, Arial, sans-serif";
+        ctx.fillText(overall===null?"بانتظار التصحيح":(passed?"ناجح":"راسب"),W/2,statusY+47);
+        const tableX=100,tableW=1000,titleY=885;ctx.fillStyle="#0f172a";drawCertRoundRect(ctx,tableX,titleY,tableW,75,16);ctx.fill();ctx.fillStyle="#fff";ctx.font="900 30px Cairo, Arial, sans-serif";ctx.fillText("تفاصيل نتائج الاختبارات",W/2,titleY+49);
         const headerY=titleY+90,colX=[100,460,680,860],colW=[360,220,180,240];
         ["الاختبار","العلامة","أسئلة راسبة","الحالة"].forEach((h,i)=>{ctx.fillStyle="#b8860b";ctx.fillRect(colX[i],headerY,colW[i],65);ctx.fillStyle="#fff";ctx.font="800 22px Cairo, Arial, sans-serif";ctx.fillText(h,colX[i]+colW[i]/2,headerY+42);});
         const rowH=92; rows.slice(0,3).forEach((row,index)=>{const y=headerY+65+index*rowH;ctx.fillStyle=index%2===0?"#fff":"#f1f5f9";ctx.fillRect(tableX,y,tableW,rowH);ctx.strokeStyle="#cbd5e1";ctx.lineWidth=2;ctx.strokeRect(tableX,y,tableW,rowH);const vals=[row[0]||"—",row[1]||"—",row[2]||"—",row[3]||"—"];vals.forEach((v,i)=>{const fail=i===3&&String(v).includes("راسب");ctx.fillStyle=i===3?(fail?"#dc2626":"#15803d"):"#0f172a";ctx.font=i===3?"900 22px Cairo, Arial, sans-serif":"700 21px Cairo, Arial, sans-serif";ctx.fillText(v,colX[i]+colW[i]/2,y+55);});});
@@ -9564,6 +9683,101 @@ window.loadStudentQuizResults = async function(){
     </div>
 </div>
 
+
+
+<script>
+/* ============================================================
+   رسائل وتأكيدات المنصة — بنفس هوية الواجهة
+   ============================================================ */
+window.showPlatformConfirm = function(message, confirmText = "تأكيد", cancelText = "إلغاء") {
+    return new Promise(function(resolve) {
+        const old = document.getElementById("platform-confirm-modal");
+        if (old) old.remove();
+
+        const overlay = document.createElement("div");
+        overlay.id = "platform-confirm-modal";
+        overlay.dir = "rtl";
+        overlay.style.cssText = `
+            position:fixed;
+            inset:0;
+            z-index:99999;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:18px;
+            background:rgba(15,23,42,.58);
+            backdrop-filter:blur(5px);
+        `;
+
+        overlay.innerHTML = `
+            <div style="
+                width:min(430px,100%);
+                background:var(--card-bg,#fff);
+                color:var(--text-color,#0f172a);
+                border:1px solid var(--border-color,#e2e8f0);
+                border-radius:22px;
+                padding:24px;
+                box-shadow:0 24px 70px rgba(15,23,42,.25);
+                text-align:right;
+            ">
+                <div style="
+                    width:46px;height:46px;
+                    display:flex;align-items:center;justify-content:center;
+                    border-radius:14px;
+                    background:rgba(184,134,11,.12);
+                    font-size:22px;
+                    margin-bottom:14px;
+                ">⚠️</div>
+
+                <div style="
+                    font-size:19px;
+                    font-weight:900;
+                    line-height:1.7;
+                    margin-bottom:20px;
+                ">${typeof escapeQuizHTML === "function"
+                    ? escapeQuizHTML(message)
+                    : String(message).replace(/[&<>"']/g, function(c){
+                        return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c];
+                    })}</div>
+
+                <div style="
+                    display:flex;
+                    gap:10px;
+                    justify-content:flex-start;
+                    flex-wrap:wrap;
+                ">
+                    <button type="button" class="btn" id="platform-confirm-yes"
+                        style="background:linear-gradient(135deg,#0f172a,#b8860b);color:#fff;">
+                        ${confirmText}
+                    </button>
+                    <button type="button" class="btn" id="platform-confirm-no">
+                        ${cancelText}
+                    </button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        const finish = function(value) {
+            overlay.remove();
+            resolve(value);
+        };
+
+        overlay.querySelector("#platform-confirm-yes").onclick = function() {
+            finish(true);
+        };
+
+        overlay.querySelector("#platform-confirm-no").onclick = function() {
+            finish(false);
+        };
+
+        overlay.addEventListener("click", function(e) {
+            if (e.target === overlay) finish(false);
+        });
+    });
+};
+</script>
 
 </body>
 </html>
