@@ -1575,6 +1575,57 @@ body{
 .platform-notification-toast .pnt-body span{font-size:.8rem;line-height:1.5;color:var(--text-color);}
 .platform-notification-toast .pnt-close{font-size:20px;color:var(--gray-text);}
 @keyframes notificationToastIn{from{opacity:0;transform:translateY(-12px) translateX(12px)}to{opacity:1;transform:none}}
+    
+
+
+
+
+/* ===== أزرار حذف الإشعارات ===== */
+
+.notification-delete-btn{
+    flex:0 0 auto;
+    align-self:center;
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:10px;
+    background:#fee2e2;
+    color:#dc2626;
+    font-size:17px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.2s;
+}
+
+.notification-delete-btn:hover{
+    background:#dc2626;
+    color:white;
+    transform:scale(1.05);
+}
+
+.notification-delete-all-btn{
+    border:none;
+    background:#fee2e2;
+    color:#dc2626;
+    padding:7px 10px;
+    border-radius:10px;
+    font-family:inherit;
+    font-size:.78rem;
+    font-weight:800;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:.2s;
+}
+
+.notification-delete-all-btn:hover{
+    background:#dc2626;
+    color:white;
+}
+
+
+
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -1704,9 +1755,25 @@ button {
                 <button class="notification-btn" type="button" onclick="toggleNotifications(event)" aria-label="الإشعارات">🔔<span id="notification-badge" class="notification-badge">0</span></button>
                 <div id="notification-panel" class="notification-panel" dir="rtl">
                     <div class="notification-head">
-                        <h3>🔔 الإشعارات</h3>
-                        <button type="button" class="btn btn-sm" onclick="markAllNotificationsRead(event)">تمت المشاهدة</button>
-                    </div>
+    <h3>🔔 الإشعارات</h3>
+
+    <div style="display:flex;gap:6px;align-items:center;">
+        <button
+            type="button"
+            class="btn btn-sm"
+            onclick="markAllNotificationsRead(event)">
+            تمت المشاهدة
+        </button>
+
+        <button
+            type="button"
+            class="notification-delete-all-btn"
+            onclick="deleteAllNotifications(event)">
+            🗑️ حذف الكل
+        </button>
+    </div>
+</div>
+
                     <div id="notification-list"><div class="notification-empty">لا توجد إشعارات حالياً.</div></div>
                 </div>
             </div>
@@ -2954,7 +3021,8 @@ id="grammar-lessons">
                 onclick="submitQuiz('multiple')">
                 📤 إرسال الاختبار
             </button>
-            <div id="student-quiz-result-multiple" class="student-quiz-result" style="display:none;"></div>
+            <div id="student-quiz-result-multiple"
+             class="student-quiz-result" style="display:none;"></div>
 
 
             <!-- حفظ تعديلات المدير -->
@@ -8717,7 +8785,8 @@ window.submitQuiz = async function(type){
                 options: Array.isArray(question.options)
                     ? question.options
                     : [],
-                correctIndex: question.type === "multiple" ? Number(question.correctIndex ?? -1) : null
+                correctIndex: question.type === "multiple" ? 
+                Number(question.correctIndex ?? -1) : null
             });
         });
 
@@ -8760,51 +8829,6 @@ window.submitQuiz = async function(type){
         );
 
         // التصحيح التلقائي محصور بنوع الاختيار المتعدد فقط.
-        if(type === "multiple"){
-            let totalMax = 0;
-            let totalEarned = 0;
-            let failedQuestionCount = 0;
-            const questionResults = [];
-
-            answers.forEach(function(item,index){
-                const max = Math.max(0, Number(item.points ?? 1));
-                const correct = Number(item.correctIndex ?? -1);
-                const selected = item.options.indexOf(item.answer);
-                const earned = selected !== -1 && selected === correct ? max : 0;
-                const failed = earned < (max / 2);
-
-                totalMax += max;
-                totalEarned += earned;
-                if(failed) failedQuestionCount++;
-
-                questionResults.push({
-                    questionNumber:index + 1,
-                    question:item.question || "",
-                    maxPoints:max,
-                    earnedPoints:earned,
-                    failed:failed,
-                    autoGraded:true
-                });
-
-                item.earnedPoints = earned;
-            });
-
-            const autoScore = totalMax > 0
-                ? Math.round((totalEarned / totalMax) * 10000) / 100
-                : 0;
-
-            await setDoc(submissionRef,{
-                score:autoScore,
-                maxScore:totalMax,
-                earnedPoints:totalEarned,
-                failedQuestionCount:failedQuestionCount,
-                passed:failedQuestionCount < 2,
-                questionResults:questionResults,
-                gradedBy:"auto",
-                gradedAt:new Date(),
-                answers:answers
-            },{merge:true});
-        }
 
         try{
             await notifyTeachersAboutSubmission({
@@ -10006,7 +10030,8 @@ window.notifyTeachersAboutSubmission = async function(data){
                 type:"quiz_submitted",
                 icon:"📥",
                 title:"طالب قدّم اختباراً جديداً",
-                message:`الطالب «${data.studentName || "طالب"}» قدّم «${data.quizTitle || "اختبار"}»${data.gradeName ? ` — ${data.gradeName}` : ""}${data.branch ? ` — فرع ${data.branch}` : ""}.`,
+                message:`الطالب «${data.studentName || "طالب"}» قدّم «${data.quizTitle || "اختبار"}»
+                ${data.gradeName ? ` — ${data.gradeName}` : ""}${data.branch ? ` — فرع ${data.branch}` : ""}.`,
                 grade:data.gradeName || "",
                 branch:data.branch || "",
                 quizSubmissionId:data.quizSubmissionId || ""
@@ -10100,43 +10125,131 @@ function showNotificationToast(notification){
 }
 
 window.renderPlatformNotifications = function(){
+
     const list = document.getElementById("notification-list");
     const badge = document.getElementById("notification-badge");
     const button = document.querySelector(".notification-btn");
+
     if(!list || !badge) return;
 
-    const unread = notificationCache.filter(n => n.read !== true).length;
+    const unread = notificationCache.filter(
+        n => n.read !== true
+    ).length;
+
     badge.textContent = unread > 99 ? "99+" : String(unread);
     badge.style.display = unread ? "flex" : "none";
-    if(button) button.classList.toggle("has-unread", unread > 0);
+
+    if(button){
+        button.classList.toggle("has-unread", unread > 0);
+    }
 
     if(!notificationCache.length){
-        list.innerHTML = '<div class="notification-empty">🔕 لا توجد إشعارات حالياً.</div>';
+
+        list.innerHTML =
+            '<div class="notification-empty">🔕 لا توجد إشعارات حالياً.</div>';
+
         return;
     }
 
-    list.innerHTML = notificationCache.slice(0,50).map(function(n){
-        const unreadClass = n.read === true ? "" : "unread";
-        return `
-            <button type="button" class="notification-item ${unreadClass}" data-notification-id="${escapeNotificationHTML(n.id)}">
-                <span class="notification-icon">${escapeNotificationHTML(n.icon || "🔔")}</span>
-                <span style="flex:1;min-width:0;">
-                    <strong>${escapeNotificationHTML(n.title || "إشعار")}</strong>
-                    <p>${escapeNotificationHTML(n.message || "")}</p>
-                    <small>${escapeNotificationHTML(formatNotificationDate(n.createdAt))}</small>
-                    ${n.read !== true ? '<span class="notification-unread-label">● غير مقروء</span>' : ''}
-                </span>
-            </button>
-        `;
-    }).join("");
+    list.innerHTML = notificationCache
+        .slice(0,50)
+        .map(function(n){
 
-    list.querySelectorAll(".notification-item").forEach(function(item){
-        item.addEventListener("click", function(event){
-            event.stopPropagation();
-            markNotificationRead(item.dataset.notificationId);
+            const unreadClass =
+                n.read === true ? "" : "unread";
+
+            return `
+                <div
+                    class="notification-item ${unreadClass}"
+                    data-notification-id="${escapeNotificationHTML(n.id)}"
+                >
+
+                    <span class="notification-icon">
+                        ${escapeNotificationHTML(n.icon || "🔔")}
+                    </span>
+
+                    <span style="flex:1;min-width:0;">
+
+                        <strong>
+                            ${escapeNotificationHTML(n.title || "إشعار")}
+                        </strong>
+
+                        <p>
+                            ${escapeNotificationHTML(n.message || "")}
+                        </p>
+
+                        <small>
+                            ${escapeNotificationHTML(
+                                formatNotificationDate(n.createdAt)
+                            )}
+                        </small>
+
+                        ${
+                            n.read !== true
+                            ? '<span class="notification-unread-label">● غير مقروء</span>'
+                            : ''
+                        }
+
+                    </span>
+
+                    <button
+                        type="button"
+                        class="notification-delete-btn"
+                        data-delete-notification-id="${escapeNotificationHTML(n.id)}"
+                        title="حذف الإشعار"
+                    >
+                        🗑️
+                    </button>
+
+                </div>
+            `;
+
+        })
+        .join("");
+
+
+    /* الضغط على الإشعار = تمت المشاهدة */
+
+    list.querySelectorAll(".notification-item")
+        .forEach(function(item){
+
+            item.addEventListener("click", function(event){
+
+                if(event.target.closest(".notification-delete-btn")){
+                    return;
+                }
+
+                event.stopPropagation();
+
+                markNotificationRead(
+                    item.dataset.notificationId
+                );
+
+            });
+
         });
-    });
+
+
+    /* زر حذف إشعار واحد */
+
+    list.querySelectorAll(".notification-delete-btn")
+        .forEach(function(button){
+
+            button.addEventListener("click", function(event){
+
+                event.stopPropagation();
+
+                const id =
+                    button.dataset.deleteNotificationId;
+
+                deleteNotification(id);
+
+            });
+
+        });
+
 };
+
 
 window.markNotificationRead = async function(id){
     if(!id) return;
@@ -10194,6 +10307,145 @@ document.addEventListener("click",function(event){
     const panel = document.getElementById("notification-panel");
     if(wrap && panel && !wrap.contains(event.target)) panel.classList.remove("active");
 });
+
+
+
+/* =========================================================
+   حذف إشعار واحد
+   ========================================================= */
+
+window.deleteNotification = async function(id){
+
+    if(!id) return;
+
+    if(!auth.currentUser) return;
+
+    const notification =
+        notificationCache.find(n => n.id === id);
+
+    if(!notification) return;
+
+    const confirmed = confirm(
+        "هل أنت متأكد من حذف هذا الإشعار؟"
+    );
+
+    if(!confirmed) return;
+
+    try{
+
+        await deleteDoc(
+            doc(db, "notifications", id)
+        );
+
+        notificationCache =
+            notificationCache.filter(
+                n => n.id !== id
+            );
+
+        renderPlatformNotifications();
+
+        showToast("🗑️ تم حذف الإشعار");
+
+    }catch(error){
+
+        console.error(
+            "خطأ حذف الإشعار:",
+            error
+        );
+
+        showToast(
+            "❌ تعذر حذف الإشعار"
+        );
+    }
+};
+
+
+/* =========================================================
+   حذف جميع إشعارات المستخدم الحالي
+   ========================================================= */
+
+window.deleteAllNotifications = async function(event){
+
+    if(event){
+        event.stopPropagation();
+    }
+
+    const user = auth.currentUser;
+
+    if(!user) return;
+
+    if(!notificationCache.length){
+
+        showToast("ℹ️ لا توجد إشعارات لحذفها");
+
+        return;
+    }
+
+    const confirmed = confirm(
+        "⚠️ سيتم حذف جميع إشعاراتك نهائياً.\n\nهل أنت متأكد؟"
+    );
+
+    if(!confirmed) return;
+
+    try{
+
+        const notificationsQuery = query(
+            collection(db, "notifications"),
+            where("recipientId", "==", user.uid)
+        );
+
+        const snapshot =
+            await getDocs(notificationsQuery);
+
+        if(snapshot.empty){
+
+            notificationCache = [];
+
+            renderPlatformNotifications();
+
+            showToast("ℹ️ لا توجد إشعارات");
+
+            return;
+        }
+
+        await Promise.all(
+            snapshot.docs.map(function(docSnap){
+
+                return deleteDoc(
+                    doc(
+                        db,
+                        "notifications",
+                        docSnap.id
+                    )
+                );
+
+            })
+        );
+
+        notificationCache = [];
+
+        renderPlatformNotifications();
+
+        showToast(
+            "🗑️ تم حذف جميع الإشعارات"
+        );
+
+    }catch(error){
+
+        console.error(
+            "خطأ حذف جميع الإشعارات:",
+            error
+        );
+
+        showToast(
+            "❌ تعذر حذف جميع الإشعارات"
+        );
+    }
+};
+
+
+
+
 </script>
 
 <!-- صفحة إنشاء حساب -->
