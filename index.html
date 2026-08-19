@@ -2683,44 +2683,6 @@ onclick="isFoundationSection=true; openSection('grammar')">
 
 
 
-<div class="card"
-onclick="isFoundationSection=true;openSection('reading')">
-
-<h3>
-القراءة
-</h3>
-
-<p>
-تأسيس القراءة والمطالعة
-</p>
-
-<button class="btn btn-sm">
-فتح القراءة
-</button>
-
-</div>
-
-
-
-
-<div class="card"
-onclick="isFoundationSection=true;openSection('nahw')">
-
-<h3>
-النحو
-</h3>
-
-<p>
-أساسيات النحو والصرف
-</p>
-
-<button class="btn btn-sm">
-فتح النحو
-</button>
-
-</div>
-
-
 
 
 <div class="card"
@@ -2932,16 +2894,35 @@ id="grammar-lessons">
         <!-- عنوان الصفحة -->
         <div class="section-header">
             <h2>📋 قسم الاختبارات</h2>
-            <p>اختبارات وتقييمات</p>
+            <p>اختر نوع الأسئلة</p>
         </div>
 
+        <!-- بطاقات أنواع الاختبارات -->
+        <div id="quiz-types-home" class="grid" style="margin-bottom:1.5rem;">
+            <div class="card" onclick="showQuizType('multiple')">
+                <h3>✅ سؤال اختر</h3>
+                <p>أسئلة اختيار من متعدد</p>
+                <button type="button" class="btn btn-sm">فتح الأسئلة</button>
+            </div>
+            <div class="card" onclick="showQuizType('answer')">
+                <h3>✍️ سؤال أجب</h3>
+                <p>أسئلة تحتاج إلى كتابة الإجابة</p>
+                <button type="button" class="btn btn-sm">فتح الأسئلة</button>
+            </div>
+            <div class="card" onclick="showQuizType('complete')">
+                <h3>📝 سؤال أجب و اختر</h3>
+                <p>أسئلة تجمع بين النوعين</p>
+                <button type="button" class="btn btn-sm">فتح الأسئلة</button>
+            </div>
+        </div>
 
         <!-- ================================================= -->
         <!-- 1 - اختر الإجابة الصحيحة -->
         <!-- ================================================= -->
 
-        <div class="card quiz-box">
+        <div id="quiz-box-multiple" class="card quiz-box" style="display:none;">
 
+            <button type="button" class="btn btn-sm" onclick="showQuizType('home')">← العودة لأنواع الأسئلة</button>
             <h3>✅ اختر الإجابة الصحيحة</h3>
 
             <!-- زر تعديل القائمة -->
@@ -3047,8 +3028,9 @@ id="grammar-lessons">
         <!-- 2 - أجب عن الأسئلة -->
         <!-- ================================================= -->
 
-        <div class="card quiz-box">
+        <div id="quiz-box-answer" class="card quiz-box" style="display:none;">
 
+            <button type="button" class="btn btn-sm" onclick="showQuizType('home')">← العودة لأنواع الأسئلة</button>
             <h3>✍️ أجب عن الأسئلة</h3>
 
             <!-- زر تعديل القائمة -->
@@ -3143,8 +3125,9 @@ id="grammar-lessons">
         <!-- 3 - أجب اختر -->
         <!-- ================================================= -->
 
-        <div class="card quiz-box">
+        <div id="quiz-box-complete" class="card quiz-box" style="display:none;">
 
+            <button type="button" class="btn btn-sm" onclick="showQuizType('home')">← العودة لأنواع الأسئلة</button>
             <h3>📝 أجب و اختر </h3>
 
             <!-- زر تعديل القائمة -->
@@ -3508,6 +3491,8 @@ function switchPage(pageId) {
        ===================================================== */
 
     if(pageId === "quiz-section"){
+
+        showQuizType("home");
 
         if(!auth.currentUser){
             return;
@@ -6028,6 +6013,21 @@ window.getQuizQuestionsRef = function(type){
 /* =========================================================
    جلب بطاقة الاختبار
    ========================================================= */
+
+window.showQuizType = function(type){
+    const home = document.getElementById("quiz-types-home");
+    const boxes = {
+        multiple: document.getElementById("quiz-box-multiple"),
+        answer: document.getElementById("quiz-box-answer"),
+        complete: document.getElementById("quiz-box-complete")
+    };
+    if(home) home.style.display = type === "home" ? "grid" : "none";
+    Object.keys(boxes).forEach(function(key){
+        if(boxes[key]) boxes[key].style.display = (type === key) ? "block" : "none";
+    });
+    if(type === "home") window.scrollTo({top:0, behavior:"smooth"});
+};
+
 
 window.getQuizCard = function(type){
 
@@ -9201,7 +9201,7 @@ function renderQuizSubmissions(submissions){
                 submission.score !== "";
 
             const scoreText = hasScore
-                ? `${escapeQuizHTML(submission.score)} / 100`
+                ? `${escapeQuizHTML(submission.score)} / ${escapeQuizHTML(submission.maxScore ?? 0)} (${submission.maxScore ? Math.round((Number(submission.score) / Number(submission.maxScore)) * 10000) / 100 : 0}%)`
                 : "بانتظار التصحيح";
 
             const status =
@@ -9307,10 +9307,10 @@ function renderQuizOverallResults(submissions){
     rows.forEach(function(st,i){
         const vals=[st.scores.multiple,st.scores.answer,st.scores.complete];
         const complete=vals.every(function(v){return v!==null;});
-        const avg=complete?(vals[0]+vals[1]+vals[2])/3:null;
-        const avgText=avg===null?"بانتظار اكتمال التصحيح":avg.toFixed(2)+" / 100";
-        const resultText=avg===null?"بانتظار التصحيح":(avg>=50?"ناجح":"راسب");
-        const resultColor=avg===null?"var(--gray-text)":(avg>=50?"#16a34a":"#dc2626");
+        const avg=complete?((vals[0]+vals[1]+vals[2])/3):null;
+        const avgText=avg===null?"—":"يُعرض كل اختبار منفصلاً";
+        const resultText=avg===null?"بانتظار التصحيح":"راجع علامات الاختبارات منفصلة";
+        const resultColor=avg===null?"var(--gray-text)":"var(--primary-color)";
         html+=`<tr><td style="padding:10px;border:1px solid var(--border-color);">${i+1}</td><td style="padding:10px;border:1px solid var(--border-color);font-weight:700;">${escapeQuizHTML(st.name)}</td><td style="padding:10px;border:1px solid var(--border-color);">${escapeQuizHTML(st.grade)}</td><td style="padding:10px;border:1px solid var(--border-color);">${escapeQuizHTML(st.branch||"—")}</td><td style="padding:10px;border:1px solid var(--border-color);">${cell(st.scores.multiple)}</td><td style="padding:10px;border:1px solid var(--border-color);">${cell(st.scores.answer)}</td><td style="padding:10px;border:1px solid var(--border-color);">${cell(st.scores.complete)}</td><td style="padding:10px;border:1px solid var(--border-color);font-weight:900;">${escapeQuizHTML(avgText)}</td><td style="padding:10px;border:1px solid var(--border-color);font-weight:900;color:${resultColor};">${resultText}</td></tr>`;
     });
     content.innerHTML=html+'</tbody></table></div>';
@@ -9550,7 +9550,8 @@ window.saveQuizSubmissionGrade = async function(){
             item.earnedPoints = rounded;
         });
 
-        const numericScore = totalMax > 0
+        const numericScore = Math.round(totalEarned * 100) / 100;
+        const percentage = totalMax > 0
             ? Math.round((totalEarned / totalMax) * 10000) / 100
             : 0;
 
@@ -9578,7 +9579,7 @@ window.saveQuizSubmissionGrade = async function(){
             recipientRole: "student",
             type: "quiz_graded",
             title: "تم تصحيح اختبارك ✅",
-            message: `تم تصحيح «${submission.quizTitle || getQuizTypeLabel(submission.quizType)}». علامتك ${numericScore} / 100${failedQuestionCount >= 2 ? " — النتيجة: راسب" : ""}.`,
+            message: `تم تصحيح «${submission.quizTitle || getQuizTypeLabel(submission.quizType)}». علامتك ${numericScore} / ${totalMax} (${percentage}%)${failedQuestionCount >= 2 ? " — النتيجة: راسب" : ""}.`,
             quizSubmissionId: submission.id,
             grade: submission.grade || "",
             branch: submission.branch || ""
@@ -9667,9 +9668,13 @@ window.renderStudentQuizResult = function(type, submission){
         return;
     }
 
-    const numericScore = Math.max(0, Math.min(100, Number(score)));
+    const numericScore = Math.max(0, Number(score));
+    const maxScore = Math.max(0, Number(submission.maxScore ?? 0));
+    const percentage = maxScore > 0
+        ? Math.round((numericScore / maxScore) * 10000) / 100
+        : 0;
     const passed = submission.passed !== false;
-    const angle = (numericScore / 100) * 360;
+    const angle = Math.max(0, Math.min(100, percentage)) * 3.6;
     const results = Array.isArray(submission.questionResults) ? submission.questionResults : [];
 
     const tableRows = results.map(function(item){
@@ -9691,7 +9696,7 @@ window.renderStudentQuizResult = function(type, submission){
             <span>${numericScore}</span>
         </div>
         <div class="student-result-title" style="color:${passed ? "#16a34a" : "#dc2626"};">
-            النتيجة: ${numericScore} / 100 — ${passed ? "ناجح" : "راسب"}
+            النتيجة: ${numericScore} / ${maxScore} — المعدل ${percentage}% — ${passed ? "ناجح" : "راسب"}
         </div>
         ${submission.failedQuestionCount !== undefined && submission.failedQuestionCount !== null
             ? `<div style="font-weight:800;">الأسئلة الراسبة: ${submission.failedQuestionCount}</div>` : ""}
@@ -9732,9 +9737,10 @@ window.renderStudentOverallQuizResult = function(latestByType){
     }
 
     const ready = tests.filter(t => t.score !== null && t.score !== undefined && t.score !== "");
-    const percentages = ready.map(t => Number(t.score));
-    const overall = ready.length === 3
-        ? Math.round((percentages.reduce((a,b)=>a+b,0) / 3) * 100) / 100
+    const overallEarned = ready.reduce((sum,t) => sum + Number(t.score || 0), 0);
+    const overallMax = ready.reduce((sum,t) => sum + Number(t.maxScore || 0), 0);
+    const overall = overallMax > 0
+        ? Math.round((overallEarned / overallMax) * 10000) / 100
         : null;
     const failedTests = ready.filter(t => t.passed === false).length;
     const overallPassed = overall !== null && overall >= 50;
@@ -9748,7 +9754,7 @@ window.renderStudentOverallQuizResult = function(latestByType){
         const status = t.score === null || t.score === undefined || t.score === ""
             ? "بانتظار التصحيح"
             : (t.passed === false ? "راسب" : "ناجح");
-        return `<tr><td>${escapeQuizHTML(label)}</td><td>${t.score ?? "—"} / 100</td><td>${t.failedQuestionCount ?? 0}</td><td>${status}</td></tr>`;
+        return `<tr><td>${escapeQuizHTML(label)}</td><td>${t.score ?? "—"} / ${t.maxScore ?? "—"} (${t.maxScore ? Math.round((Number(t.score) / Number(t.maxScore)) * 10000) / 100 : 0}%)</td><td>${t.failedQuestionCount ?? 0}</td><td>${status}</td></tr>`;
     }).join("");
 
     box.style.display = "block";
@@ -9794,14 +9800,14 @@ window.saveStudentResultCertificate = async function(){
         const branch = userData?.branch || "";
         // حساب العلامة النهائية من نتائج الاختبارات نفسها، وليس من مكان عرض الرقم في الصفحة
         const latest = window.latestStudentQuizResults || {};
-        const scoreValues = ["multiple","answer","complete"]
-            .map(type => latest[type]?.score)
-            .filter(score => score !== null && score !== undefined && score !== "")
-            .map(Number)
-            .filter(Number.isFinite);
+        const readyResults = ["multiple","answer","complete"]
+            .map(type => latest[type])
+            .filter(item => item && item.score !== null && item.score !== undefined && item.score !== "");
+        const totalEarned = readyResults.reduce((sum,item) => sum + Number(item.score || 0), 0);
+        const totalMax = readyResults.reduce((sum,item) => sum + Number(item.maxScore || 0), 0);
 
-        let overall = scoreValues.length === 3
-            ? Math.round((scoreValues.reduce((a,b) => a + b, 0) / 3) * 100) / 100
+        let overall = totalMax > 0
+            ? Math.round((totalEarned / totalMax) * 10000) / 100
             : null;
 
         if(overall!==null) overall=Math.max(0,Math.min(100,overall));
